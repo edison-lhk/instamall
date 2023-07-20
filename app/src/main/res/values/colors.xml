@@ -2,8 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="beige">#FFF0DE</color>
-    <color name="wine_red">#80485B</color>
+    <color name="beige">#FEECF0</color>
+    <color name="wine_red">#C85959</color>
     <color name="dark_yellow">#F9A109</color>
     <color name="warning_red">#d0342c</color>
 </resources>
