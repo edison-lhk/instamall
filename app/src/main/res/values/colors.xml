@@ -5,4 +5,5 @@
     <color name="beige">#FFF0DE</color>
     <color name="wine_red">#80485B</color>
     <color name="dark_yellow">#F9A109</color>
+    <color name="warning_red">#d0342c</color>
 </resources>

@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Shopping App</string>
+    <string name="email_input_text">Email</string>
+    <string name="password_input_text">Password</string>
     <string name="login_btn_text">Login</string>
+    <string name="login_empty_fields_warning">Please fill in all the fields</string>
+    <string name="login_cannot_find_user_warning">User cannot be found</string>
+    <string name="login_password_incorrect_warning">Password is incorrect</string>
+    <string name="login_successful_text">Login Successful!</string>
+    <string name="signup_prompt_text">Not our member yet?</string>
+    <string name="signup_prompt_btn_text">Sign Up</string>
 </resources>
