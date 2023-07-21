@@ -1,6 +1,5 @@
 package com.example.b07_project_group5;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,6 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RegisterActivity extends AppCompatActivity {
     FirebaseDatabase db;
     String accountType;
@@ -30,7 +32,6 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Intent intent = getIntent();
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
         accountType = "";
         String[] user_types = getResources().getStringArray(R.array.user_types);
@@ -62,14 +63,23 @@ public class RegisterActivity extends AppCompatActivity {
             setWarningText(getString(R.string.login_empty_fields_warning));
             return;
         }
+        String regex = "^(.+)@(.+)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        if (!matcher.matches()) {
+            setWarningText(getString(R.string.register_email_invalid_warning));
+            return;
+        }
         DatabaseReference ref = db.getReference();
         DatabaseReference query = ref.child("users");
+        String uniqueKey = ref.push().getKey();
+
         query.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 User user = new User(username, email, password, accountType);
                 if (!snapshot.exists()) {
-                    query.child(username).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    query.child(uniqueKey).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(Task<Void> task) {
                             username_input.setText("");
@@ -88,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
                         setWarningText(getString(R.string.register_email_already_exists_warning));
                         return;
                     }
-                    query.child(username).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    query.child(uniqueKey).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(Task<Void> task) {
                             username_input.setText("");
@@ -96,15 +106,13 @@ public class RegisterActivity extends AppCompatActivity {
                             password_input.setText("");
                         }
                     });
-                    Toast.makeText(RegisterActivity.this, getString(R.string.register_successful_text), Toast.LENGTH_LONG).show();
-                    startActivity(intent);
                 }
+                Toast.makeText(RegisterActivity.this, getString(R.string.register_successful_text), Toast.LENGTH_LONG).show();
+                startActivity(intent);
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
+            public void onCancelled(DatabaseError error) {}
         });
     }
 

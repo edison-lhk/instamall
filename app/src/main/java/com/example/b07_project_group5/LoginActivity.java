@@ -77,12 +77,13 @@ public class LoginActivity extends AppCompatActivity {
                         setWarningText(getString(R.string.login_cannot_find_user_warning));
                         return;
                     }
+                    email_input.setText("");
+                    password_input.setText("");
                     Toast.makeText(LoginActivity.this, getString(R.string.login_successful_text), Toast.LENGTH_LONG).show();
                 }
             }
             @Override
-            public void onCancelled(DatabaseError error) {
-            }
+            public void onCancelled(DatabaseError error) {}
         });
     }
 
