@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
                     boolean user_exist = false;
                     for (DataSnapshot childSnapshot: snapshot.getChildren()) {
-                        if (accountType.equals(childSnapshot.child("type").getValue().toString())) {
+                        if (accountType.equals(childSnapshot.child("accountType").getValue().toString())) {
                             user_exist = true;
                         }
                     }

@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     boolean user_exist = false;
                     for (DataSnapshot childSnapshot: snapshot.getChildren()) {
-                        if (accountType.equals(childSnapshot.child("type").getValue().toString())) {
+                        if (accountType.equals(childSnapshot.child("accountType").getValue().toString())) {
                             if (!password.equals(childSnapshot.child("password").getValue().toString())) {
                                 setWarningText(getString(R.string.login_password_incorrect_warning));
                                 return;
