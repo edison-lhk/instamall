@@ -21,8 +21,10 @@
 
     <TextView
         android:id="@+id/productName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="238dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         android:text="Product Name"
         android:textColor="@android:color/black"
         android:textSize="24sp"
@@ -31,8 +33,8 @@
 
     <TextView
         android:id="@+id/productPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="233dp"
+        android:layout_height="25dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:text="Product Price"
@@ -40,6 +42,16 @@
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/productImage"
         app:layout_constraintTop_toBottomOf="@+id/productName" />
+
+    <TextView
+        android:id="@+id/productDescription"
+        android:layout_width="233dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="12dp"
+        android:text="Description"
+        app:layout_constraintStart_toEndOf="@+id/productImage"
+        app:layout_constraintTop_toBottomOf="@+id/productPrice" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
