@@ -18,19 +18,18 @@
         android:id="@+id/storeLogo"
         android:layout_width="110dp"
         android:layout_height="94dp"
-        android:layout_marginTop="24dp"
         android:src="@drawable/store_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <!-- Search Bar (Added ID 'searchBar') -->
     <TextView
         android:id="@+id/storeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
         android:text="My Store"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -91,6 +90,15 @@
         android:text="Ratings: '\n' Numer"
         app:layout_constraintStart_toEndOf="@+id/storeLogo"
         app:layout_constraintTop_toBottomOf="@+id/storeName" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onBackButtonClicked"
+        android:text="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <!-- Product Grid

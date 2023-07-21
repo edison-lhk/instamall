@@ -39,7 +39,7 @@ public class StoreActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
 
         // Initialize your product list here (e.g., fetch from a server or database)
-        productList = createSampleProductList();
+        productList = new ArrayList<>();
 
         recyclerView = findViewById(R.id.productCarousel);
         ProductAdapter adapter = new ProductAdapter(productList);
@@ -91,8 +91,12 @@ public class StoreActivity extends AppCompatActivity {
         });
     }
 
+    public void onBackButtonClicked(View view) {
+        // Handle back button click event here
+        finish(); // This will navigate back to the previous activity (StoreActivity)
+    }
 
-
+/*
     // Method to create a sample list of products (for testing purposes)
     private List<Product> createSampleProductList() {
         List<Product> products = new ArrayList<>();
@@ -104,7 +108,7 @@ public class StoreActivity extends AppCompatActivity {
         return products;
     }
 
-
+*/
 
 
 }
