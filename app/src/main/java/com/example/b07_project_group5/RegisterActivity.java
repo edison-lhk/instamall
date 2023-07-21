@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class RegisterActivity extends AppCompatActivity {
     FirebaseDatabase db;
-    String type;
+    String accountType;
     Intent intent;
 
     @Override
@@ -30,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         Intent intent = getIntent();
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
-        type = "";
+        accountType = "";
         String[] user_types = getResources().getStringArray(R.array.user_types);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.dropdown_item, user_types);
         AutoCompleteTextView login_type_input = (AutoCompleteTextView) findViewById(R.id.register_type_input);
@@ -38,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         login_type_input.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                type = parent.getItemAtPosition(position).toString().toLowerCase();
+                accountType = parent.getItemAtPosition(position).toString().toLowerCase();
             }
         });
         intent = new Intent(this, LoginActivity.class);
@@ -56,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         String email = email_input.getText().toString();
         EditText password_input = (EditText) findViewById(R.id.register_password_input);
         String password = password_input.getText().toString();
-        if (username.equals("") || email.equals("") || password.equals("") || type.equals("")) {
+        if (username.equals("") || email.equals("") || password.equals("") || accountType.equals("")) {
             setWarningText(getString(R.string.login_empty_fields_warning));
             return;
         }
@@ -65,12 +67,20 @@ public class RegisterActivity extends AppCompatActivity {
         query.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                User user = new User(username, email, password, accountType);
                 if (!snapshot.exists()) {
-
+                    query.child(username).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(Task<Void> task) {
+                            username_input.setText("");
+                            email_input.setText("");
+                            password_input.setText("");
+                        }
+                    });
                 } else {
                     boolean user_exist = false;
                     for (DataSnapshot childSnapshot: snapshot.getChildren()) {
-                        if (type.equals(childSnapshot.child("type").getValue().toString())) {
+                        if (accountType.equals(childSnapshot.child("type").getValue().toString())) {
                             user_exist = true;
                         }
                     }
@@ -78,6 +88,14 @@ public class RegisterActivity extends AppCompatActivity {
                         setWarningText(getString(R.string.register_email_already_exists_warning));
                         return;
                     }
+                    query.child(username).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(Task<Void> task) {
+                            username_input.setText("");
+                            email_input.setText("");
+                            password_input.setText("");
+                        }
+                    });
                     Toast.makeText(RegisterActivity.this, getString(R.string.register_successful_text), Toast.LENGTH_LONG).show();
                     startActivity(intent);
                 }
