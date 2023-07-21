@@ -63,13 +63,15 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
         DatabaseReference ref = db.getReference();
+        String uniqueKey = ref.push().getKey();
         DatabaseReference query = ref.child("users");
+
         query.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 User user = new User(username, email, password, accountType);
                 if (!snapshot.exists()) {
-                    query.child(username).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    query.child(uniqueKey).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(Task<Void> task) {
                             username_input.setText("");
