@@ -1,5 +1,6 @@
 package com.example.b07_project_group5;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,23 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.nameTextView.setText(product.getName());
         holder.priceTextView.setText(String.valueOf(product.getPrice()));
         holder.imageView.setImageResource(product.getImage());
+
+        // Set an OnClickListener to the item view
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Create an Intent to navigate to the ProductPage activity
+                Intent intent = new Intent(view.getContext(), ProductPage.class);
+
+                // Pass the product information to the ProductPage activity
+                intent.putExtra("productName", product.getName());
+                intent.putExtra("productPrice", product.getPrice());
+                intent.putExtra("productImageResId", product.getImage());
+
+                // Start the ProductPage activity with the intent
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
