@@ -24,7 +24,7 @@ public class ProductPage extends AppCompatActivity {
             double productPrice = intent.getDoubleExtra("productPrice", 0.0);
             String productImage = intent.getStringExtra("productImage");
 
-            // Now, you can use these values to populate the ProductPage layout
+            // use these values to populate the ProductPage layout
             TextView textViewProductName = findViewById(R.id.textViewProductName);
             TextView textViewProductPrice = findViewById(R.id.textViewProductPrice);
             ImageView imageViewProduct = findViewById(R.id.imageViewProduct);
@@ -33,8 +33,6 @@ public class ProductPage extends AppCompatActivity {
 
             textViewProductName.setText(productName);
             textViewProductPrice.setText(String.valueOf(productPrice));
-            //imageViewProduct.setImageResource(productImage);
-
 
         }
     }

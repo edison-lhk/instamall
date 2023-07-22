@@ -58,8 +58,10 @@
         android:id="@+id/productCarousel"
         android:layout_width="365dp"
         android:layout_height="446dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,12 +70,12 @@
         tools:listitem="@layout/list_item_product" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewOwner"
         android:layout_width="99dp"
         android:layout_height="53dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="Ratings: '\n' Numer"
+        android:text="Owner Name"
         app:layout_constraintStart_toEndOf="@+id/storeLogo"
         app:layout_constraintTop_toBottomOf="@+id/storeName" />
 
@@ -87,18 +89,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <!-- Product Grid
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/productGrid"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+    <Button
+        android:id="@+id/conditionalButton"
+        android:layout_width="81dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="60dp"
+        android:onClick="onADD"
+        android:text="ADD"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/promotionBanner"
-        app:layout_constraintVertical_bias="0.0" />
-  -->
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

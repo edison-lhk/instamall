@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +29,8 @@ public class StoreActivity extends AppCompatActivity {
 
     FirebaseDatabase db;
     int store_id = 0;
+    String account_type="";
+    String ID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,26 +38,6 @@ public class StoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_store);
 
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
-
-
-        //Start initializing store information
-        Intent intent = getIntent();
-        if (intent != null) {
-            String storeName = intent.getStringExtra("storeName");
-            String storeOwner = intent.getStringExtra("storeOwner");
-            String storeLogo = intent.getStringExtra("storeLogo");
-            this.store_id = intent.getIntExtra("storeId",0);
-
-            // Now, you can use these values to populate the layout
-            TextView textViewStoreName = findViewById(R.id.storeName);
-            TextView textViewStoreOwner = findViewById(R.id.textView);
-            ImageView imageViewStore = findViewById(R.id.storeLogo);
-
-            textViewStoreName.setText(storeName);
-            textViewStoreOwner.setText(storeOwner);
-            Glide.with(this).load(storeLogo).into(imageViewStore);
-        }
-
 
         // Initialize your product list here (e.g., fetch from a server or database)
         productList = new ArrayList<>();
@@ -64,6 +47,28 @@ public class StoreActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+
+        //Start initializing store information
+        Intent intent = getIntent();
+        if (intent != null) {
+            String storeName = intent.getStringExtra("storeName");
+            String storeOwner = intent.getStringExtra("storeOwner");
+            String storeLogo = intent.getStringExtra("storeLogo");
+            this.store_id = intent.getIntExtra("storeId", 0);
+            account_type = intent.getStringExtra("accountType");
+            ID = intent.getStringExtra("ID");
+
+            // Now, you can use these values to populate the layout
+            TextView textViewStoreName = findViewById(R.id.storeName);
+            TextView textViewStoreOwner = findViewById(R.id.textViewOwner);
+            ImageView imageViewStore = findViewById(R.id.storeLogo);
+
+            textViewStoreName.setText(storeName);
+            textViewStoreOwner.setText(storeOwner);
+            Glide.with(this).load(storeLogo).into(imageViewStore);
+        }
+
+
         readData(productList); //data
         adapter.notifyDataSetChanged(); //update
     }
@@ -71,6 +76,36 @@ public class StoreActivity extends AppCompatActivity {
 
     public void readData(List<Product> productList) {
         DatabaseReference ref = db.getReference().child("products");
+
+        //ALL THIS JUST TO MAKE CONDITIONAL BUTTON FOR OWNER
+        DatabaseReference ref2 = db.getReference().child("stores");
+        Button conditionalButton = findViewById(R.id.conditionalButton);
+        ref2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Loop through the data snapshot and add products to the list
+                    for (DataSnapshot storeSnapshot : dataSnapshot.getChildren()) {
+                        int snapshot_store_id = storeSnapshot.child("store_id").getValue(Integer.class);
+                        if(snapshot_store_id== store_id){
+                            String snapshot_email = storeSnapshot.child("email").getValue(String.class);
+
+                            // Compare the emailID with the user ID (ID)
+                            if (ID.equals(snapshot_email)) {
+                                conditionalButton.setVisibility(View.VISIBLE); // Show the button
+                            } else {
+                                conditionalButton.setVisibility(View.GONE); // Hide the button
+                            }
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle the onCancelled event if needed
+            }
+        });
+
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -93,9 +128,7 @@ public class StoreActivity extends AppCompatActivity {
 
                             productList.add(new Product(productName, productPrice, productId, storeId, stock, productImage)); //USE DEFAULT PRODUCT PHOTO for now
                         }
-
                     }
-
                     recyclerView.getAdapter().notifyDataSetChanged();  // Notify the adapter about the data change
                 } else {
                     Log.e("StoreActivity", "Database read error: No data found");
@@ -112,6 +145,16 @@ public class StoreActivity extends AppCompatActivity {
 
     public void onBackButtonClicked(View view) {
         finish(); // This will navigate back to the previous activity
+    }
+
+    public void onADD(View view){
+        Intent intent = new Intent(this, AddActivity.class);
+
+        // Pass the store information to the
+        intent.putExtra("storeId", store_id);
+        intent.putExtra("emailID", ID);
+
+        startActivity(intent);
     }
 
 }
