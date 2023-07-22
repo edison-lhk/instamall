@@ -11,9 +11,9 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-
 
 import java.util.List;
 
@@ -57,6 +57,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 intent.putExtra("productImage", product.getImage());
                 //maybe pass other product information if necessary to build product page?
 
+
                 // Start the ProductPage activity with the intent
                 view.getContext().startActivity(intent);
             }
@@ -76,7 +77,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.productImage);
+            imageView = itemView.findViewById(R.id.productImageList);
             nameTextView = itemView.findViewById(R.id.productName);
             priceTextView = itemView.findViewById(R.id.productPrice);
         }

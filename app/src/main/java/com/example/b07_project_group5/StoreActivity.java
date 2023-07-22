@@ -84,13 +84,13 @@ public class StoreActivity extends AppCompatActivity {
                         if( store_id == product_store_id){
                             String productName = productSnapshot.child("name").getValue(String.class);
                             double productPrice = productSnapshot.child("price").getValue(Double.class);
-                            String productImageResId = productSnapshot.child("image").getValue(String.class);
+                            String productImage = productSnapshot.child("image").getValue(String.class);
                             int productId = productSnapshot.child("product_id").getValue(Integer.class);
                             int storeId = productSnapshot.child("store_id").getValue(Integer.class);
                             int stock = productSnapshot.child("stock").getValue(Integer.class);
 
 
-                            productList.add(new Product(productName, productPrice, productId, storeId, stock, R.drawable.product)); //USE DEFAULT PRODUCT PHOTO for now
+                            productList.add(new Product(productName, productPrice, productId, storeId, stock, productImage)); //USE DEFAULT PRODUCT PHOTO for now
                         }
 
                     }

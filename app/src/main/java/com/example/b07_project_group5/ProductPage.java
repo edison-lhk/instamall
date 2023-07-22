@@ -22,17 +22,18 @@ public class ProductPage extends AppCompatActivity {
         if (intent != null) {
             String productName = intent.getStringExtra("productName");
             double productPrice = intent.getDoubleExtra("productPrice", 0.0);
-            int productImage = intent.getIntExtra("productImage",0);
+            String productImage = intent.getStringExtra("productImage");
 
             // Now, you can use these values to populate the ProductPage layout
             TextView textViewProductName = findViewById(R.id.textViewProductName);
             TextView textViewProductPrice = findViewById(R.id.textViewProductPrice);
             ImageView imageViewProduct = findViewById(R.id.imageViewProduct);
-            //Glide.with(this).load(productImage).into(imageView);
+
+            Glide.with(this).load(productImage).into(imageViewProduct);
 
             textViewProductName.setText(productName);
             textViewProductPrice.setText(String.valueOf(productPrice));
-            imageViewProduct.setImageResource(productImage);
+            //imageViewProduct.setImageResource(productImage);
 
 
         }

@@ -6,9 +6,9 @@ public class Product {
     private int product_id;
     private int store_id;
     private int stock;
-    private int image; // Resource ID of the product image
+    private String image; // Resource ID of the product image
 
-    public Product(String name, double price, int product_id, int store_id, int stock, int image) {
+    public Product(String name, double price, int product_id, int store_id, int stock, String image) {
         this.name = name;
         this.price = price;
         this.product_id = product_id;
@@ -34,11 +34,11 @@ public class Product {
         this.price = price;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
