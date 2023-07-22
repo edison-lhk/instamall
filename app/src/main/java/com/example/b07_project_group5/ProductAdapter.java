@@ -26,6 +26,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.productList = productList;
     }
 
+
     // Override onCreateViewHolder to inflate the product item layout
     @NonNull
     @Override
@@ -54,6 +55,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 intent.putExtra("productName", product.getName());
                 intent.putExtra("productPrice", product.getPrice());
                 intent.putExtra("productImage", product.getImage());
+                //maybe pass other product information if necessary to build product page?
 
                 // Start the ProductPage activity with the intent
                 view.getContext().startActivity(intent);

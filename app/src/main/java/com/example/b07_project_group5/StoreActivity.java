@@ -27,7 +27,6 @@ public class StoreActivity extends AppCompatActivity {
 
     FirebaseDatabase db;
     int store_id = 0;
-    //Boolean isFound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class StoreActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
 
 
-        //Start intializing store information
+        //Start initializing store information
         Intent intent = getIntent();
         if (intent != null) {
             String storeName = intent.getStringExtra("storeName");
@@ -68,13 +67,6 @@ public class StoreActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged(); //update
     }
 
-    public void Homepage(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-
-
 
     public void readData(List<Product> productList) {
         DatabaseReference ref = db.getReference().child("products");
@@ -92,15 +84,18 @@ public class StoreActivity extends AppCompatActivity {
                         if( store_id == product_store_id){
                             String productName = productSnapshot.child("name").getValue(String.class);
                             double productPrice = productSnapshot.child("price").getValue(Double.class);
-                            String productImageResId = productSnapshot.child("image").getValue(String.class);; // You may get image URL from Firebase as well.
+                            String productImageResId = productSnapshot.child("image").getValue(String.class);
+                            int productId = productSnapshot.child("product_id").getValue(Integer.class);
+                            int storeId = productSnapshot.child("store_id").getValue(Integer.class);
+                            int stock = productSnapshot.child("stock").getValue(Integer.class);
 
-                            productList.add(new Product(productName, productPrice, R.drawable.product)); //USE DEFAULT PRODUCT PHOTO
+
+                            productList.add(new Product(productName, productPrice, productId, storeId, stock, R.drawable.product)); //USE DEFAULT PRODUCT PHOTO for now
                         }
 
                     }
 
-                    // Notify the adapter about the data change
-                    recyclerView.getAdapter().notifyDataSetChanged();
+                    recyclerView.getAdapter().notifyDataSetChanged();  // Notify the adapter about the data change
                 } else {
                     Log.e("StoreActivity", "Database read error: No data found");
                 }
@@ -115,21 +110,7 @@ public class StoreActivity extends AppCompatActivity {
     }
 
     public void onBackButtonClicked(View view) {
-        // Handle back button click event here
-        finish(); // This will navigate back to the previous activity (StoreActivity)
+        finish(); // This will navigate back to the previous activity
     }
 
-/*
-    // Method to create a sample list of products (for testing purposes)
-    private List<Product> createSampleProductList() {
-        List<Product> products = new ArrayList<>();
-
-        products.add(new Product("Product 1", 9.99, R.drawable.product));
-        products.add(new Product("Product 2", 19.99, R.drawable.product));
-
-        // Add more products here...
-        return products;
-    }
-
-*/
 }
