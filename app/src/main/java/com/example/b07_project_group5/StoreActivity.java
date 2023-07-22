@@ -147,6 +147,8 @@ public class StoreActivity extends AppCompatActivity {
         finish(); // This will navigate back to the previous activity
     }
 
+    private static final int ADD_PRODUCT_REQUEST_CODE = 1;
+
     public void onADD(View view){
         Intent intent = new Intent(this, AddActivity.class);
 
@@ -155,6 +157,16 @@ public class StoreActivity extends AppCompatActivity {
         intent.putExtra("emailID", ID);
 
         startActivity(intent);
+    }
+
+    //to refresh upon entry
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Refresh the product list whenever the activity resumes
+        productList.clear(); // Clear the list
+        readData(productList); // Fetch the data again from the database
+        recyclerView.getAdapter().notifyDataSetChanged(); // Notify the adapter about the data change
     }
 
 }
