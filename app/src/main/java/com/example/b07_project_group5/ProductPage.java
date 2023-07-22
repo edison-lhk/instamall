@@ -21,7 +21,7 @@ public class ProductPage extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             String productName = intent.getStringExtra("productName");
-            double productPrice = intent.getDoubleExtra("productPrice", 0.0);
+            String productPrice = "$" + intent.getDoubleExtra("productPrice", 0.0);
             String productImage = intent.getStringExtra("productImage");
 
             // use these values to populate the ProductPage layout
