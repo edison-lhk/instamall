@@ -18,7 +18,7 @@
         android:id="@+id/storeLogo"
         android:layout_width="110dp"
         android:layout_height="94dp"
-        android:src="@drawable/store_logo"
+        android:src="@drawable/default_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,20 +66,6 @@
         app:layout_constraintTop_toBottomOf="@id/searchBar"
         app:layout_constraintVertical_bias="0.059"
         tools:listitem="@layout/list_item_product" />
-
-    <ImageView
-        android:id="@+id/promotionBanner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/promotion_banner"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/productCarousel"
-        app:layout_constraintVertical_bias="0.55" />
 
     <TextView
         android:id="@+id/textView"

@@ -43,6 +43,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.nameTextView.setText(product.getName());
         holder.priceTextView.setText(String.valueOf(product.getPrice()));
 
+        // Load the image using Glide with the image URL
+        Glide.with(holder.itemView.getContext())
+                .load(product.getImage())
+                .apply(RequestOptions.centerCropTransform())
+                .into(holder.productImageList);
 
         // Set an OnClickListener to the item view
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -73,11 +78,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         TextView priceTextView;
-        ImageView imageView;
+        ImageView productImageList;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.productImageList);
+            productImageList = itemView.findViewById(R.id.productImageList);
             nameTextView = itemView.findViewById(R.id.productName);
             priceTextView = itemView.findViewById(R.id.productPrice);
         }

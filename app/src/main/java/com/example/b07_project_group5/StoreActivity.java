@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,7 +52,7 @@ public class StoreActivity extends AppCompatActivity {
 
             textViewStoreName.setText(storeName);
             textViewStoreOwner.setText(storeOwner);
-            //imageViewStore.setImageResource(storeLogo);
+            Glide.with(this).load(storeLogo).into(imageViewStore);
         }
 
 

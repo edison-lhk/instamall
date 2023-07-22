@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         //REMEMBER TO REPLACE CONSTANTS WITH store ".get" functions
         intent.putExtra("storeName", "Vincent's Shop");
         intent.putExtra("storeOwner", "Vincent");
-        intent.putExtra("storeId", 1000);
-        intent.putExtra("storeLogo", "");
+        intent.putExtra("storeId", 1001);
+        intent.putExtra("storeLogo", "https://firebasestorage.googleapis.com/v0/b/testing-7a8a5.appspot.com/o/StoreLogo%2Fstore_logo.png?alt=media&token=2660325b-c4cd-4659-bf6b-60239d06f84b");
 
 
         startActivity(intent);
