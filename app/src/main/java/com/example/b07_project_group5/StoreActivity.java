@@ -8,14 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//database stuff
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,9 +25,9 @@ public class StoreActivity extends AppCompatActivity {
     private List<Product> productList;
     private RecyclerView recyclerView; // Declare 'recyclerView' as a class-level member
 
-
     FirebaseDatabase db;
-    Boolean isFound = false;
+    int store_id = 0;
+    //Boolean isFound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +36,26 @@ public class StoreActivity extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
 
+
+        //Start intializing store information
+        Intent intent = getIntent();
+        if (intent != null) {
+            String storeName = intent.getStringExtra("storeName");
+            String storeOwner = intent.getStringExtra("storeOwner");
+            String storeLogo = intent.getStringExtra("storeLogo");
+            this.store_id = intent.getIntExtra("storeId",0);
+
+            // Now, you can use these values to populate the layout
+            TextView textViewStoreName = findViewById(R.id.storeName);
+            TextView textViewStoreOwner = findViewById(R.id.textView);
+            ImageView imageViewStore = findViewById(R.id.storeLogo);
+
+            textViewStoreName.setText(storeName);
+            textViewStoreOwner.setText(storeOwner);
+            //imageViewStore.setImageResource(storeLogo);
+        }
+
+
         // Initialize your product list here (e.g., fetch from a server or database)
         productList = new ArrayList<>();
 
@@ -45,17 +63,17 @@ public class StoreActivity extends AppCompatActivity {
         ProductAdapter adapter = new ProductAdapter(productList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-        //System.out.println("TEST");
 
         readData(productList); //data
         adapter.notifyDataSetChanged(); //update
-
     }
 
     public void Homepage(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+
 
 
     public void readData(List<Product> productList) {
@@ -69,11 +87,16 @@ public class StoreActivity extends AppCompatActivity {
 
                     // Loop through the data snapshot and add products to the list
                     for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
-                        String productName = productSnapshot.child("name").getValue(String.class);
-                        double productPrice = productSnapshot.child("price").getValue(Double.class);
-                        //int productImageResId = R.drawable.product; // You may get image URL from Firebase as well.
+                        int product_store_id = productSnapshot.child("store_id").getValue(Integer.class);
 
-                        productList.add(new Product(productName, productPrice, R.drawable.product));
+                        if( store_id == product_store_id){
+                            String productName = productSnapshot.child("name").getValue(String.class);
+                            double productPrice = productSnapshot.child("price").getValue(Double.class);
+                            String productImageResId = productSnapshot.child("image").getValue(String.class);; // You may get image URL from Firebase as well.
+
+                            productList.add(new Product(productName, productPrice, R.drawable.product)); //USE DEFAULT PRODUCT PHOTO
+                        }
+
                     }
 
                     // Notify the adapter about the data change
@@ -109,6 +132,4 @@ public class StoreActivity extends AppCompatActivity {
     }
 
 */
-
-
 }

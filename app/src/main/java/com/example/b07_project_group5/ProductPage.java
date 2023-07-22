@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 public class ProductPage extends AppCompatActivity {
 
     @Override
@@ -20,16 +22,19 @@ public class ProductPage extends AppCompatActivity {
         if (intent != null) {
             String productName = intent.getStringExtra("productName");
             double productPrice = intent.getDoubleExtra("productPrice", 0.0);
-            int productImageResId = intent.getIntExtra("productImageResId", R.drawable.product);
+            int productImage = intent.getIntExtra("productImage",0);
 
             // Now, you can use these values to populate the ProductPage layout
             TextView textViewProductName = findViewById(R.id.textViewProductName);
             TextView textViewProductPrice = findViewById(R.id.textViewProductPrice);
             ImageView imageViewProduct = findViewById(R.id.imageViewProduct);
+            //Glide.with(this).load(productImage).into(imageView);
 
             textViewProductName.setText(productName);
             textViewProductPrice.setText(String.valueOf(productPrice));
-            imageViewProduct.setImageResource(productImageResId);
+            imageViewProduct.setImageResource(productImage);
+
+
         }
     }
 

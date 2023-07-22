@@ -6,14 +6,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private List<Product> productList;
+    private Context context; // Add a Context variable to use Glide
 
     // Constructor to pass the list of products
     public ProductAdapter(List<Product> productList) {
@@ -35,7 +41,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Product product = productList.get(position);
         holder.nameTextView.setText(product.getName());
         holder.priceTextView.setText(String.valueOf(product.getPrice()));
-        holder.imageView.setImageResource(product.getImage());
+
 
         // Set an OnClickListener to the item view
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +53,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 // Pass the product information to the ProductPage activity
                 intent.putExtra("productName", product.getName());
                 intent.putExtra("productPrice", product.getPrice());
-                intent.putExtra("productImageResId", product.getImage());
+                intent.putExtra("productImage", product.getImage());
 
                 // Start the ProductPage activity with the intent
                 view.getContext().startActivity(intent);
