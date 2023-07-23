@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class AddActivity extends AppCompatActivity {
+public class AddProductActivity extends AppCompatActivity {
     double price;
     int stock;
     String userInputImage;
@@ -34,7 +33,7 @@ public class AddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activity_add_product);
 
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
 
@@ -80,7 +79,7 @@ public class AddActivity extends AppCompatActivity {
                         ref.child(uniqueKey).setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(AddActivity.this, getString(R.string.add_product_successful_text), Toast.LENGTH_LONG).show();
+                                Toast.makeText(AddProductActivity.this, getString(R.string.add_product_successful_text), Toast.LENGTH_LONG).show();
                                 finish();
                             }
                         });

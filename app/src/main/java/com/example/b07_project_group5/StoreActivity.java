@@ -1,6 +1,5 @@
 package com.example.b07_project_group5;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -120,7 +119,7 @@ public class StoreActivity extends AppCompatActivity {
     private static final int ADD_PRODUCT_REQUEST_CODE = 1;
 
     public void onADD(View view){
-        Intent intent = new Intent(this, AddActivity.class);
+        Intent intent = new Intent(this, AddProductActivity.class);
 
         // Pass the store information to the
         intent.putExtra("storeId", storeId);

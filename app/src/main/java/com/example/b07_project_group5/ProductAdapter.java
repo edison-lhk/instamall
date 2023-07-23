@@ -54,7 +54,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             @Override
             public void onClick(View view) {
                 // Create an Intent to navigate to the ProductPage activity
-                Intent intent = new Intent(view.getContext(), ProductPage.class);
+                Intent intent = new Intent(view.getContext(), ProductDetailsActivity.class);
 
                 // Pass the product information to the ProductPage activity
                 intent.putExtra("productName", product.getName());
