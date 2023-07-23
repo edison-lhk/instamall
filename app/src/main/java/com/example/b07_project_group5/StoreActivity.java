@@ -1,5 +1,6 @@
 package com.example.b07_project_group5;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,8 +29,8 @@ public class StoreActivity extends AppCompatActivity {
     private RecyclerView recyclerView; // Declare 'recyclerView' as a class-level member
 
     FirebaseDatabase db;
-    int store_id = 0;
-    String account_type="";
+    String storeId = "";
+    String accountType="";
     String ID = "";
 
     @Override
@@ -54,8 +55,8 @@ public class StoreActivity extends AppCompatActivity {
             String storeName = intent.getStringExtra("storeName");
             String storeOwner = intent.getStringExtra("storeOwner");
             String storeLogo = intent.getStringExtra("storeLogo");
-            this.store_id = intent.getIntExtra("storeId", 0);
-            account_type = intent.getStringExtra("accountType");
+            storeId = intent.getStringExtra("storeId");
+            accountType = intent.getStringExtra("accountType");
             ID = intent.getStringExtra("ID");
 
             // Now, you can use these values to populate the layout
@@ -68,7 +69,6 @@ public class StoreActivity extends AppCompatActivity {
             Glide.with(this).load(storeLogo).into(imageViewStore);
         }
 
-
         readData(productList); //data
         adapter.notifyDataSetChanged(); //update
     }
@@ -78,56 +78,27 @@ public class StoreActivity extends AppCompatActivity {
         DatabaseReference ref = db.getReference().child("products");
 
         //ALL THIS JUST TO MAKE CONDITIONAL BUTTON FOR OWNER
-        DatabaseReference ref2 = db.getReference().child("stores");
         Button conditionalButton = findViewById(R.id.conditionalButton);
-        ref2.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // Loop through the data snapshot and add products to the list
-                    for (DataSnapshot storeSnapshot : dataSnapshot.getChildren()) {
-                        int snapshot_store_id = storeSnapshot.child("store_id").getValue(Integer.class);
-                        if(snapshot_store_id== store_id){
-                            String snapshot_email = storeSnapshot.child("email").getValue(String.class);
+        if (accountType == "owner") {
+            conditionalButton.setVisibility(View.VISIBLE);
+        } else {
+            conditionalButton.setVisibility(View.GONE);
+        };
 
-                            // Compare the emailID with the user ID (ID)
-                            if (ID.equals(snapshot_email)) {
-                                conditionalButton.setVisibility(View.VISIBLE); // Show the button
-                            } else {
-                                conditionalButton.setVisibility(View.GONE); // Hide the button
-                            }
-                        }
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Handle the onCancelled event if needed
-            }
-        });
-
-
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.orderByChild("storeId").equalTo(storeId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     productList.clear(); // Clear the products list to avoid duplicate entries
-
                     // Loop through the data snapshot and add products to the list
                     for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
-                        int product_store_id = productSnapshot.child("store_id").getValue(Integer.class);
-
-                        if( store_id == product_store_id){
-                            String productName = productSnapshot.child("name").getValue(String.class);
-                            double productPrice = productSnapshot.child("price").getValue(Double.class);
-                            String productImage = productSnapshot.child("image").getValue(String.class);
-                            int productId = productSnapshot.child("product_id").getValue(Integer.class);
-                            int storeId = productSnapshot.child("store_id").getValue(Integer.class);
-                            int stock = productSnapshot.child("stock").getValue(Integer.class);
-
-
-                            productList.add(new Product(productName, productPrice, productId, storeId, stock, productImage)); //USE DEFAULT PRODUCT PHOTO for now
-                        }
+                        String productName = productSnapshot.child("name").getValue().toString();
+                        double productPrice = Double.parseDouble(productSnapshot.child("price").getValue().toString());
+                        String productImage = productSnapshot.child("image").getValue().toString();
+                        String productId = productSnapshot.child("productId").getValue().toString();
+                        String storeId = productSnapshot.child("storeId").getValue().toString();
+                        int stock = Integer.parseInt(productSnapshot.child("stock").getValue().toString());
+                        productList.add(new Product(productName, productPrice, productId, storeId, stock, productImage)); //USE DEFAULT PRODUCT PHOTO for now
                     }
                     recyclerView.getAdapter().notifyDataSetChanged();  // Notify the adapter about the data change
                 } else {
@@ -153,8 +124,8 @@ public class StoreActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddActivity.class);
 
         // Pass the store information to the
-        intent.putExtra("storeId", store_id);
-        intent.putExtra("emailID", ID);
+        intent.putExtra("storeId", storeId);
+        intent.putExtra("userID", ID);
 
         startActivity(intent);
     }

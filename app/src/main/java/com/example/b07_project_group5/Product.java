@@ -3,16 +3,16 @@ package com.example.b07_project_group5;
 public class Product {
     private String name;
     private double price;
-    private int product_id;
-    private int store_id;
+    private String productId;
+    private String storeId;
     private int stock;
     private String image; // Resource ID of the product image
 
-    public Product(String name, double price, int product_id, int store_id, int stock, String image) {
+    public Product(String name, double price, String productId, String storeId, int stock, String image) {
         this.name = name;
         this.price = price;
-        this.product_id = product_id;
-        this.store_id = store_id;
+        this.productId = productId;
+        this.storeId = storeId;
         this.stock = stock;
         this.image = image;
     }
@@ -42,15 +42,15 @@ public class Product {
         this.image = image;
     }
 
-    public int getProductID() {return product_id;}
+    public String getProductID() {return productId;}
 
-    public void setProductID(int product_id) {this.product_id = product_id;}
+    public void setProductID(String productId) { this.productId = productId; }
 
-    public int getStoreID() {return store_id;}
+    public String getStoreID() {return storeId;}
 
-    public void setStoreID(int store_id) {this.store_id = store_id;    }
+    public void setStoreID(String storeId) { this.storeId = storeId; }
 
-    public int getStock() {return stock;}
+    public int getStock() { return stock; }
 
     public void setStock(int stock) {this.stock = stock;}
 }

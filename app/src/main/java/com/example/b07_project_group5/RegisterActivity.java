@@ -25,7 +25,10 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     FirebaseDatabase db;
-    String accountType;
+    String username = "";
+    String email = "";
+    String password = "";
+    String accountType = "";
     Intent intent;
 
     @Override
@@ -33,12 +36,11 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
-        accountType = "";
-        String[] user_types = getResources().getStringArray(R.array.user_types);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.dropdown_item, user_types);
-        AutoCompleteTextView login_type_input = (AutoCompleteTextView) findViewById(R.id.register_type_input);
-        login_type_input.setAdapter(arrayAdapter);
-        login_type_input.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        String[] userTypes = getResources().getStringArray(R.array.user_types);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.dropdown_item, userTypes);
+        AutoCompleteTextView loginTypeInput = (AutoCompleteTextView) findViewById(R.id.register_type_input);
+        loginTypeInput.setAdapter(arrayAdapter);
+        loginTypeInput.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 accountType = parent.getItemAtPosition(position).toString().toLowerCase();
@@ -48,17 +50,17 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void setWarningText(String warning) {
-        TextView warning_text = (TextView) findViewById(R.id.register_warning_text);
-        warning_text.setText(warning);
+        TextView warningText = (TextView) findViewById(R.id.register_warning_text);
+        warningText.setText(warning);
     }
 
     public void registerUser(View v) {
-        EditText username_input = (EditText) findViewById(R.id.register_username_input);
-        String username = username_input.getText().toString();
-        EditText email_input = (EditText) findViewById(R.id.register_email_input);
-        String email = email_input.getText().toString();
-        EditText password_input = (EditText) findViewById(R.id.register_password_input);
-        String password = password_input.getText().toString();
+        EditText usernameInput = (EditText) findViewById(R.id.register_username_input);
+        username = usernameInput.getText().toString();
+        EditText emailInput = (EditText) findViewById(R.id.register_email_input);
+        email = emailInput.getText().toString();
+        EditText passwordInput = (EditText) findViewById(R.id.register_password_input);
+        password = passwordInput.getText().toString();
         if (username.equals("") || email.equals("") || password.equals("") || accountType.equals("")) {
             setWarningText(getString(R.string.login_empty_fields_warning));
             return;
@@ -82,28 +84,28 @@ public class RegisterActivity extends AppCompatActivity {
                     query.child(uniqueKey).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(Task<Void> task) {
-                            username_input.setText("");
-                            email_input.setText("");
-                            password_input.setText("");
+                            usernameInput.setText("");
+                            emailInput.setText("");
+                            passwordInput.setText("");
                         }
                     });
                 } else {
-                    boolean user_exist = false;
+                    boolean userExist = false;
                     for (DataSnapshot childSnapshot: snapshot.getChildren()) {
                         if (accountType.equals(childSnapshot.child("accountType").getValue().toString())) {
-                            user_exist = true;
+                            userExist = true;
                         }
                     }
-                    if (user_exist) {
+                    if (userExist) {
                         setWarningText(getString(R.string.register_email_already_exists_warning));
                         return;
                     }
                     query.child(uniqueKey).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(Task<Void> task) {
-                            username_input.setText("");
-                            email_input.setText("");
-                            password_input.setText("");
+                            usernameInput.setText("");
+                            emailInput.setText("");
+                            passwordInput.setText("");
                         }
                     });
                 }
