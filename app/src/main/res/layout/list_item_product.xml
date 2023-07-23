@@ -12,36 +12,50 @@
     <ImageView
         android:id="@+id/productImageList"
         android:layout_width="123dp"
-        android:layout_height="121dp"
+        android:layout_height="100dp"
         android:layout_marginStart="2dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:src="@drawable/default_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/productName"
-        android:layout_width="238dp"
+        android:layout_width="200dp"
         android:layout_height="31dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
-        android:text="Product Name"
+        android:text="@string/product_name_placeholder_text"
+        android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/productImageList"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/productPrice"
-        android:layout_width="233dp"
+        android:layout_width="200dp"
         android:layout_height="25dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="4dp"
-        android:text="Product Price"
+        android:text="@string/product_price_placeholder_text"
         android:textColor="@android:color/darker_gray"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/productImageList"
         app:layout_constraintTop_toBottomOf="@+id/productName" />
+
+    <TextView
+        android:id="@+id/productStock"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/product_stock_placeholder_text"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/productImageList"
+        app:layout_constraintTop_toBottomOf="@+id/productPrice" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

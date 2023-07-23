@@ -1,5 +1,6 @@
 package com.example.b07_project_group5;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,19 +8,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AddActivity extends AppCompatActivity {
-    int productId;
-    int price;
+    double price;
     int stock;
     String userInputImage;
     String userInputName;
-    int store_id;
+    String storeId;
     FirebaseDatabase db;
 
 
@@ -32,10 +40,9 @@ public class AddActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            this.store_id = intent.getIntExtra("storeId", 0);
+            this.storeId = intent.getStringExtra("storeId");
         }
 
-        EditText editProductId = findViewById(R.id.editProductId);
         EditText editName = findViewById(R.id.editName);
         EditText editPrice = findViewById(R.id.editPrice);
         EditText editStock = findViewById(R.id.editStock);
@@ -46,29 +53,49 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Get the text entered by the user
-                String userInputProductId = editProductId.getText().toString();
                 userInputName = editName.getText().toString();
                 String userInputPrice = editPrice.getText().toString();
                 String userInputStock = editStock.getText().toString();
                 userInputImage = editImage.getText().toString();
 
                 // Convert price and stock to integers
-                productId = Integer.parseInt(userInputProductId);
-                price = Integer.parseInt(userInputPrice);
+                price = Double.parseDouble(userInputPrice);
                 stock = Integer.parseInt(userInputStock);
 
                 // Write the data to the database
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("products").push();
-                ref.child("name").setValue(userInputName);
-                ref.child("price").setValue(price);
-                ref.child("stock").setValue(stock);
-                ref.child("image").setValue(userInputImage);
-                ref.child("product_id").setValue(productId);
-                ref.child("store_id").setValue(store_id);
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("products");
+                String uniqueKey = ref.push().getKey();
+                Product product = new Product(userInputName, price, storeId, stock, userInputImage);
+                ref.orderByChild("name").equalTo(product.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot productSnapshot: snapshot.getChildren()) {
+                                if (storeId.equals(productSnapshot.child("storeId").getValue().toString())) {
+                                    setWarningText(getString(R.string.product_already_exists_warning));
+                                    return;
+                                }
+                            }
+                        }
+                        ref.child(uniqueKey).setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(AddActivity.this, getString(R.string.add_product_successful_text), Toast.LENGTH_LONG).show();
+                                finish();
+                            }
+                        });
+                    }
 
-                finish();
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
             }
         });
+    }
+
+    public void setWarningText(String warning) {
+        TextView warningText = (TextView) findViewById(R.id.add_warning_text);
+        warningText.setText(warning);
     }
 
     public void onBackButtonClicked(View view) {

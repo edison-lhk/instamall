@@ -8,7 +8,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StoreActivity">
+    tools:context=".StoreActivity"
+    android:padding="16dp">
 
 
     <!-- Store Logo -->      <!-- UPDATE STORE LOGO-->
@@ -18,19 +19,20 @@
         android:id="@+id/storeLogo"
         android:layout_width="110dp"
         android:layout_height="94dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/default_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Search Bar (Added ID 'searchBar') -->
     <TextView
         android:id="@+id/storeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="My Store"
+        android:layout_marginTop="58dp"
+        android:text="@string/store_name_placeholder_text"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:hint="Search products"
+        android:hint="@string/store_search_products_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/storeLogo" />
@@ -75,30 +77,24 @@
         android:layout_height="53dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="Owner Name"
+        android:text="@string/store_owner_placeholder_text"
         app:layout_constraintStart_toEndOf="@+id/storeLogo"
         app:layout_constraintTop_toBottomOf="@+id/storeName" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onBackButtonClicked"
-        android:text="Back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+    <include
+        layout="@layout/back_btn" />
 
     <Button
         android:id="@+id/conditionalButton"
-        android:layout_width="81dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
         android:onClick="onADD"
-        android:text="ADD"
-        android:visibility="gone"
+        android:text="@string/store_add_product_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productCarousel"
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

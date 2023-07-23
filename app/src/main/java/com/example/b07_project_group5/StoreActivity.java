@@ -79,12 +79,12 @@ public class StoreActivity extends AppCompatActivity {
 
         //ALL THIS JUST TO MAKE CONDITIONAL BUTTON FOR OWNER
         Button conditionalButton = findViewById(R.id.conditionalButton);
-        if (accountType == "owner") {
+        Log.d("account", accountType);
+        if (accountType.equals("owner")) {
             conditionalButton.setVisibility(View.VISIBLE);
         } else {
             conditionalButton.setVisibility(View.GONE);
         };
-
         ref.orderByChild("storeId").equalTo(storeId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -95,10 +95,9 @@ public class StoreActivity extends AppCompatActivity {
                         String productName = productSnapshot.child("name").getValue().toString();
                         double productPrice = Double.parseDouble(productSnapshot.child("price").getValue().toString());
                         String productImage = productSnapshot.child("image").getValue().toString();
-                        String productId = productSnapshot.child("productId").getValue().toString();
                         String storeId = productSnapshot.child("storeId").getValue().toString();
                         int stock = Integer.parseInt(productSnapshot.child("stock").getValue().toString());
-                        productList.add(new Product(productName, productPrice, productId, storeId, stock, productImage)); //USE DEFAULT PRODUCT PHOTO for now
+                        productList.add(new Product(productName, productPrice, storeId, stock, productImage)); //USE DEFAULT PRODUCT PHOTO for now
                     }
                     recyclerView.getAdapter().notifyDataSetChanged();  // Notify the adapter about the data change
                 } else {

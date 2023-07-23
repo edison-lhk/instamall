@@ -40,7 +40,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.nameTextView.setText(product.getName());
-        holder.priceTextView.setText("$" + String.valueOf(product.getPrice()));
+        holder.priceTextView.setText("Price: $" + String.valueOf(product.getPrice()));
+        holder.stockTextView.setText("Stock: " + String.valueOf(product.getStock()));
 
         // Load the image using Glide with the image URL
         Glide.with(holder.itemView.getContext())
@@ -77,6 +78,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         TextView priceTextView;
+        TextView stockTextView;
         ImageView productImageList;
 
         public ProductViewHolder(@NonNull View itemView) {
@@ -84,6 +86,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productImageList = itemView.findViewById(R.id.productImageList);
             nameTextView = itemView.findViewById(R.id.productName);
             priceTextView = itemView.findViewById(R.id.productPrice);
+            stockTextView = itemView.findViewById(R.id.productStock);
         }
     }
 }

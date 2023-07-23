@@ -150,24 +150,4 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
-
-
-    //Vincent-Store_Owner_Display Stuff
-    //USE this to access activity
-    public void openStorePage(View view) {
-        Intent intent = new Intent(this, StoreActivity.class);
-
-        // Pass the store information to the Store activity
-        //REMEMBER TO REPLACE CONSTANTS WITH store ".get" functions
-        intent.putExtra("storeName", "Vincent's Store2");
-        intent.putExtra("storeOwner", "Vincent");
-        intent.putExtra("storeId", 1001);
-        intent.putExtra("storeLogo", "https://firebasestorage.googleapis.com/v0/b/testing-7a8a5.appspot.com/o/StoreLogo%2Fstore_logo.png?alt=media&token=2660325b-c4cd-4659-bf6b-60239d06f84b");
-
-        intent.putExtra("accountType", "owner");
-        intent.putExtra("ID", "vincent@yahoo.com");
-
-        startActivity(intent);
-    }
-
 }
