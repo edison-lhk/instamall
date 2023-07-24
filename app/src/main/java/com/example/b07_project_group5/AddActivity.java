@@ -1,12 +1,11 @@
 package com.example.b07_project_group5;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,7 +18,7 @@ public class AddActivity extends AppCompatActivity {
     int stock;
     String userInputImage;
     String userInputName;
-    int store_id;
+    String store_id;
     FirebaseDatabase db;
 
 
@@ -32,7 +31,7 @@ public class AddActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            this.store_id = intent.getIntExtra("storeId", 0);
+            this.store_id = intent.getStringExtra("storeId");
         }
 
         EditText editProductId = findViewById(R.id.editProductId);
@@ -64,7 +63,7 @@ public class AddActivity extends AppCompatActivity {
                 ref.child("stock").setValue(stock);
                 ref.child("image").setValue(userInputImage);
                 ref.child("product_id").setValue(productId);
-                ref.child("store_id").setValue(store_id);
+                ref.child("storeId").setValue(store_id);
 
                 finish();
             }

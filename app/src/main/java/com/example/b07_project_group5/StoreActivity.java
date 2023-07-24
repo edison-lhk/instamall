@@ -1,9 +1,5 @@
 package com.example.b07_project_group5;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +8,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -22,13 +19,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class StoreActivity extends AppCompatActivity {
     private List<Product> productList;
     private RecyclerView recyclerView; // Declare 'recyclerView' as a class-level member
 
     FirebaseDatabase db;
-    int store_id = 0;
+    String store_id;
     String account_type="";
     String ID = "";
 
@@ -54,7 +54,7 @@ public class StoreActivity extends AppCompatActivity {
             String storeName = intent.getStringExtra("storeName");
             String storeOwner = intent.getStringExtra("storeOwner");
             String storeLogo = intent.getStringExtra("storeLogo");
-            this.store_id = intent.getIntExtra("storeId", 0);
+            this.store_id = intent.getStringExtra("storeId");
             account_type = intent.getStringExtra("accountType");
             ID = intent.getStringExtra("ID");
 
@@ -86,8 +86,8 @@ public class StoreActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     // Loop through the data snapshot and add products to the list
                     for (DataSnapshot storeSnapshot : dataSnapshot.getChildren()) {
-                        int snapshot_store_id = storeSnapshot.child("store_id").getValue(Integer.class);
-                        if(snapshot_store_id== store_id){
+                        String snapshot_store_id = storeSnapshot.child("storeId").getValue(String.class);
+                        if(snapshot_store_id == store_id){
                             String snapshot_email = storeSnapshot.child("email").getValue(String.class);
 
                             // Compare the emailID with the user ID (ID)
@@ -115,14 +115,14 @@ public class StoreActivity extends AppCompatActivity {
 
                     // Loop through the data snapshot and add products to the list
                     for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
-                        int product_store_id = productSnapshot.child("store_id").getValue(Integer.class);
+                        String product_store_id = productSnapshot.child("storeId").getValue(String.class);
 
                         if( store_id == product_store_id){
                             String productName = productSnapshot.child("name").getValue(String.class);
                             double productPrice = productSnapshot.child("price").getValue(Double.class);
                             String productImage = productSnapshot.child("image").getValue(String.class);
                             int productId = productSnapshot.child("product_id").getValue(Integer.class);
-                            int storeId = productSnapshot.child("store_id").getValue(Integer.class);
+                            String storeId = productSnapshot.child("storeId").getValue(String.class);
                             int stock = productSnapshot.child("stock").getValue(Integer.class);
 
 

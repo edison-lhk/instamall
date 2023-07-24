@@ -1,0 +1,16 @@
+{
+  "products": {
+    "someProduct": {
+      "name": "\"Apple\"",
+      "price": 9.99
+    }
+  },
+  "users": {
+    "test": {
+      "email": "edison@gmail.com",
+      "password": 123456,
+      "type": "owner",
+      "username": "edison"
+    }
+  }
+}

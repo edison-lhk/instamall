@@ -4,11 +4,11 @@ public class Product {
     private String name;
     private double price;
     private int product_id;
-    private int store_id;
+    private String store_id;
     private int stock;
     private String image; // Resource ID of the product image
 
-    public Product(String name, double price, int product_id, int store_id, int stock, String image) {
+    public Product(String name, double price, int product_id, String store_id, int stock, String image) {
         this.name = name;
         this.price = price;
         this.product_id = product_id;
@@ -46,9 +46,9 @@ public class Product {
 
     public void setProductID(int product_id) {this.product_id = product_id;}
 
-    public int getStoreID() {return store_id;}
+    public String getStoreID() {return store_id;}
 
-    public void setStoreID(int store_id) {this.store_id = store_id;    }
+    public void setStoreID(String store_id) {this.store_id = store_id;    }
 
     public int getStock() {return stock;}
 
