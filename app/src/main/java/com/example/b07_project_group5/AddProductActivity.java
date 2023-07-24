@@ -47,6 +47,7 @@ public class AddProductActivity extends AppCompatActivity {
         EditText editStock = findViewById(R.id.editStock);
         EditText editImage = findViewById(R.id.editImage);
         Button buttonSubmit = findViewById(R.id.buttonSubmit);
+        EditText editDescription = findViewById(R.id.editDescription);
 
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +57,8 @@ public class AddProductActivity extends AppCompatActivity {
                 String userInputPrice = editPrice.getText().toString();
                 String userInputStock = editStock.getText().toString();
                 userInputImage = editImage.getText().toString();
+                String userInputDescription = editDescription.getText().toString();
+
 
                 // Convert price and stock to integers
                 price = Double.parseDouble(userInputPrice);
@@ -64,7 +67,7 @@ public class AddProductActivity extends AppCompatActivity {
                 // Write the data to the database
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("products");
                 String uniqueKey = ref.push().getKey();
-                Product product = new Product(userInputName, price, storeId, stock, userInputImage);
+                Product product = new Product(userInputName, price, storeId, stock, userInputImage, userInputDescription);
                 ref.orderByChild("name").equalTo(product.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

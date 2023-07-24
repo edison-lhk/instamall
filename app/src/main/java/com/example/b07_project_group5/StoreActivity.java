@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -104,7 +103,9 @@ public class StoreActivity extends AppCompatActivity {
                         String productImage = productSnapshot.child("image").getValue().toString();
                         String storeId = productSnapshot.child("storeId").getValue().toString();
                         int stock = Integer.parseInt(productSnapshot.child("stock").getValue().toString());
-                        productList.add(new Product(productName, productPrice, storeId, stock, productImage)); //USE DEFAULT PRODUCT PHOTO for now
+                        String productDescription = productSnapshot.child("description").getValue().toString();
+
+                        productList.add(new Product(productName, productPrice, storeId, stock, productImage, productDescription)); //USE DEFAULT PRODUCT PHOTO for now
                     }
                     recyclerView.getAdapter().notifyDataSetChanged();  // Notify the adapter about the data change
                 } else {

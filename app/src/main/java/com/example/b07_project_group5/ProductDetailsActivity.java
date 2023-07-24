@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,14 +24,18 @@ public class ProductDetailsActivity extends AppCompatActivity {
             String productName = intent.getStringExtra("productName");
             String productPrice = "$" + intent.getDoubleExtra("productPrice", 0.0);
             String productImage = intent.getStringExtra("productImage");
+            String productDescription = intent.getStringExtra("productDescription");
+
 
             // use these values to populate the ProductPage layout
             TextView textViewProductName = findViewById(R.id.textViewProductName);
             TextView textViewProductPrice = findViewById(R.id.textViewProductPrice);
             ImageView imageViewProduct = findViewById(R.id.imageViewProduct);
+            TextView textViewDescription = findViewById(R.id.textViewProductDescription);
 
             Glide.with(this).load(productImage).into(imageViewProduct);
 
+            textViewDescription.setText(productDescription);
             textViewProductName.setText(productName);
             textViewProductPrice.setText(String.valueOf(productPrice));
 

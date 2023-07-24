@@ -46,6 +46,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.priceTextView.setText("Price: $" + String.valueOf(product.getPrice()));
         holder.stockTextView.setText("Stock: " + String.valueOf(product.getStock()));
 
+
         if (accountType.equals("shopper")) {
             holder.editProductBtn.setVisibility(View.INVISIBLE);
         }
@@ -67,6 +68,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 intent.putExtra("productName", product.getName());
                 intent.putExtra("productPrice", product.getPrice());
                 intent.putExtra("productImage", product.getImage());
+                intent.putExtra("productDescription", product.getDescription());
+
                 //maybe pass other product information if necessary to build product page?
 
 

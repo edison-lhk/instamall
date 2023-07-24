@@ -6,13 +6,15 @@ public class Product {
     private String storeId;
     private int stock;
     private String image; // Resource ID of the product image
+    private String description;
 
-    public Product(String name, double price, String storeId, int stock, String image) {
+    public Product(String name, double price, String storeId, int stock, String image, String description) {
         this.name = name;
         this.price = price;
         this.storeId = storeId;
         this.stock = stock;
         this.image = image;
+        this.description = description;
     }
 
     // Getters and setters for the product attributes
@@ -47,4 +49,8 @@ public class Product {
     public int getStock() { return stock; }
 
     public void setStock(int stock) {this.stock = stock;}
+
+    public void setDescription(String description){this.description = description;}
+
+    public String getDescription(){return description;};
 }
