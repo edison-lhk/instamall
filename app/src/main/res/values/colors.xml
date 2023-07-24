@@ -6,4 +6,5 @@
     <color name="wine_red">#C85959</color>
     <color name="dark_yellow">#F9A109</color>
     <color name="warning_red">#d0342c</color>
+    <color name="gray">#444444</color>
 </resources>

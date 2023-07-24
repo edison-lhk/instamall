@@ -22,4 +22,16 @@
     <string name="register_successful_text">Register Successful</string>
     <string name="login_prompt_text">Already our member?</string>
     <string name="login_prompt_btn_text">Login</string>
+    <string name="store_name_placeholder_text">My Store</string>
+    <string name="store_owner_placeholder_text">Owner Name</string>
+    <string name="store_search_products_text">Search products</string>
+    <string name="store_add_product_text">ADD</string>
+    <string name="back_btn_text">Back</string>
+    <string name="product_name_placeholder_text">Product Name</string>
+    <string name="product_price_placeholder_text">Product Price</string>
+    <string name="product_stock_placeholder_text">Product Stock</string>
+    <string name="product_already_exists_warning">Product has already existed</string>
+    <string name="add_product_successful_text">New product is successfully added!</string>
+    <string name="store_name_empty_warning">Store name cannot be empty</string>
+    <string name="change_store_info_successful_text">Store Information is successfully changed!</string>
 </resources>
