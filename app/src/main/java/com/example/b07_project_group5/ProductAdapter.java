@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.Context;
@@ -19,10 +20,12 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private List<Product> productList;
     private Context context; // Add a Context variable to use Glide
+    private String accountType;
 
     // Constructor to pass the list of products
-    public ProductAdapter(List<Product> productList) {
+    public ProductAdapter(List<Product> productList, String accountType) {
         this.productList = productList;
+        this.accountType = accountType;
     }
 
 
@@ -42,6 +45,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.nameTextView.setText(product.getName());
         holder.priceTextView.setText("Price: $" + String.valueOf(product.getPrice()));
         holder.stockTextView.setText("Stock: " + String.valueOf(product.getStock()));
+
+        if (accountType.equals("shopper")) {
+            holder.editProductBtn.setVisibility(View.INVISIBLE);
+        }
 
         // Load the image using Glide with the image URL
         Glide.with(holder.itemView.getContext())
@@ -67,6 +74,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 view.getContext().startActivity(intent);
             }
         });
+
+        holder.editProductBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setVisibility(View.INVISIBLE);
+                holder.saveProductBtn.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -80,6 +95,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         TextView priceTextView;
         TextView stockTextView;
         ImageView productImageList;
+        ImageButton editProductBtn;
+        ImageButton saveProductBtn;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,6 +104,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             nameTextView = itemView.findViewById(R.id.productName);
             priceTextView = itemView.findViewById(R.id.productPrice);
             stockTextView = itemView.findViewById(R.id.productStock);
+            editProductBtn = itemView.findViewById(R.id.editProductBtn);
+            saveProductBtn = itemView.findViewById(R.id.saveProductBtn);
         }
     }
 }

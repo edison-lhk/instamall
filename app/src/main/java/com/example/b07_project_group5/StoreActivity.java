@@ -1,9 +1,11 @@
 package com.example.b07_project_group5;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,11 +15,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,15 +46,6 @@ public class StoreActivity extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
 
-        // Initialize your product list here (e.g., fetch from a server or database)
-        productList = new ArrayList<>();
-
-        recyclerView = findViewById(R.id.productCarousel);
-        ProductAdapter adapter = new ProductAdapter(productList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
-
         //Start initializing store information
         Intent intent = getIntent();
         if (intent != null) {
@@ -69,6 +65,14 @@ public class StoreActivity extends AppCompatActivity {
             textViewStoreOwner.setText(storeOwner);
             Glide.with(this).load(storeLogo).into(imageViewStore);
         }
+
+        // Initialize your product list here (e.g., fetch from a server or database)
+        productList = new ArrayList<>();
+
+        recyclerView = findViewById(R.id.productCarousel);
+        ProductAdapter adapter = new ProductAdapter(productList, accountType);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
         readData(productList); //data
         adapter.notifyDataSetChanged(); //update
@@ -166,7 +170,22 @@ public class StoreActivity extends AppCompatActivity {
             setWarningText(getString(R.string.store_name_empty_warning));
             return;
         }
-        setWarningText("");
+        DatabaseReference ref = db.getReference();
+        DatabaseReference query = ref.child("stores");
+        query.child(storeId).child("name").setValue(storeName).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                ImageButton editStoreBtn = (ImageButton) findViewById(R.id.editStoreBtn);
+                editStoreBtn.setVisibility(View.VISIBLE);
+                v.setVisibility(View.INVISIBLE);
+                storeNameInput.setVisibility(View.INVISIBLE);
+                TextView storeNameView = (TextView) findViewById(R.id.storeName);
+                storeNameView.setVisibility(View.VISIBLE);
+                storeNameView.setText(storeName);
+                setWarningText("");
+                Toast.makeText(StoreActivity.this, getString(R.string.change_store_info_successful_text), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }
