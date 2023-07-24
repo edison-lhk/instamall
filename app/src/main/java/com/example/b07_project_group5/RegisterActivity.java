@@ -110,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                     });
                 }
                 Toast.makeText(RegisterActivity.this, getString(R.string.register_successful_text), Toast.LENGTH_LONG).show();
+                setWarningText("");
                 startActivity(intent);
             }
 

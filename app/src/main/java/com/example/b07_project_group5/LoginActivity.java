@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                     emailInput.setText("");
                     passwordInput.setText("");
                     Toast.makeText(LoginActivity.this, getString(R.string.login_successful_text), Toast.LENGTH_LONG).show();
+                    setWarningText("");
                     if (accountType.equals("owner")) {
                         DatabaseReference query2 = ref.child("stores");
                         query2.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {

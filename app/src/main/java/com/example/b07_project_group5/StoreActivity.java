@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,7 +62,7 @@ public class StoreActivity extends AppCompatActivity {
 
             // Now, you can use these values to populate the layout
             TextView textViewStoreName = findViewById(R.id.storeName);
-            TextView textViewStoreOwner = findViewById(R.id.textViewOwner);
+            TextView textViewStoreOwner = findViewById(R.id.storeOwner);
             ImageView imageViewStore = findViewById(R.id.storeLogo);
 
             textViewStoreName.setText(storeName);
@@ -77,12 +79,14 @@ public class StoreActivity extends AppCompatActivity {
         DatabaseReference ref = db.getReference().child("products");
 
         //ALL THIS JUST TO MAKE CONDITIONAL BUTTON FOR OWNER
-        Button conditionalButton = findViewById(R.id.conditionalButton);
-        Log.d("account", accountType);
+        Button addProductBtn = findViewById(R.id.addProductBtn);
+        ImageButton editStoreBtn = findViewById(R.id.editStoreBtn);
         if (accountType.equals("owner")) {
-            conditionalButton.setVisibility(View.VISIBLE);
+            addProductBtn.setVisibility(View.VISIBLE);
+            editStoreBtn.setVisibility(View.VISIBLE);
         } else {
-            conditionalButton.setVisibility(View.GONE);
+            addProductBtn.setVisibility(View.INVISIBLE);
+            editStoreBtn.setVisibility(View.INVISIBLE);
         };
         ref.orderByChild("storeId").equalTo(storeId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -136,6 +140,33 @@ public class StoreActivity extends AppCompatActivity {
         productList.clear(); // Clear the list
         readData(productList); // Fetch the data again from the database
         recyclerView.getAdapter().notifyDataSetChanged(); // Notify the adapter about the data change
+    }
+
+    public void setWarningText(String warning) {
+        TextView warningText = (TextView) findViewById(R.id.store_warning_text);
+        warningText.setText(warning);
+    }
+
+    // Toggle textview to edittext when user clicks on edit button
+    public void toggleStoreInput(View v) {
+        TextView storeName = (TextView) findViewById(R.id.storeName);
+        EditText storeNameInput = (EditText) findViewById(R.id.storeNameInput);
+        storeNameInput.setVisibility(View.VISIBLE);
+        storeNameInput.setText(storeName.getText().toString());
+        storeName.setVisibility(View.INVISIBLE);
+        ImageButton saveStoreBtn = (ImageButton) findViewById(R.id.saveStoreBtn);
+        saveStoreBtn.setVisibility(View.VISIBLE);
+        v.setVisibility(View.INVISIBLE);
+    }
+
+    public void editStoreInfo(View v) {
+        EditText storeNameInput = (EditText) findViewById(R.id.storeNameInput);
+        String storeName = storeNameInput.getText().toString();
+        if (storeName.equals("")) {
+            setWarningText(getString(R.string.store_name_empty_warning));
+            return;
+        }
+        setWarningText("");
     }
 
 }
