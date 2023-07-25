@@ -83,7 +83,9 @@
         app:layout_constraintStart_toEndOf="@+id/storeLogo"
         app:layout_constraintTop_toBottomOf="@+id/storeName" />
 
-    <include layout="@layout/back_btn" />
+    <include
+        android:id="@+id/storeBackBtn"
+        layout="@layout/back_btn" />
 
     <Button
         android:id="@+id/addProductBtn"

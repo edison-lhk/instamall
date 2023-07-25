@@ -100,12 +100,15 @@ public class StoreActivity extends AppCompatActivity {
         DatabaseReference ref = db.getReference().child("products");
 
         //ALL THIS JUST TO MAKE CONDITIONAL BUTTON FOR OWNER
+        Button backBtn = findViewById(R.id.storeBackBtn);
         Button addProductBtn = findViewById(R.id.addProductBtn);
         ImageButton editStoreBtn = findViewById(R.id.editStoreBtn);
         if (accountType.equals("owner")) {
+            backBtn.setVisibility(View.INVISIBLE);
             addProductBtn.setVisibility(View.VISIBLE);
             editStoreBtn.setVisibility(View.VISIBLE);
         } else {
+            backBtn.setVisibility(View.VISIBLE);
             addProductBtn.setVisibility(View.INVISIBLE);
             editStoreBtn.setVisibility(View.INVISIBLE);
         };
