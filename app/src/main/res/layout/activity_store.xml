@@ -40,21 +40,23 @@
         app:layout_constraintStart_toEndOf="@+id/storeLogo"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Product Carousel (Featured Products) -->
+
+
+    <!-- Promotion Banner           REMEMBER TO UPDATE IMAGE-->
+
     <EditText
         android:id="@+id/searchBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
         android:hint="@string/store_search_products_text"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/searchProductBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/storeLogo" />
-
-    <!-- Product Carousel (Featured Products) -->
-
-
-    <!-- Promotion Banner           REMEMBER TO UPDATE IMAGE-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productCarousel"
@@ -68,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchBar"
-        app:layout_constraintVertical_bias="0.059"
+        app:layout_constraintVertical_bias="0.06"
         tools:listitem="@layout/list_item_product" />
 
     <TextView
@@ -81,7 +83,9 @@
         app:layout_constraintStart_toEndOf="@+id/storeLogo"
         app:layout_constraintTop_toBottomOf="@+id/storeName" />
 
-    <include layout="@layout/back_btn" />
+    <include
+        android:id="@+id/storeBackBtn"
+        layout="@layout/back_btn" />
 
     <Button
         android:id="@+id/addProductBtn"
@@ -89,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
-        android:onClick="onADD"
+        android:onClick="onAdd"
         android:text="@string/store_add_product_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +102,7 @@
 
     <EditText
         android:id="@+id/storeNameInput"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:textSize="24sp"
@@ -113,13 +117,14 @@
         android:id="@+id/editStoreBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="63dp"
         android:layout_marginEnd="5dp"
         android:background="@null"
         android:onClick="toggleStoreInput"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/storeName"
+        app:layout_constraintStart_toEndOf="@+id/storeNameInput"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_edit_24" />
 
@@ -127,13 +132,14 @@
         android:id="@+id/saveStoreBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="63dp"
         android:layout_marginEnd="5dp"
         android:background="@null"
         android:onClick="editStoreInfo"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/storeName"
+        app:layout_constraintStart_toEndOf="@+id/storeNameInput"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_save_alt_24" />
 
@@ -146,5 +152,18 @@
         android:textColor="@color/warning_red"
         app:layout_constraintBottom_toBottomOf="@+id/storeOwner"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/searchProductBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="5dp"
+        android:onClick="searchProduct"
+        android:text="@string/search_product_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchBar"
+        app:layout_constraintTop_toBottomOf="@+id/storeLogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
