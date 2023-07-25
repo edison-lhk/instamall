@@ -140,6 +140,11 @@ public class LoginActivity extends AppCompatActivity {
                             public void onCancelled(@NonNull DatabaseError error) {}
                         });
                     }
+                    else {
+                        Intent intent = new Intent(LoginActivity.this, ShopperBrowseStoreActivity.class);
+                        startActivity(intent);
+
+                    }
                 }
             }
             @Override
