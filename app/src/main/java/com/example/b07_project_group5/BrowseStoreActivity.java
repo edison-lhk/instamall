@@ -6,15 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -26,49 +26,41 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class ShopperBrowseStoreActivity extends AppCompatActivity {
+public class BrowseStoreActivity extends AppCompatActivity {
     FirebaseDatabase db;
-    Button storeButton1;
-    Button storeButton2;
     DatabaseReference ref;
     LinearLayout StoreLayout;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopper_browse_store);
+        setContentView(R.layout.activity_browse_store);
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
-        // storeButton1 = findViewById(R.id.StoreButton1);
-        // storeButton2 = findViewById(R.id.StoreButton2);
+        Intent intent = getIntent();
+        userId = intent.getStringExtra("userId");
         StoreLayout = findViewById(R.id.StoreLayout);
         ref = db.getReference();
-        // loadImage_Text("store2", storeButton1);
-        // loadImage_Text("store2", storeButton2);
-        /* ref.child("stores").child("store1").child("logo").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String imageUrl = snapshot.getValue(String.class);
-                Glide.with(getApplicationContext()).load(imageUrl).into(storeImage1);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });*/
         ref.child("stores").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 StoreLayout.removeAllViews(); //Delete all buttons
                 //Automatically  generate stores' buttons on Shopper_browse_store.xml
                 for (DataSnapshot storeSnapshot : dataSnapshot.getChildren()) {
-                    String storeName = storeSnapshot.getKey();
-                    //String logoUrl = storeSnapshot.child("logo").getValue(String.class);
-                    //String storeDisplayName = storeSnapshot.child("name").getValue(String.class);
-
-                    Button storeButton = new Button(ShopperBrowseStoreActivity.this);
-                    loadImage_Text(storeName, storeButton);
+                    String storeId = storeSnapshot.getKey();
+                    Button storeButton = new Button(BrowseStoreActivity.this);
+                    loadImage_Text(storeId, storeButton);
                     StoreLayout.addView(storeButton);
+                    storeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(BrowseStoreActivity.this, StoreActivity.class);
+                            intent.putExtra("userId", userId);
+                            intent.putExtra("accountType", "shopper");
+                            intent.putExtra("storeId", storeId);
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
 
@@ -80,8 +72,8 @@ public class ShopperBrowseStoreActivity extends AppCompatActivity {
 
     }
 
-    private void loadImage_Text(String storeName, Button button){
-        ref.child("stores").child(storeName).addValueEventListener(new ValueEventListener() {
+    private void loadImage_Text(String storeId, Button button){
+        ref.child("stores").child(storeId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = snapshot.child("name").getValue(String.class);
@@ -98,9 +90,7 @@ public class ShopperBrowseStoreActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                            }
+                            public void onLoadCleared(@Nullable Drawable placeholder) {}
                         });
             }
 
@@ -108,7 +98,6 @@ public class ShopperBrowseStoreActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.w(TAG, "Failed to read value.", error.toException());
-
             }
         });
 

@@ -8,6 +8,9 @@ public class Product {
     private String image; // Resource ID of the product image
     private String description;
 
+    public Product() {
+    }
+
     public Product(String name, double price, String storeId, int stock, String image, String description) {
         this.name = name;
         this.price = price;

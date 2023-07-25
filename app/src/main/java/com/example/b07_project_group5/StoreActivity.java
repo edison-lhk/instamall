@@ -34,9 +34,10 @@ public class StoreActivity extends AppCompatActivity {
     private RecyclerView recyclerView; // Declare 'recyclerView' as a class-level member
 
     FirebaseDatabase db;
-    String storeId = "";
+    String userId = "";
     String accountType="";
-    String ID = "";
+    String storeId = "";
+    Store store;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +49,38 @@ public class StoreActivity extends AppCompatActivity {
         //Start initializing store information
         Intent intent = getIntent();
         if (intent != null) {
-            String storeName = intent.getStringExtra("storeName");
-            String storeOwner = intent.getStringExtra("storeOwner");
-            String storeLogo = intent.getStringExtra("storeLogo");
-            storeId = intent.getStringExtra("storeId");
+            userId = intent.getStringExtra("userId");
             accountType = intent.getStringExtra("accountType");
-            ID = intent.getStringExtra("ID");
+            storeId = intent.getStringExtra("storeId");
+            DatabaseReference ref = db.getReference();
+            DatabaseReference query = ref.child("stores").child(storeId);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        store = snapshot.getValue(Store.class);
+                        TextView textViewStoreName = findViewById(R.id.storeName);
+                        ImageView imageViewStore = findViewById(R.id.storeLogo);
+                        textViewStoreName.setText(store.name);
+                        Glide.with(StoreActivity.this).load(store.logo).into(imageViewStore);
+                        ref.child("users").child(snapshot.child("userId").getValue().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    String storeOwner = snapshot.child("username").getValue().toString();
+                                    TextView textViewStoreOwner = findViewById(R.id.storeOwner);
+                                    textViewStoreOwner.setText(storeOwner);
+                                }
+                            }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {}
+                        });
+                    }
+                }
 
-            // Now, you can use these values to populate the layout
-            TextView textViewStoreName = findViewById(R.id.storeName);
-            TextView textViewStoreOwner = findViewById(R.id.storeOwner);
-            ImageView imageViewStore = findViewById(R.id.storeLogo);
-
-            textViewStoreName.setText(storeName);
-            textViewStoreOwner.setText(storeOwner);
-            Glide.with(this).load(storeLogo).into(imageViewStore);
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {}
+            });
         }
 
         // Initialize your product list here (e.g., fetch from a server or database)
@@ -132,7 +150,7 @@ public class StoreActivity extends AppCompatActivity {
 
         // Pass the store information to the
         intent.putExtra("storeId", storeId);
-        intent.putExtra("userID", ID);
+        intent.putExtra("userID", userId);
 
         startActivity(intent);
     }

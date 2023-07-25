@@ -92,9 +92,6 @@ public class LoginActivity extends AppCompatActivity {
                         DatabaseReference query2 = ref.child("stores");
                         query2.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                             String storeId = "";
-                            String storeName = "";
-                            String storeOwner = "";
-                            String storeLogo = "";
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (!snapshot.exists()) {
@@ -104,16 +101,10 @@ public class LoginActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             storeId = uniqueKey;
-                                            storeName = store.name;
-                                            storeOwner = username;
-                                            storeLogo = store.logo;
                                             Intent intent = new Intent(LoginActivity.this, StoreActivity.class);
-                                            intent.putExtra("storeId", storeId);
-                                            intent.putExtra("storeName", storeName);
-                                            intent.putExtra("storeOwner", storeOwner);
-                                            intent.putExtra("storeLogo", storeLogo);
+                                            intent.putExtra("userId", userId);
                                             intent.putExtra("accountType", accountType);
-                                            intent.putExtra("ID", userId);
+                                            intent.putExtra("storeId", storeId);
                                             startActivity(intent);
                                         }
                                     });
@@ -121,17 +112,11 @@ public class LoginActivity extends AppCompatActivity {
                                     for (DataSnapshot childSnapshot: snapshot.getChildren()) {
                                         Store store = new Store(userId, childSnapshot.child("name").getValue().toString(), childSnapshot.child("logo").getValue().toString());
                                         storeId = childSnapshot.getKey();
-                                        storeName = store.name;
-                                        storeOwner = username;
-                                        storeLogo = store.logo;
                                     }
                                     Intent intent = new Intent(LoginActivity.this, StoreActivity.class);
-                                    intent.putExtra("storeId", storeId);
-                                    intent.putExtra("storeName", storeName);
-                                    intent.putExtra("storeOwner", storeOwner);
-                                    intent.putExtra("storeLogo", storeLogo);
+                                    intent.putExtra("userId", userId);
                                     intent.putExtra("accountType", accountType);
-                                    intent.putExtra("ID", userId);
+                                    intent.putExtra("storeId", storeId);
                                     startActivity(intent);
                                 }
                             }
@@ -139,11 +124,10 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {}
                         });
-                    }
-                    else {
-                        Intent intent = new Intent(LoginActivity.this, ShopperBrowseStoreActivity.class);
+                    } else {
+                        Intent intent = new Intent(LoginActivity.this, BrowseStoreActivity.class);
+                        intent.putExtra("userId", userId);
                         startActivity(intent);
-
                     }
                 }
             }
