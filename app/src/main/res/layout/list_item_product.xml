@@ -68,18 +68,5 @@
         app:layout_constraintTop_toBottomOf="@+id/productName"
         app:srcCompat="@drawable/baseline_edit_24" />
 
-    <ImageButton
-        android:id="@+id/saveProductBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:background="@null"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/productPrice"
-        app:layout_constraintTop_toBottomOf="@+id/productName"
-        app:srcCompat="@drawable/baseline_save_alt_24" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

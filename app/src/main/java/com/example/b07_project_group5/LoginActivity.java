@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (!snapshot.exists()) {
-                                    Store store = new Store(userId, username + "'s Store", "https://firebasestorage.googleapis.com/v0/b/testing-7a8a5.appspot.com/o/StoreLogo%2Fstore_logo.png?alt=media&token=2660325b-c4cd-4659-bf6b-60239d06f84b");
+                                    Store store = new Store(userId, username.substring(0, 4) + "'s Store", "https://firebasestorage.googleapis.com/v0/b/testing-7a8a5.appspot.com/o/StoreLogo%2Fstore_logo.png?alt=media&token=2660325b-c4cd-4659-bf6b-60239d06f84b");
                                     String uniqueKey = ref.push().getKey();
                                     query2.child(uniqueKey).setValue(store).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override

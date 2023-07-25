@@ -18,14 +18,16 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+    private String storeId;
+    private String accountType;
     private List<Product> productList;
     private Context context; // Add a Context variable to use Glide
-    private String accountType;
 
     // Constructor to pass the list of products
-    public ProductAdapter(List<Product> productList, String accountType) {
+    public ProductAdapter(List<Product> productList, String accountType, String storeId) {
         this.productList = productList;
         this.accountType = accountType;
+        this.storeId = storeId;
     }
 
 
@@ -65,13 +67,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 Intent intent = new Intent(view.getContext(), ProductDetailsActivity.class);
 
                 // Pass the product information to the ProductPage activity
-                intent.putExtra("productName", product.getName());
-                intent.putExtra("productPrice", product.getPrice());
-                intent.putExtra("productImage", product.getImage());
-                intent.putExtra("productDescription", product.getDescription());
-
-                //maybe pass other product information if necessary to build product page?
-
+                intent.putExtra("name", product.getName());
+                intent.putExtra("price", product.getPrice());
+                intent.putExtra("image", product.getImage());
+                intent.putExtra("description", product.getDescription());
 
                 // Start the ProductPage activity with the intent
                 view.getContext().startActivity(intent);
@@ -81,8 +80,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.editProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setVisibility(View.INVISIBLE);
-                holder.saveProductBtn.setVisibility(View.VISIBLE);
+                Intent intent = new Intent(v.getContext(), AddOrEditProductActivity.class);
+                intent.putExtra("storeId", storeId);
+                intent.putExtra("name", product.getName());
+                intent.putExtra("price", product.getPrice());
+                intent.putExtra("stock", product.getStock());
+                intent.putExtra("image", product.getImage());
+                intent.putExtra("description", product.getDescription());
+                v.getContext().startActivity(intent);
             }
         });
     }
@@ -99,7 +104,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         TextView stockTextView;
         ImageView productImageList;
         ImageButton editProductBtn;
-        ImageButton saveProductBtn;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,7 +112,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             priceTextView = itemView.findViewById(R.id.productPrice);
             stockTextView = itemView.findViewById(R.id.productStock);
             editProductBtn = itemView.findViewById(R.id.editProductBtn);
-            saveProductBtn = itemView.findViewById(R.id.saveProductBtn);
         }
     }
 }

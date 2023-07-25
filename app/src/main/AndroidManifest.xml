@@ -18,7 +18,7 @@
             android:name=".BrowseStoreActivity"
             android:exported="false" />
         <activity
-            android:name=".AddProductActivity"
+            android:name=".AddOrEditProductActivity"
             android:exported="false" />
         <activity
             android:name=".ProductDetailsActivity"

@@ -1,9 +1,9 @@
 package com.example.b07_project_group5;
 
 public class Product {
+    private String storeId;
     private String name;
     private double price;
-    private String storeId;
     private int stock;
     private String image; // Resource ID of the product image
     private String description;
@@ -11,14 +11,18 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, double price, String storeId, int stock, String image, String description) {
+    public Product(String storeId, String name, double price, int stock, String image, String description) {
+        this.storeId = storeId;
         this.name = name;
         this.price = price;
-        this.storeId = storeId;
         this.stock = stock;
         this.image = image;
         this.description = description;
     }
+
+    public String getStoreId() {return storeId;}
+
+    public void setStoreId(String storeId) { this.storeId = storeId; }
 
     // Getters and setters for the product attributes
     public String getName() {
@@ -44,10 +48,6 @@ public class Product {
     public void setImage(String image) {
         this.image = image;
     }
-
-    public String getStoreId() {return storeId;}
-
-    public void setStoreId(String storeId) { this.storeId = storeId; }
 
     public int getStock() { return stock; }
 

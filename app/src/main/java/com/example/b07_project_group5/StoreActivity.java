@@ -87,16 +87,16 @@ public class StoreActivity extends AppCompatActivity {
         productList = new ArrayList<>();
 
         recyclerView = findViewById(R.id.productCarousel);
-        ProductAdapter adapter = new ProductAdapter(productList, accountType);
+        ProductAdapter adapter = new ProductAdapter(productList, accountType, storeId);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        readData(productList); //data
+        readData(productList, ""); //data
         adapter.notifyDataSetChanged(); //update
     }
 
 
-    public void readData(List<Product> productList) {
+    public void readData(List<Product> productList, String searchInput) {
         DatabaseReference ref = db.getReference().child("products");
 
         //ALL THIS JUST TO MAKE CONDITIONAL BUTTON FOR OWNER
@@ -116,14 +116,15 @@ public class StoreActivity extends AppCompatActivity {
                     productList.clear(); // Clear the products list to avoid duplicate entries
                     // Loop through the data snapshot and add products to the list
                     for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
-                        String productName = productSnapshot.child("name").getValue().toString();
-                        double productPrice = Double.parseDouble(productSnapshot.child("price").getValue().toString());
-                        String productImage = productSnapshot.child("image").getValue().toString();
-                        String storeId = productSnapshot.child("storeId").getValue().toString();
-                        int stock = Integer.parseInt(productSnapshot.child("stock").getValue().toString());
-                        String productDescription = productSnapshot.child("description").getValue().toString();
-
-                        productList.add(new Product(productName, productPrice, storeId, stock, productImage, productDescription)); //USE DEFAULT PRODUCT PHOTO for now
+                        if (productSnapshot.child("name").getValue().toString().toLowerCase().contains(searchInput.toLowerCase())) {
+                            String storeId = productSnapshot.child("storeId").getValue().toString();
+                            String name = productSnapshot.child("name").getValue().toString();
+                            double price = Double.parseDouble(productSnapshot.child("price").getValue().toString());
+                            int stock = Integer.parseInt(productSnapshot.child("stock").getValue().toString());
+                            String image = productSnapshot.child("image").getValue().toString();
+                            String description = productSnapshot.child("description").getValue().toString();
+                            productList.add(new Product(storeId, name, price, stock, image, description)); //USE DEFAULT PRODUCT PHOTO for now
+                        }
                     }
                     recyclerView.getAdapter().notifyDataSetChanged();  // Notify the adapter about the data change
                 } else {
@@ -145,13 +146,9 @@ public class StoreActivity extends AppCompatActivity {
 
     private static final int ADD_PRODUCT_REQUEST_CODE = 1;
 
-    public void onADD(View view){
-        Intent intent = new Intent(this, AddProductActivity.class);
-
-        // Pass the store information to the
+    public void onAdd(View view){
+        Intent intent = new Intent(this, AddOrEditProductActivity.class);
         intent.putExtra("storeId", storeId);
-        intent.putExtra("userID", userId);
-
         startActivity(intent);
     }
 
@@ -161,7 +158,7 @@ public class StoreActivity extends AppCompatActivity {
         super.onResume();
         // Refresh the product list whenever the activity resumes
         productList.clear(); // Clear the list
-        readData(productList); // Fetch the data again from the database
+        readData(productList, ""); // Fetch the data again from the database
         recyclerView.getAdapter().notifyDataSetChanged(); // Notify the adapter about the data change
     }
 
@@ -207,4 +204,10 @@ public class StoreActivity extends AppCompatActivity {
         });
     }
 
+    public void searchProduct(View v) {
+        EditText searchInput = (EditText) findViewById(R.id.searchBar);
+        readData(productList, searchInput.getText().toString());
+        recyclerView.getAdapter().notifyDataSetChanged();
+        searchInput.clearFocus();
+    }
 }
