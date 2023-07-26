@@ -140,8 +140,10 @@ public class LoginActivity extends AppCompatActivity {
                             public void onCancelled(@NonNull DatabaseError error) {}
                         });
                     }
+                    //Shopper Login
                     else {
                         Intent intent = new Intent(LoginActivity.this, ShopperBrowseStoreActivity.class);
+                        intent.putExtra("accountType", accountType);
                         startActivity(intent);
 
                     }

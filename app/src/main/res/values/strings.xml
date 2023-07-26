@@ -34,4 +34,6 @@
     <string name="add_product_successful_text">New product is successfully added!</string>
     <string name="store_name_empty_warning">Store name cannot be empty</string>
     <string name="change_store_info_successful_text">Store Information is successfully changed!</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_shoper_store">ShoperStoreActivity</string>
 </resources>

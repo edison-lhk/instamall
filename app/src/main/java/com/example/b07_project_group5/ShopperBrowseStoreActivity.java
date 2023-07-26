@@ -5,12 +5,15 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.runtime.snapshots.Snapshot;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -38,24 +41,9 @@ public class ShopperBrowseStoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopper_browse_store);
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
-        // storeButton1 = findViewById(R.id.StoreButton1);
-        // storeButton2 = findViewById(R.id.StoreButton2);
         StoreLayout = findViewById(R.id.StoreLayout);
         ref = db.getReference();
-        // loadImage_Text("store2", storeButton1);
-        // loadImage_Text("store2", storeButton2);
-        /* ref.child("stores").child("store1").child("logo").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String imageUrl = snapshot.getValue(String.class);
-                Glide.with(getApplicationContext()).load(imageUrl).into(storeImage1);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });*/
         ref.child("stores").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -63,9 +51,6 @@ public class ShopperBrowseStoreActivity extends AppCompatActivity {
                 //Automatically  generate stores' buttons on Shopper_browse_store.xml
                 for (DataSnapshot storeSnapshot : dataSnapshot.getChildren()) {
                     String storeName = storeSnapshot.getKey();
-                    //String logoUrl = storeSnapshot.child("logo").getValue(String.class);
-                    //String storeDisplayName = storeSnapshot.child("name").getValue(String.class);
-
                     Button storeButton = new Button(ShopperBrowseStoreActivity.this);
                     loadImage_Text(storeName, storeButton);
                     StoreLayout.addView(storeButton);
@@ -82,19 +67,55 @@ public class ShopperBrowseStoreActivity extends AppCompatActivity {
 
     private void loadImage_Text(String storeName, Button button){
         ref.child("stores").child(storeName).addValueEventListener(new ValueEventListener() {
+            String storeId = "";
+            String storeName = "";
+            String storeOwner = "";
+            String storeLogo = "";
+            String userId = "";
+            String accountType = "";
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name = snapshot.child("name").getValue(String.class);
-                String imageUrl = snapshot.child("logo").getValue(String.class);
+                Intent intent = getIntent(); //get intent from Login Shopper part
+                userId = snapshot.child("userId").getValue(String.class);
+                accountType = intent.getStringExtra("accountType");
+                storeName = snapshot.child("name").getValue(String.class);
+                storeLogo = snapshot.child("logo").getValue(String.class);
+                storeId = snapshot.getKey();
+                //get StoreOwnerName by userid
+                ref.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot childsnapshot) {
+                        storeOwner = childsnapshot.child("username").getValue(String.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.w(TAG, "Failed to find username by userId", error.toException());
+                    }
+                });
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(ShopperBrowseStoreActivity.this, ShopperStoreActivity.class);
+                        intent.putExtra("storeId", storeId);
+                        intent.putExtra("storeName", storeName);
+                        intent.putExtra("storeOwner", storeOwner);
+                        intent.putExtra("storeLogo", storeLogo);
+                        intent.putExtra("accountType", accountType);
+                        intent.putExtra("ID", userId);
+                        startActivity(intent);
+                    }
+                });
                 Glide.with(getApplicationContext())
                         .asBitmap()
-                        .load(imageUrl)
+                        .load(storeLogo)
                         .into(new CustomTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                 Drawable logo = new BitmapDrawable(getResources(), resource);
                                 button.setCompoundDrawablesWithIntrinsicBounds(logo, null, null, null);
-                                button.setText(name);
+                                button.setText(storeName);
                             }
 
                             @Override
