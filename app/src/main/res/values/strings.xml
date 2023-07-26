@@ -25,7 +25,7 @@
     <string name="store_name_placeholder_text">My Store</string>
     <string name="store_owner_placeholder_text">Owner Name</string>
     <string name="store_search_products_text">Search products</string>
-    <string name="store_add_product_text">ADD</string>
+    <string name="store_add_product_text">Add Product</string>
     <string name="back_btn_text">Back</string>
     <string name="product_name_placeholder_text">Product Name</string>
     <string name="product_price_placeholder_text">Product Price</string>

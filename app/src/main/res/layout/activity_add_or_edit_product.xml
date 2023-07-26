@@ -5,59 +5,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/editName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="25dp"
+        android:layout_marginEnd="16dp"
         android:hint="Enter Product Name"
-        app:layout_constraintTop_toBottomOf="@+id/addProductHeader"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addProductHeader" />
 
     <EditText
         android:id="@+id/editPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:hint="Enter Product Price"
-        app:layout_constraintTop_toBottomOf="@+id/editName"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editName" />
 
     <EditText
         android:id="@+id/editStock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:hint="Enter Product Stock"
-        app:layout_constraintTop_toBottomOf="@+id/editPrice"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPrice" />
 
     <EditText
         android:id="@+id/editImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:hint="Enter Product Image URL"
-        app:layout_constraintTop_toBottomOf="@+id/editStock"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editStock" />
 
     <EditText
         android:id="@+id/editDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:hint="Enter Product Description"
-        app:layout_constraintTop_toBottomOf="@+id/editImage"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editImage" />
 
     <Button
         android:id="@+id/buttonSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -78,6 +94,7 @@
         android:id="@+id/addProductHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="60dp"
         android:text="@string/add_product_header_text"
         android:textSize="24sp"

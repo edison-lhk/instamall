@@ -57,7 +57,7 @@ public class BrowseStoreActivity extends AppCompatActivity {
         StoreAdapter adapter = new StoreAdapter(userId, accountType, storeList);
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getApplicationContext());
         layoutManager.setFlexDirection(FlexDirection.ROW);
-        layoutManager.setJustifyContent(JustifyContent.CENTER);
+        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         readData(storeList);
