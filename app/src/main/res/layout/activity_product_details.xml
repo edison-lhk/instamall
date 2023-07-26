@@ -64,31 +64,11 @@
         layout="@layout/back_btn" />
 
     <Button
-<<<<<<< HEAD
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button5" />
-
-    <Button
-        android:id="@+id/addToCart"
-=======
         android:id="@+id/button7"
->>>>>>> f4a9b73d1cd859016e97708b570ce8a499ac5494
         android:layout_width="416dp"
         android:layout_height="62dp"
-        android:onClick="addToCart"
         android:text="Add to Cart"
+        android:onClick="addToCart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
