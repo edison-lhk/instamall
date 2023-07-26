@@ -14,6 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -21,12 +26,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private String accountType;
     private String storeId;
     private List<Product> productList;
+    private FirebaseDatabase db;
 
     // Constructor to pass the list of products
     public ProductAdapter(String accountType, String storeId, List<Product> productList) {
         this.accountType = accountType;
         this.storeId = storeId;
         this.productList = productList;
+        this.db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
     }
 
 
@@ -62,17 +69,25 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Create an Intent to navigate to the ProductPage activity
-                Intent intent = new Intent(view.getContext(), ProductDetailsActivity.class);
+                DatabaseReference ref = db.getReference();
+                ref.child("products").orderByChild("storeId").equalTo(storeId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot productSnapshot: snapshot.getChildren()) {
+                                if (product.getName().equals(productSnapshot.child("name").getValue().toString())) {
+                                    String productId = productSnapshot.getKey();
+                                    Intent intent = new Intent(view.getContext(), ProductDetailsActivity.class);
+                                    intent.putExtra("productId", productId);
+                                    view.getContext().startActivity(intent);
+                                }
+                            }
+                        }
+                    }
 
-                // Pass the product information to the ProductPage activity
-                intent.putExtra("name", product.getName());
-                intent.putExtra("price", product.getPrice());
-                intent.putExtra("image", product.getImage());
-                intent.putExtra("description", product.getDescription());
-
-                // Start the ProductPage activity with the intent
-                view.getContext().startActivity(intent);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
             }
         });
 

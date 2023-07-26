@@ -11,9 +11,9 @@
 
     <ImageView
         android:id="@+id/imageViewProduct"
-        android:layout_width="371dp"
+        android:layout_width="339dp"
         android:layout_height="374dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="64dp"
         android:scaleType="centerCrop"
         android:src="@drawable/default_image"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,9 @@
         android:id="@+id/textViewProductDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:paddingLeft="10dp"
         android:text="BRAND/DESCRIPTION"
         android:textSize="16sp"
@@ -64,10 +66,13 @@
         layout="@layout/back_btn" />
 
     <Button
-        android:id="@+id/button7"
-        android:layout_width="416dp"
+        android:id="@+id/addToCartBtn"
+        android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:text="Add to Cart"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="15dp"
+        android:text="@string/add_to_cart_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

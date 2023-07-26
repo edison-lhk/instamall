@@ -47,4 +47,5 @@
     <string name="shopper_nav_menu_orders_text">Orders</string>
     <string name="shopper_nav_menu_logout_text">Logout</string>
     <string name="logout_successful_text">Logout Successful!</string>
+    <string name="add_to_cart_text">Add to Cart</string>
 </resources>
