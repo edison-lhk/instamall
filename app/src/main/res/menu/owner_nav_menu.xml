@@ -8,4 +8,8 @@
         android:id="@+id/owner_nav_menu_orders"
         android:title="@string/owner_nav_menu_orders_text"
         android:icon="@drawable/baseline_storage_24"/>
+    <item
+        android:id="@+id/owner_nav_menu_logout"
+        android:title="@string/owner_nav_menu_logout_text"
+        android:icon="@drawable/baseline_logout_24"/>
 </menu>

@@ -113,6 +113,12 @@ public class StoreActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                     return true;
+                } else if (itemId == R.id.owner_nav_menu_logout) {
+                    Toast.makeText(StoreActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(StoreActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
                 }
                 return false;
             }

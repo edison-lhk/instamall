@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -80,6 +81,12 @@ public class BrowseStoreActivity extends AppCompatActivity {
                     Intent intent = new Intent(BrowseStoreActivity.this, LoginActivity.class);
                     intent.putExtra("userId", userId);
                     intent.putExtra("accountType", accountType);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (itemId == R.id.shopper_nav_menu_logout) {
+                    Toast.makeText(BrowseStoreActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(BrowseStoreActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                     return true;
