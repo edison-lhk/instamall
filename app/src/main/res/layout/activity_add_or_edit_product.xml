@@ -12,9 +12,9 @@
         android:id="@+id/editName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="25dp"
         android:hint="Enter Product Name"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addProductHeader"
         tools:layout_editor_absoluteX="16dp" />
 
     <EditText
@@ -44,6 +44,15 @@
         app:layout_constraintTop_toBottomOf="@+id/editStock"
         tools:layout_editor_absoluteX="16dp" />
 
+    <EditText
+        android:id="@+id/editDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Enter Product Description"
+        app:layout_constraintTop_toBottomOf="@+id/editImage"
+        tools:layout_editor_absoluteX="16dp" />
+
     <Button
         android:id="@+id/buttonSubmit"
         android:layout_width="wrap_content"
@@ -63,6 +72,17 @@
         android:layout_marginTop="10dp"
         android:textColor="@color/warning_red"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editImage" />
+        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+
+    <TextView
+        android:id="@+id/addProductHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="@string/add_product_header_text"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

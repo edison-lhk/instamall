@@ -30,8 +30,13 @@
     <string name="product_name_placeholder_text">Product Name</string>
     <string name="product_price_placeholder_text">Product Price</string>
     <string name="product_stock_placeholder_text">Product Stock</string>
+    <string name="search_product_text">Search</string>
+    <string name="add_product_header_text">Add Product</string>
+    <string name="edit_product_header_text">Edit Product</string>
+    <string name="add_product_empty_fields_warning">Please fill in all the fields</string>
     <string name="product_already_exists_warning">Product has already existed</string>
     <string name="add_product_successful_text">New product is successfully added!</string>
+    <string name="edit_product_successful_text">Product is successfully edited!</string>
     <string name="store_name_empty_warning">Store name cannot be empty</string>
     <string name="change_store_info_successful_text">Store Information is successfully changed!</string>
 </resources>
