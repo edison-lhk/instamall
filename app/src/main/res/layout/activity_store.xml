@@ -71,7 +71,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchBar"
         app:layout_constraintVertical_bias="0.06"
-        tools:listitem="@layout/list_item_product" />
+        tools:listitem="@layout/product_card" />
 
     <TextView
         android:id="@+id/storeOwner"
