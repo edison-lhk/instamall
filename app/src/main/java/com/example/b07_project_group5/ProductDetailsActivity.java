@@ -34,29 +34,19 @@ public class ProductDetailsActivity extends AppCompatActivity {
         // Retrieve the data sent from the ProductAdapter using getExtra()
         Intent intent = getIntent();
         if (intent != null) {
-            String name = intent.getStringExtra("name");
-            String price = "$" + intent.getDoubleExtra("price", 0.0);
-            String image = intent.getStringExtra("image");
-            String description = intent.getStringExtra("description");
-
+            String productName = intent.getStringExtra("productName");
+            String productPrice = "$" + intent.getDoubleExtra("productPrice", 0.0);
+            String productImage = intent.getStringExtra("productImage");
 
             // use these values to populate the ProductPage layout
             TextView textViewProductName = findViewById(R.id.textViewProductName);
             TextView textViewProductPrice = findViewById(R.id.textViewProductPrice);
             ImageView imageViewProduct = findViewById(R.id.imageViewProduct);
-            TextView textViewDescription = findViewById(R.id.textViewProductDescription);
 
-            Glide.with(this).load(image).into(imageViewProduct);
+            Glide.with(this).load(productImage).into(imageViewProduct);
 
-<<<<<<< HEAD
             textViewProductName.setText(productName);
             textViewProductPrice.setText(String.valueOf(productPrice));
-=======
-            textViewDescription.setText(description);
-            textViewProductName.setText(name);
-            textViewProductPrice.setText(String.valueOf(price));
-
->>>>>>> f4a9b73d1cd859016e97708b570ce8a499ac5494
         }
     }
 
