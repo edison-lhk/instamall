@@ -39,4 +39,9 @@
     <string name="edit_product_successful_text">Product is successfully edited!</string>
     <string name="store_name_empty_warning">Store name cannot be empty</string>
     <string name="change_store_info_successful_text">Store Information is successfully changed!</string>
+    <string name="owner_nav_menu_store_text">Store</string>
+    <string name="owner_nav_menu_orders_text">Orders</string>
+    <string name="shopper_nav_menu_store_text">Store</string>
+    <string name="shopper_nav_menu_cart_text">Cart</string>
+    <string name="shopper_nav_menu_orders_text">Orders</string>
 </resources>
