@@ -2,6 +2,8 @@ package com.example.b07_project_group5;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -96,6 +99,31 @@ public class StoreActivity extends AppCompatActivity {
         readData(productList, ""); //data
         adapter.notifyDataSetChanged(); //update
 
+        Button backBtn = findViewById(R.id.storeBackBtn);
+        Button addProductBtn = findViewById(R.id.addProductBtn);
+        ImageButton editStoreBtn = findViewById(R.id.editStoreBtn);
+        RecyclerView productCarousel = findViewById(R.id.productCarousel);
+        if (accountType.equals("owner")) {
+            backBtn.setVisibility(View.INVISIBLE);
+            addProductBtn.setVisibility(View.VISIBLE);
+            editStoreBtn.setVisibility(View.VISIBLE);
+        } else {
+            backBtn.setVisibility(View.VISIBLE);
+            addProductBtn.setVisibility(View.INVISIBLE);
+            editStoreBtn.setVisibility(View.INVISIBLE);
+            ConstraintSet set = new ConstraintSet();
+            ConstraintLayout layout = findViewById(R.id.store_page_container);
+            set.clone(layout);
+            set.clear(R.id.productCarousel, ConstraintSet.TOP);
+            set.connect(R.id.productCarousel, ConstraintSet.TOP, R.id.searchBar, ConstraintSet.BOTTOM, 35);
+            set.applyTo(layout);
+            float scale = this.getResources().getDisplayMetrics().density;
+            int pixels = (int) (450 * scale + 0.5f);
+            ViewGroup.LayoutParams layoutParams = productCarousel.getLayoutParams();
+            layoutParams.height = pixels;
+            productCarousel.setLayoutParams(layoutParams);
+        };
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.owner_nav_menu);
         if (!accountType.equals("owner")) { bottomNavigationView.setVisibility(View.INVISIBLE); }
         bottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
@@ -128,20 +156,6 @@ public class StoreActivity extends AppCompatActivity {
 
     public void readData(List<Product> productList, String searchInput) {
         DatabaseReference ref = db.getReference().child("products");
-
-        //ALL THIS JUST TO MAKE CONDITIONAL BUTTON FOR OWNER
-        Button backBtn = findViewById(R.id.storeBackBtn);
-        Button addProductBtn = findViewById(R.id.addProductBtn);
-        ImageButton editStoreBtn = findViewById(R.id.editStoreBtn);
-        if (accountType.equals("owner")) {
-            backBtn.setVisibility(View.INVISIBLE);
-            addProductBtn.setVisibility(View.VISIBLE);
-            editStoreBtn.setVisibility(View.VISIBLE);
-        } else {
-            backBtn.setVisibility(View.VISIBLE);
-            addProductBtn.setVisibility(View.INVISIBLE);
-            editStoreBtn.setVisibility(View.INVISIBLE);
-        };
         ref.orderByChild("storeId").equalTo(storeId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
