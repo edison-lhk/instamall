@@ -85,9 +85,10 @@
         app:layout_constraintEnd_toStartOf="@+id/button5" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/addToCart"
         android:layout_width="416dp"
         android:layout_height="62dp"
+        android:onClick="addToCart"
         android:text="Add to Cart"
         app:layout_constraintBottom_toTopOf="@+id/button6"
         app:layout_constraintEnd_toEndOf="parent"
