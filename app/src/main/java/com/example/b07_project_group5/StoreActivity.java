@@ -30,14 +30,13 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class StoreActivity extends AppCompatActivity {
-    private List<Product> productList;
-    private RecyclerView recyclerView; // Declare 'recyclerView' as a class-level member
-
-    FirebaseDatabase db;
     String userId = "";
     String accountType="";
     String storeId = "";
     Store store;
+    FirebaseDatabase db;
+    private List<Product> productList;
+    private RecyclerView recyclerView; // Declare 'recyclerView' as a class-level member
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +86,7 @@ public class StoreActivity extends AppCompatActivity {
         productList = new ArrayList<>();
 
         recyclerView = findViewById(R.id.productCarousel);
-        ProductAdapter adapter = new ProductAdapter(productList, accountType, storeId);
+        ProductAdapter adapter = new ProductAdapter(accountType, storeId, productList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -146,8 +145,6 @@ public class StoreActivity extends AppCompatActivity {
     public void onBackButtonClicked(View view) {
         finish(); // This will navigate back to the previous activity
     }
-
-    private static final int ADD_PRODUCT_REQUEST_CODE = 1;
 
     public void onAdd(View view){
         Intent intent = new Intent(this, AddOrEditProductActivity.class);

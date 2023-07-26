@@ -18,16 +18,15 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
-    private String storeId;
     private String accountType;
+    private String storeId;
     private List<Product> productList;
-    private Context context; // Add a Context variable to use Glide
 
     // Constructor to pass the list of products
-    public ProductAdapter(List<Product> productList, String accountType, String storeId) {
-        this.productList = productList;
+    public ProductAdapter(String accountType, String storeId, List<Product> productList) {
         this.accountType = accountType;
         this.storeId = storeId;
+        this.productList = productList;
     }
 
 
@@ -36,7 +35,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_product, parent, false);
+                .inflate(R.layout.product_card, parent, false);
         return new ProductViewHolder(itemView);
     }
 
