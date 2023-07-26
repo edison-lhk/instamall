@@ -97,6 +97,7 @@ public class StoreActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged(); //update
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.owner_nav_menu);
+        if (!accountType.equals("owner")) { bottomNavigationView.setVisibility(View.INVISIBLE); }
         bottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

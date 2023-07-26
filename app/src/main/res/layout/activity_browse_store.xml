@@ -35,4 +35,18 @@
         app:layout_constraintVertical_bias="0.06"
         tools:listitem="@layout/store_card" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/shopper_nav_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/selector"
+        app:itemRippleColor="@android:color/transparent"
+        app:itemTextColor="@drawable/selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/shopper_nav_menu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
