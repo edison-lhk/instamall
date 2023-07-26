@@ -11,6 +11,8 @@
     android:insetBottom="0dp"
     android:minWidth="0dp"
     android:minHeight="0dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="16dp"
     android:onClick="onBackButtonClicked"
     android:padding="0dp"
     android:text="@string/back_btn_text"

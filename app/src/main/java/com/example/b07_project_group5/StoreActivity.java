@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,8 @@ import java.util.List;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -92,6 +95,27 @@ public class StoreActivity extends AppCompatActivity {
 
         readData(productList, ""); //data
         adapter.notifyDataSetChanged(); //update
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.owner_nav_menu);
+        bottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.owner_nav_menu_store) {
+                    return true;
+                } else if (itemId == R.id.owner_nav_menu_orders) {
+                    Intent intent = new Intent(StoreActivity.this, LoginActivity.class);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("accountType", accountType);
+                    intent.putExtra("storeId", storeId);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
 
