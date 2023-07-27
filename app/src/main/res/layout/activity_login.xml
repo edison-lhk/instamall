@@ -5,7 +5,6 @@
     android:id="@+id/login_page_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/beige"
     tools:context=".LoginActivity">
 
     <TextView
@@ -51,15 +50,15 @@
         app:layout_constraintTop_toBottomOf="@+id/login_type_input_container" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/login_email_input_container"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        app:startIconDrawable="@drawable/baseline_email_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_name">
+        app:layout_constraintTop_toBottomOf="@+id/app_name"
+        app:startIconDrawable="@drawable/baseline_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_email_input"
@@ -71,15 +70,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/login_password_input_container"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:startIconDrawable="@drawable/baseline_lock_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_email_input_container">
+        app:layout_constraintTop_toBottomOf="@+id/login_email_input_container"
+        app:startIconDrawable="@drawable/baseline_lock_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_password_input"
@@ -91,16 +90,16 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:id="@+id/login_type_input_container"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:hint="@string/user_type_input_text"
-        app:startIconDrawable="@drawable/baseline_person_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_password_input_container">
+        app:layout_constraintTop_toBottomOf="@+id/login_password_input_container"
+        app:startIconDrawable="@drawable/baseline_person_24">
 
         <AutoCompleteTextView
             android:id="@+id/login_type_input"

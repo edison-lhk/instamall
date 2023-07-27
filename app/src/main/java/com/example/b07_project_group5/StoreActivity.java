@@ -2,13 +2,17 @@ package com.example.b07_project_group5;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,6 +26,8 @@ import java.util.List;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class StoreActivity extends AppCompatActivity {
+    String previousActivity = "";
     String userId = "";
     String accountType="";
     String storeId = "";
@@ -48,6 +55,7 @@ public class StoreActivity extends AppCompatActivity {
         //Start initializing store information
         Intent intent = getIntent();
         if (intent != null) {
+            previousActivity = intent.getStringExtra("previousActivity");
             userId = intent.getStringExtra("userId");
             accountType = intent.getStringExtra("accountType");
             storeId = intent.getStringExtra("storeId");
@@ -86,22 +94,17 @@ public class StoreActivity extends AppCompatActivity {
         productList = new ArrayList<>();
 
         recyclerView = findViewById(R.id.productCarousel);
-        ProductAdapter adapter = new ProductAdapter(accountType, storeId, productList);
+        ProductAdapter adapter = new ProductAdapter(userId, accountType, storeId, productList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
         readData(productList, ""); //data
         adapter.notifyDataSetChanged(); //update
-    }
 
-
-    public void readData(List<Product> productList, String searchInput) {
-        DatabaseReference ref = db.getReference().child("products");
-
-        //ALL THIS JUST TO MAKE CONDITIONAL BUTTON FOR OWNER
         Button backBtn = findViewById(R.id.storeBackBtn);
         Button addProductBtn = findViewById(R.id.addProductBtn);
         ImageButton editStoreBtn = findViewById(R.id.editStoreBtn);
+        RecyclerView productCarousel = findViewById(R.id.productCarousel);
         if (accountType.equals("owner")) {
             backBtn.setVisibility(View.INVISIBLE);
             addProductBtn.setVisibility(View.VISIBLE);
@@ -110,7 +113,89 @@ public class StoreActivity extends AppCompatActivity {
             backBtn.setVisibility(View.VISIBLE);
             addProductBtn.setVisibility(View.INVISIBLE);
             editStoreBtn.setVisibility(View.INVISIBLE);
+            ConstraintSet set = new ConstraintSet();
+            ConstraintLayout layout = findViewById(R.id.store_page_container);
+            set.clone(layout);
+            set.clear(R.id.productCarousel, ConstraintSet.TOP);
+            set.connect(R.id.productCarousel, ConstraintSet.TOP, R.id.searchBar, ConstraintSet.BOTTOM, 35);
+            set.applyTo(layout);
+            float scale = this.getResources().getDisplayMetrics().density;
+            int pixels = (int) (450 * scale + 0.5f);
+            ViewGroup.LayoutParams layoutParams = productCarousel.getLayoutParams();
+            layoutParams.height = pixels;
+            productCarousel.setLayoutParams(layoutParams);
         };
+
+        BottomNavigationView ownerBottomNavigationView = findViewById(R.id.owner_nav_menu);
+        if (!accountType.equals("owner")) { ownerBottomNavigationView.setVisibility(View.INVISIBLE); }
+        ownerBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
+        ownerBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.owner_nav_menu_store) {
+                    return true;
+                } else if (itemId == R.id.owner_nav_menu_orders) {
+                    Intent intent = new Intent(StoreActivity.this, LoginActivity.class);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("accountType", accountType);
+                    intent.putExtra("storeId", storeId);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (itemId == R.id.owner_nav_menu_logout) {
+                    Toast.makeText(StoreActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(StoreActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        BottomNavigationView shopperBottomNavigationView = findViewById(R.id.shopper_nav_menu);
+        if (!accountType.equals("shopper")) { shopperBottomNavigationView.setVisibility(View.INVISIBLE); }
+        if (previousActivity == null) {
+            shopperBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
+        } else if (previousActivity.equals("BrowseStoreActivity")) {
+            shopperBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
+        }
+        shopperBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.shopper_nav_menu_store) {
+                    return true;
+                } else if (itemId == R.id.shopper_nav_menu_cart) {
+                    Intent intent = new Intent(StoreActivity.this, LoginActivity.class);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("accountType", accountType);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (itemId == R.id.shopper_nav_menu_orders) {
+                    Intent intent = new Intent(StoreActivity.this, LoginActivity.class);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("accountType", accountType);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (itemId == R.id.shopper_nav_menu_logout) {
+                    Toast.makeText(StoreActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(StoreActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+
+    public void readData(List<Product> productList, String searchInput) {
+        DatabaseReference ref = db.getReference().child("products");
         ref.orderByChild("storeId").equalTo(storeId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -148,6 +233,9 @@ public class StoreActivity extends AppCompatActivity {
 
     public void onAdd(View view){
         Intent intent = new Intent(this, AddOrEditProductActivity.class);
+        intent.putExtra("previousActivity", "StoreActivity");
+        intent.putExtra("userId", userId);
+        intent.putExtra("accountType", accountType);
         intent.putExtra("storeId", storeId);
         startActivity(intent);
     }

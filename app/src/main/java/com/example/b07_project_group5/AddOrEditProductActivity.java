@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,8 @@ import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class AddOrEditProductActivity extends AppCompatActivity {
+    String previousActivity;
+    String userId;
+    String accountType;
     String storeId;
     String productId;
     String name;
@@ -41,6 +47,9 @@ public class AddOrEditProductActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
+            this.previousActivity = intent.getStringExtra("previousActivity");
+            this.userId = intent.getStringExtra("userId");
+            this.accountType = intent.getStringExtra("accountType");
             this.storeId = intent.getStringExtra("storeId");
             this.name = intent.getStringExtra("name");
             this.price = intent.getDoubleExtra("price", 0);
@@ -139,6 +148,33 @@ public class AddOrEditProductActivity extends AppCompatActivity {
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {}
                 });
+            }
+        });
+
+        BottomNavigationView ownerBottomNavigationView = findViewById(R.id.owner_nav_menu);
+        if (previousActivity.equals("StoreActivity")) { ownerBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store); }
+        ownerBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.owner_nav_menu_store) {
+                    return true;
+                } else if (itemId == R.id.owner_nav_menu_orders) {
+                    Intent intent = new Intent(AddOrEditProductActivity.this, LoginActivity.class);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("accountType", accountType);
+                    intent.putExtra("storeId", storeId);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (itemId == R.id.owner_nav_menu_logout) {
+                    Toast.makeText(AddOrEditProductActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(AddOrEditProductActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+                return false;
             }
         });
     }
