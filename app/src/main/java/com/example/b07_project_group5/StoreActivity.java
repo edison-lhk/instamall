@@ -233,6 +233,9 @@ public class StoreActivity extends AppCompatActivity {
 
     public void onAdd(View view){
         Intent intent = new Intent(this, AddOrEditProductActivity.class);
+        intent.putExtra("previousActivity", "StoreActivity");
+        intent.putExtra("userId", userId);
+        intent.putExtra("accountType", accountType);
         intent.putExtra("storeId", storeId);
         startActivity(intent);
     }
