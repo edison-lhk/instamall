@@ -54,11 +54,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
                 // Pass the product information to the ProductPage activity
                 intent.putExtra("userId", intent.getStringExtra("userId"));
-                intent.putExtra("storeId", storeId);
-                intent.putExtra("productName", product.getName());
-                intent.putExtra("productPrice", product.getPrice());
-                intent.putExtra("productImage", product.getImage());
-                intent.putExtra("productDescription", product.getDescription());
+//                intent.putExtra("storeId", storeId);
+//                intent.putExtra("productName", product.getName());
+//                intent.putExtra("productPrice", product.getPrice());
+//                intent.putExtra("productImage", product.getImage());
+//                intent.putExtra("productDescription", product.getDescription());
 
                 // Start the ProductPage activity with the intent
                 view.getContext().startActivity(intent);
@@ -69,12 +69,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddOrEditProductActivity.class);
-                intent.putExtra("storeId", storeId);
-                intent.putExtra("productName", product.getName());
-                intent.putExtra("productPrice", product.getPrice());
-                intent.putExtra("productStock", product.getStock());
-                intent.putExtra("productImage", product.getImage());
-                intent.putExtra("productDescription", product.getDescription());
+//                intent.putExtra("storeId", storeId);
+//                intent.putExtra("productName", product.getName());
+//                intent.putExtra("productPrice", product.getPrice());
+//                intent.putExtra("productStock", product.getStock());
+//                intent.putExtra("productImage", product.getImage());
+//                intent.putExtra("productDescription", product.getDescription());
                 v.getContext().startActivity(intent);
             }
         });
@@ -106,13 +106,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-            cartProductImage = itemView.findViewById(R.id.productImageList);
-            cartStoreNameTextView;
-            cartProductNameTextView = itemView.findViewById(R.id.productName);
-            cartProductPriceTextView = itemView.findViewById(R.id.productPrice);
-            cartProductTotalPriceTextView;
-            cartProductAmountTextView;
-            cartTotalPriceTextView;
+//            cartProductImage = itemView.findViewById(R.id.productImageList);
+//            cartStoreNameTextView;
+//            cartProductNameTextView = itemView.findViewById(R.id.productName);
+//            cartProductPriceTextView = itemView.findViewById(R.id.productPrice);
+//            cartProductTotalPriceTextView;
+//            cartProductAmountTextView;
+//            cartTotalPriceTextView;
 //            editProductBtn = itemView.findViewById(R.id.editProductBtn);
         }
     }

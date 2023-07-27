@@ -154,13 +154,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     public void addToCart(View view) {
         DatabaseReference ref;
-        Intent intent = getIntent();
 
         ref = db.getReference();
-
-        String productId = intent.getStringExtra("productId");
-        String storeId = intent.getStringExtra("storeId");
-        String userId = intent.getStringExtra("userId");
 
         DatabaseReference transactionQuery = ref.child("transactions");
         DatabaseReference orderQuery = ref.child("orders");
@@ -220,9 +215,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     private void addAmountToOrder(View view, DataSnapshot transactionSnapshot, DatabaseReference orderQuery) {
-        Intent intent = getIntent();
-        String productId = intent.getStringExtra("productId");
-        String storeId = intent.getStringExtra("storeId");
 
         // Add a temporary order with the storeId (will be removed if another order with same
         // storeId exists in cart)
@@ -230,7 +222,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         tempOrder.addProduct(productId, 1);
         String tempOrderId = orderQuery.push().getKey();
         orderQuery.child(tempOrderId).setValue(tempOrder);
-        String transactionId = transactionSnapshot.getKey().toString();
         Transaction cart = transactionSnapshot.getValue(Transaction.class);
         cart.addOrder(tempOrderId);
         transactionSnapshot.getRef().setValue(cart);
