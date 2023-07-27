@@ -62,6 +62,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
                             for (DataSnapshot storeSnapshot: snapshot.getChildren()) {
                                 String storeId = storeSnapshot.getKey();
                                 Intent intent = new Intent(v.getContext(), StoreActivity.class);
+                                intent.putExtra("previousActivity", "BrowseStoreActivity");
                                 intent.putExtra("userId", userId);
                                 intent.putExtra("accountType", accountType);
                                 intent.putExtra("storeId", storeId);

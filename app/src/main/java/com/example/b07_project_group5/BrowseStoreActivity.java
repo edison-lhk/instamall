@@ -14,9 +14,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -24,6 +26,8 @@ import com.bumptech.glide.request.transition.Transition;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,11 +57,43 @@ public class BrowseStoreActivity extends AppCompatActivity {
         StoreAdapter adapter = new StoreAdapter(userId, accountType, storeList);
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getApplicationContext());
         layoutManager.setFlexDirection(FlexDirection.ROW);
-        layoutManager.setJustifyContent(JustifyContent.CENTER);
+        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         readData(storeList);
         adapter.notifyDataSetChanged();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.shopper_nav_menu);
+        bottomNavigationView.setSelectedItemId(R.id.shopper_nav_menu_store);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.shopper_nav_menu_store) {
+                    return true;
+                } else if (itemId == R.id.shopper_nav_menu_cart) {
+                    Intent intent = new Intent(BrowseStoreActivity.this, LoginActivity.class);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("accountType", accountType);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (itemId == R.id.shopper_nav_menu_orders) {
+                    Intent intent = new Intent(BrowseStoreActivity.this, LoginActivity.class);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("accountType", accountType);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (itemId == R.id.shopper_nav_menu_logout) {
+                    Toast.makeText(BrowseStoreActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(BrowseStoreActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     public void readData(List<Store> storeList) {

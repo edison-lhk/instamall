@@ -4,20 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
     <!-- remember to update image-->
 
     <ImageView
         android:id="@+id/imageViewProduct"
-        android:layout_width="371dp"
+        android:layout_width="match_parent"
         android:layout_height="374dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/default_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,7 +52,9 @@
         android:id="@+id/textViewProductDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:paddingLeft="10dp"
         android:text="BRAND/DESCRIPTION"
         android:textSize="16sp"
@@ -64,13 +67,46 @@
         layout="@layout/back_btn" />
 
     <Button
-        android:id="@+id/button7"
-        android:layout_width="416dp"
+        android:id="@+id/addToCartBtn"
+        android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:text="Add to Cart"
-        android:onClick="addToCart"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="100dp"
+        android:text="@string/add_to_cart_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/owner_nav_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/selector"
+        app:itemRippleColor="@android:color/transparent"
+        app:labelVisibilityMode="labeled"
+        app:itemTextColor="@drawable/selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/owner_nav_menu" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/shopper_nav_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/selector"
+        app:itemRippleColor="@android:color/transparent"
+        app:itemTextColor="@drawable/selector"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/shopper_nav_menu" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

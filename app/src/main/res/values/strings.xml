@@ -19,13 +19,13 @@
     <string name="register_empty_fields_warning">Please fill in all the fields</string>
     <string name="register_email_invalid_warning">Email is invalid</string>
     <string name="register_email_already_exists_warning">Email has already been used</string>
-    <string name="register_successful_text">Register Successful</string>
+    <string name="register_successful_text">Register Successful!</string>
     <string name="login_prompt_text">Already our member?</string>
     <string name="login_prompt_btn_text">Login</string>
     <string name="store_name_placeholder_text">My Store</string>
     <string name="store_owner_placeholder_text">Owner Name</string>
     <string name="store_search_products_text">Search products</string>
-    <string name="store_add_product_text">ADD</string>
+    <string name="store_add_product_text">Add Product</string>
     <string name="back_btn_text">Back</string>
     <string name="product_name_placeholder_text">Product Name</string>
     <string name="product_price_placeholder_text">Product Price</string>
@@ -39,5 +39,14 @@
     <string name="edit_product_successful_text">Product is successfully edited!</string>
     <string name="store_name_empty_warning">Store name cannot be empty</string>
     <string name="change_store_info_successful_text">Store Information is successfully changed!</string>
+    <string name="owner_nav_menu_store_text">Store</string>
+    <string name="owner_nav_menu_orders_text">Orders</string>
+    <string name="owner_nav_menu_logout_text">Logout</string>
+    <string name="shopper_nav_menu_store_text">Store</string>
+    <string name="shopper_nav_menu_cart_text">Cart</string>
+    <string name="shopper_nav_menu_orders_text">Orders</string>
+    <string name="shopper_nav_menu_logout_text">Logout</string>
+    <string name="logout_successful_text">Logout Successful!</string>
+    <string name="add_to_cart_text">Add to Cart</string>
     <string name="add_order_to_cart_success">Your order has successfully been added to your cart!</string>
 </resources>
