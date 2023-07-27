@@ -36,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class StoreActivity extends AppCompatActivity {
+    String previousActivity = "";
     String userId = "";
     String accountType="";
     String storeId = "";
@@ -54,6 +55,7 @@ public class StoreActivity extends AppCompatActivity {
         //Start initializing store information
         Intent intent = getIntent();
         if (intent != null) {
+            previousActivity = intent.getStringExtra("previousActivity");
             userId = intent.getStringExtra("userId");
             accountType = intent.getStringExtra("accountType");
             storeId = intent.getStringExtra("storeId");
@@ -92,7 +94,7 @@ public class StoreActivity extends AppCompatActivity {
         productList = new ArrayList<>();
 
         recyclerView = findViewById(R.id.productCarousel);
-        ProductAdapter adapter = new ProductAdapter(accountType, storeId, productList);
+        ProductAdapter adapter = new ProductAdapter(userId, accountType, storeId, productList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -124,10 +126,10 @@ public class StoreActivity extends AppCompatActivity {
             productCarousel.setLayoutParams(layoutParams);
         };
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.owner_nav_menu);
-        if (!accountType.equals("owner")) { bottomNavigationView.setVisibility(View.INVISIBLE); }
-        bottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        BottomNavigationView ownerBottomNavigationView = findViewById(R.id.owner_nav_menu);
+        if (!accountType.equals("owner")) { ownerBottomNavigationView.setVisibility(View.INVISIBLE); }
+        ownerBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
+        ownerBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
@@ -142,6 +144,44 @@ public class StoreActivity extends AppCompatActivity {
                     finish();
                     return true;
                 } else if (itemId == R.id.owner_nav_menu_logout) {
+                    Toast.makeText(StoreActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(StoreActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        BottomNavigationView shopperBottomNavigationView = findViewById(R.id.shopper_nav_menu);
+        if (!accountType.equals("shopper")) { shopperBottomNavigationView.setVisibility(View.INVISIBLE); }
+        if (previousActivity == null) {
+            shopperBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
+        } else if (previousActivity.equals("BrowseStoreActivity")) {
+            shopperBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
+        }
+        shopperBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.shopper_nav_menu_store) {
+                    return true;
+                } else if (itemId == R.id.shopper_nav_menu_cart) {
+                    Intent intent = new Intent(StoreActivity.this, LoginActivity.class);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("accountType", accountType);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (itemId == R.id.shopper_nav_menu_orders) {
+                    Intent intent = new Intent(StoreActivity.this, LoginActivity.class);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("accountType", accountType);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (itemId == R.id.shopper_nav_menu_logout) {
                     Toast.makeText(StoreActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(StoreActivity.this, LoginActivity.class);
                     startActivity(intent);

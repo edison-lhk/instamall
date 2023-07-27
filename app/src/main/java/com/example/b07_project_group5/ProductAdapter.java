@@ -23,13 +23,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+    private String userId;
     private String accountType;
     private String storeId;
     private List<Product> productList;
     private FirebaseDatabase db;
 
     // Constructor to pass the list of products
-    public ProductAdapter(String accountType, String storeId, List<Product> productList) {
+    public ProductAdapter(String userId, String accountType, String storeId, List<Product> productList) {
+        this.userId = userId;
         this.accountType = accountType;
         this.storeId = storeId;
         this.productList = productList;
@@ -78,6 +80,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                                 if (product.getName().equals(productSnapshot.child("name").getValue().toString())) {
                                     String productId = productSnapshot.getKey();
                                     Intent intent = new Intent(view.getContext(), ProductDetailsActivity.class);
+                                    intent.putExtra("previousActivity", "StoreActivity");
+                                    intent.putExtra("userId", userId);
+                                    intent.putExtra("accountType", accountType);
                                     intent.putExtra("productId", productId);
                                     view.getContext().startActivity(intent);
                                 }
