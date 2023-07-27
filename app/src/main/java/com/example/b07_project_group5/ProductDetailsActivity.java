@@ -57,14 +57,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     public void addToCart(View view) {
         DatabaseReference ref;
-//        Intent intent = getIntent();
+        Intent intent = getIntent();
 
         ref = db.getReference();
 
-        // Replace these test data with ids from the intent
-        String productId = "-Na2nCskPGnO60TtN7jx";
-        String storeId = "-Na0hkzpABU-yW9U0HBa";
-        String userId = "-N_yltGRIhkRij7M1qcA";
+        String productId = intent.getStringExtra("productId");
+        String storeId = intent.getStringExtra("storeId");
+        String userId = intent.getStringExtra("userId");
 
         DatabaseReference transactionQuery = ref.child("transactions");
         DatabaseReference orderQuery = ref.child("orders");
@@ -89,18 +88,19 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     cart.addOrder(orderId);
                     transactionId = transactionQuery.push().getKey();
                     transactionQuery.child(transactionId).setValue(cart);
+                    displaySuccessMsg();
                     return;
                 }
 
                 // Get user's shopping cart
                 DataSnapshot transactionSnapshot = getShoppingCart(snapshot);
+
                 // Check if user's has an available shopping cart
                 if (transactionSnapshot != null) {
                     addAmountToOrder(view, transactionSnapshot, orderQuery);
                 } else {
                     order = new Order(storeId);
                     cart = new Transaction(userId);
-
                     // Replace amount by the amount specified by user in some input field on the page
                     order.addProduct(productId, 1);
 
@@ -112,6 +112,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     transactionId = transactionQuery.push().getKey();
                     transactionQuery.child(transactionId).setValue(cart);
                 }
+                displaySuccessMsg();
             }
 
             @Override
@@ -122,10 +123,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     private void addAmountToOrder(View view, DataSnapshot transactionSnapshot, DatabaseReference orderQuery) {
-//        Intent intent = getIntent();
-        // Replace these test data with ids from the intent
-        String productId = "-Na2nCskPGnO60TtN7jx";
-        String storeId = "-Na0hkzpABU-yW9U0HBa";
+        Intent intent = getIntent();
+        String productId = intent.getStringExtra("productId");
+        String storeId = intent.getStringExtra("storeId");
 
         // Add a temporary order with the storeId (will be removed if another order with same
         // storeId exists in cart)
@@ -143,7 +143,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         // Go through every orderId in orderList of the cart
         for (DataSnapshot transOrderSnapshot : transactionSnapshot.child("orderList").getChildren()) {
             String orderId = transOrderSnapshot.getValue().toString();
-            Intent intent = getIntent();
 
             orderQuery.child(orderId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -151,10 +150,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     // Check if the product exists within the order
                     if (snapshot.exists()) {
                         Order order = snapshot.getValue(Order.class);
-                        // Check if storeId of the order is equal to storeId of the product
+                        // Check if storeId of the order is not equal to storeId of the product
                         if (!storeId.equals(order.getStoreId())) {
                             return;
                         }
+                        // Check if storeId of the order is not equal to tempOrderId
                         if (!tempOrderId.equals(orderId)) {
                             orderQuery.child(tempOrderId).removeValue();
                             cart.removeOrder(tempOrderId);
@@ -187,5 +187,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
         }
         return null;
+    }
+
+    private void displaySuccessMsg() {
+        Toast.makeText(ProductDetailsActivity.this, getString(R.string.add_order_to_cart_success), Toast.LENGTH_LONG).show();
     }
 }

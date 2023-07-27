@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,46 +14,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
-    private String accountType;
-    private String storeId;
-    private List<Product> productList;
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
+    public ArrayList<CartProduct> shoppingCart;
 
-    // Constructor to pass the list of products
-    public ProductAdapter(String accountType, String storeId, List<Product> productList) {
-        this.accountType = accountType;
-        this.storeId = storeId;
-        this.productList = productList;
-    }
-
+    public CartAdapter() {}
 
     // Override onCreateViewHolder to inflate the product item layout
     @NonNull
     @Override
-    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.product_card, parent, false);
-        return new ProductViewHolder(itemView);
+        return new CartViewHolder(itemView);
     }
 
     // Override onBindViewHolder to bind product data to the views
     @Override
-    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        Product product = productList.get(position);
-        holder.nameTextView.setText(product.getName());
-        holder.priceTextView.setText("Price: $" + String.valueOf(product.getPrice()));
-        holder.stockTextView.setText("Stock: " + String.valueOf(product.getStock()));
+    public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
+        CartProduct cartProduct = shoppingCart.get(position);
+//        holder.nameTextView.setText(store.getStoreName());
+//        holder.priceTextView.setText("Price: $" + String.valueOf(store.getPrice()));
+//        holder.stockTextView.setText("Stock: " + String.valueOf(store.getStock()));
 
-
-        if (accountType.equals("shopper")) {
-            holder.editProductBtn.setVisibility(View.INVISIBLE);
-        }
 
         // Load the image using Glide with the image URL
         Glide.with(holder.itemView.getContext())
-                .load(product.getImage())
+                .load(cartProduct.product.getImage())
                 .apply(RequestOptions.centerCropTransform())
                 .into(holder.productImageList);
 
@@ -95,24 +82,38 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return shoppingCart.size();
     }
 
-    // Define the ViewHolder to hold the views of the product item
-    public static class ProductViewHolder extends RecyclerView.ViewHolder {
+    public void addProduct(Product product, int amount) {
+        shoppingCart.add(new CartProduct(product, amount));
+    }
+
+    public ArrayList<CartProduct> getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ArrayList<CartProduct> shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public static class CartViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         TextView priceTextView;
         TextView stockTextView;
         ImageView productImageList;
         ImageButton editProductBtn;
 
-        public ProductViewHolder(@NonNull View itemView) {
+        public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-            productImageList = itemView.findViewById(R.id.productImageList);
-            nameTextView = itemView.findViewById(R.id.productName);
-            priceTextView = itemView.findViewById(R.id.productPrice);
-            stockTextView = itemView.findViewById(R.id.productStock);
-            editProductBtn = itemView.findViewById(R.id.editProductBtn);
+            cartProductImage = itemView.findViewById(R.id.productImageList);
+            cartStoreNameTextView;
+            cartProductNameTextView = itemView.findViewById(R.id.productName);
+            cartProductPriceTextView = itemView.findViewById(R.id.productPrice);
+            cartProductTotalPriceTextView;
+            cartProductAmountTextView;
+            cartTotalPriceTextView;
+//            editProductBtn = itemView.findViewById(R.id.editProductBtn);
         }
     }
 }
