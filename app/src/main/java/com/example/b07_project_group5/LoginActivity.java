@@ -21,18 +21,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginView {
+
+    private LoginPresenter presenter;
     FirebaseDatabase db;
-    String userId = "";
-    String username = "";
-    String email = "";
-    String password = "";
     String accountType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        presenter = new LoginPresenter(this);
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
         String[] userTypes = getResources().getStringArray(R.array.user_types);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.dropdown_item, userTypes);
@@ -45,95 +44,55 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public String getStringFromResource(int resourceId) {
+        return getString(resourceId);
+    }
 
+    @Override
     public void setWarningText(String warning) {
         TextView warningText = (TextView) findViewById(R.id.login_warning_text);
         warningText.setText(warning);
     }
 
+    @Override
+    public void clearInputFields() {
+        EditText emailInput = findViewById(R.id.login_type_input);
+        EditText passwordInput = findViewById(R.id.login_password_input);
+        emailInput.setText("");
+        passwordInput.setText("");
+    }
+
+    @Override
+    public void showToastMessage() {
+        Toast.makeText(LoginActivity.this, getString(R.string.login_successful_text), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void navigateToStoreActivity(String userId, String accountType, String storeId) {
+        Intent intent = new Intent(this, StoreActivity.class);
+        intent.putExtra("userId", userId);
+        intent.putExtra("accountType", accountType);
+        intent.putExtra("storeId", storeId);
+        startActivity(intent);
+    }
+
+    public void navigateToBrowseStoreActivity(String userId) {
+        Intent intent = new Intent(LoginActivity.this, BrowseStoreActivity.class);
+        intent.putExtra("userId", userId);
+        intent.putExtra("accountType", accountType);
+        startActivity(intent);
+    }
+
+
     public void loginUser(View v) {
         EditText emailInput = (EditText) findViewById(R.id.login_email_input);
-        email = emailInput.getText().toString();
+        String email = emailInput.getText().toString();
         EditText passwordInput = (EditText) findViewById(R.id.login_password_input);
-        password = passwordInput.getText().toString();
-        if (email.equals("") || password.equals("") || accountType.equals("")) {
-            setWarningText(getString(R.string.login_empty_fields_warning));
-            return;
-        }
-        DatabaseReference ref = db.getReference();
-        DatabaseReference query = ref.child("users");
-        query.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (!snapshot.exists()) {
-                    setWarningText(getString(R.string.login_cannot_find_user_warning));
-                } else {
-                    boolean userExist = false;
-                    for (DataSnapshot childSnapshot: snapshot.getChildren()) {
-                        if (accountType.equals(childSnapshot.child("accountType").getValue().toString())) {
-                            if (!password.equals(childSnapshot.child("password").getValue().toString())) {
-                                setWarningText(getString(R.string.login_password_incorrect_warning));
-                                return;
-                            }
-                            userExist = true;
-                            userId = childSnapshot.getKey();
-                            username = childSnapshot.child("username").getValue().toString();
-                        }
-                    }
-                    if (!userExist) {
-                        setWarningText(getString(R.string.login_cannot_find_user_warning));
-                        return;
-                    }
-                    emailInput.setText("");
-                    passwordInput.setText("");
-                    Toast.makeText(LoginActivity.this, getString(R.string.login_successful_text), Toast.LENGTH_LONG).show();
-                    setWarningText("");
-                    if (accountType.equals("owner")) {
-                        DatabaseReference query2 = ref.child("stores");
-                        query2.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-                            String storeId = "";
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (!snapshot.exists()) {
-                                    Store store = new Store(userId, username.substring(0, 4) + "'s Store", "https://firebasestorage.googleapis.com/v0/b/testing-7a8a5.appspot.com/o/StoreLogo%2Fstore_logo.png?alt=media&token=2660325b-c4cd-4659-bf6b-60239d06f84b");
-                                    String uniqueKey = ref.push().getKey();
-                                    query2.child(uniqueKey).setValue(store).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            storeId = uniqueKey;
-                                            Intent intent = new Intent(LoginActivity.this, StoreActivity.class);
-                                            intent.putExtra("userId", userId);
-                                            intent.putExtra("accountType", accountType);
-                                            intent.putExtra("storeId", storeId);
-                                            startActivity(intent);
-                                        }
-                                    });
-                                } else {
-                                    for (DataSnapshot childSnapshot: snapshot.getChildren()) {
-                                        Store store = new Store(userId, childSnapshot.child("name").getValue().toString(), childSnapshot.child("logo").getValue().toString());
-                                        storeId = childSnapshot.getKey();
-                                    }
-                                    Intent intent = new Intent(LoginActivity.this, StoreActivity.class);
-                                    intent.putExtra("userId", userId);
-                                    intent.putExtra("accountType", accountType);
-                                    intent.putExtra("storeId", storeId);
-                                    startActivity(intent);
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {}
-                        });
-                    } else {
-                        Intent intent = new Intent(LoginActivity.this, BrowseStoreActivity.class);
-                        intent.putExtra("userId", userId);
-                        startActivity(intent);
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError error) {}
-        });
+        String password = passwordInput.getText().toString();
+        AutoCompleteTextView loginTypeInput = findViewById(R.id.login_type_input);
+        String accountType = loginTypeInput.getText().toString();
+        presenter.loginUser(email, password, accountType);
     }
 
     public void navigateToRegisterActivity(View v) {
