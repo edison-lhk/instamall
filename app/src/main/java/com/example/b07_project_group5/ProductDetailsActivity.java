@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,6 +70,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError error) {}
             });
         }
+
+        if (accountType.equals("owner")) {
+            Button addToCartBtn = findViewById(R.id.addToCartBtn);
+            addToCartBtn.setVisibility(View.INVISIBLE);
+        }
+
         BottomNavigationView ownerBottomNavigationView = findViewById(R.id.owner_nav_menu);
         if (!accountType.equals("owner")) { ownerBottomNavigationView.setVisibility(View.INVISIBLE); }
         if (previousActivity.equals("StoreActivity")) {

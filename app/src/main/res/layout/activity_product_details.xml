@@ -10,13 +10,15 @@
 
     <ImageView
         android:id="@+id/imageViewProduct"
-        android:layout_width="371dp"
+        android:layout_width="match_parent"
         android:layout_height="374dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/default_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
