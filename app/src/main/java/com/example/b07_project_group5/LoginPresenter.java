@@ -1,14 +1,12 @@
 package com.example.b07_project_group5;
 
-public class LoginPresenter {
-    private LoginView view;
-    private LoginModel model;
-
-    public LoginPresenter(LoginView view) {
+public class LoginPresenter implements LoginContract.Presenter {
+    private LoginContract.View view;
+    private LoginContract.Model model;
+    public LoginPresenter(LoginContract.View view, LoginContract.Model model) {
         this.view = view;
-        this.model = new LoginModel();
+        this.model = model;
     }
-
 
     public void loginUser(String email, String password, String accountType) {
         if (email.isEmpty() || password.isEmpty() || accountType.isEmpty()) {
@@ -20,17 +18,18 @@ public class LoginPresenter {
             public void onLoginSuccess(String userId, String accountType, String storeId) {
                 view.clearInputFields();
                 view.setWarningText("");
+                view.showToastMessage();
 
                 if (accountType.equals("owner")) {
-                    view.navigateToStoreActivity(userId, accountType, storeId);
+                    view.navigateToStoreActivity(userId, storeId);
                 } else {
                     view.navigateToBrowseStoreActivity(userId);
                 }
             }
 
             @Override
-            public void onLoginFailure(String error) {
-                view.setWarningText(error);
+            public void onLoginFailure(int warningId) {
+                view.setWarningText(view.getStringFromResource(warningId));
             }
         });
     }

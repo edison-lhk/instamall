@@ -1,8 +1,5 @@
 package com.example.b07_project_group5;
 
-import android.provider.ContactsContract;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -13,13 +10,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class LoginModel {
+public class LoginModel implements LoginContract.Model {
     private FirebaseDatabase db;
 
     public LoginModel() {
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
     }
 
+    @Override
     public void loginUser(String email, String password, String accountType, LoginCallback callback) {
         DatabaseReference ref = db.getReference();
         DatabaseReference query = ref.child("users");
@@ -27,13 +25,13 @@ public class LoginModel {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!snapshot.exists()) {
-                    callback.onLoginFailure("User not found");
+                    callback.onLoginFailure(R.string.login_cannot_find_user_warning);
                 } else {
                     boolean userExist = false;
                     for (DataSnapshot childSnapshot: snapshot.getChildren()) {
                         if (accountType.equals(childSnapshot.child("accountType").getValue().toString())) {
                             if (!password.equals(childSnapshot.child("password").getValue().toString())) {
-                                callback.onLoginFailure("Incorrect Password");
+                                callback.onLoginFailure(R.string.login_password_incorrect_warning);
                                 return;
                             }
                             userExist = true;
@@ -65,32 +63,30 @@ public class LoginModel {
                                     }
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
-                                        callback.onLoginFailure("Database error");
+                                        callback.onLoginFailure(R.string.login_database_error_warning);
                                     }
                                 });
                             } else {
                                 callback.onLoginSuccess(userId, accountType, null);
-
                             }
                         }
                     }
                     if (!userExist) {
-                        callback.onLoginFailure("Account type is invalid");
+                        callback.onLoginFailure(R.string.login_cannot_find_user_warning);
                     }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                callback.onLoginFailure("Database error");
+                callback.onLoginFailure(R.string.login_database_error_warning);
             }
         });
     }
 
     public interface LoginCallback {
         void onLoginSuccess(String userId, String accountType, String storeId);
-        void onLoginFailure(String error);
+        void onLoginFailure(int warningId);
     }
-
 }
 
