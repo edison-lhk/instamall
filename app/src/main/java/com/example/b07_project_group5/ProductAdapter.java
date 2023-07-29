@@ -104,11 +104,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 intent.putExtra("userId", userId);
                 intent.putExtra("accountType", accountType);
                 intent.putExtra("storeId", storeId);
-                intent.putExtra("name", product.getName());
-                intent.putExtra("price", product.getPrice());
-                intent.putExtra("stock", product.getStock());
-                intent.putExtra("image", product.getImage());
-                intent.putExtra("description", product.getDescription());
+                intent.putExtra("productName", product.getName());
+                intent.putExtra("productPrice", product.getPrice());
+                intent.putExtra("productStock", product.getStock());
+                intent.putExtra("productImage", product.getImage());
+                intent.putExtra("productDescription", product.getDescription());
                 v.getContext().startActivity(intent);
             }
         });
