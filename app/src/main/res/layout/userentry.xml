@@ -26,7 +26,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
             <TextView
-                android:id="@+id/textname"
+                android:id="@+id/ordername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -47,7 +47,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
             <TextView
-                android:id="@+id/textnumber"
+                android:id="@+id/orderamount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
