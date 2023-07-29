@@ -71,11 +71,9 @@ public class BrowseStoreActivity extends AppCompatActivity {
                 if (itemId == R.id.shopper_nav_menu_store) {
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_cart) {
-                    Intent intent = new Intent(BrowseStoreActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(BrowseStoreActivity.this, ShoppingCartActivity.class);
                     intent.putExtra("userId", userId);
-                    intent.putExtra("accountType", accountType);
                     startActivity(intent);
-                    finish();
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_orders) {
                     Intent intent = new Intent(BrowseStoreActivity.this, LoginActivity.class);

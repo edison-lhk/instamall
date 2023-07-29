@@ -17,6 +17,10 @@ public class Transaction {
 
     public Transaction() {}
 
+    public void initOrderList() {
+        orderList = new ArrayList<String>();
+    }
+
     public void addOrder(String orderId) {
         orderList.add(orderId);
     }

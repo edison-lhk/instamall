@@ -90,10 +90,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 if (itemId == R.id.owner_nav_menu_store) {
                     return true;
                 } else if (itemId == R.id.owner_nav_menu_orders) {
-                    Intent intent = new Intent(ProductDetailsActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(ProductDetailsActivity.this, ShoppingCartActivity.class);
                     intent.putExtra("userId", userId);
-                    intent.putExtra("accountType", accountType);
-                    intent.putExtra("storeId", storeId);
                     startActivity(intent);
                     finish();
                     return true;
@@ -122,9 +120,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 if (itemId == R.id.shopper_nav_menu_store) {
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_cart) {
-                    Intent intent = new Intent(ProductDetailsActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(ProductDetailsActivity.this, ShoppingCartActivity.class);
                     intent.putExtra("userId", userId);
-                    intent.putExtra("accountType", accountType);
                     startActivity(intent);
                     finish();
                     return true;
@@ -187,7 +184,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 // Get user's shopping cart
                 DataSnapshot transactionSnapshot = getShoppingCart(snapshot);
 
-                // Check if user's has an available shopping cart
+                // Check if user has an available shopping cart
                 if (transactionSnapshot != null) {
                     addAmountToOrder(view, transactionSnapshot, orderQuery);
                 } else {
@@ -223,7 +220,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
         String tempOrderId = orderQuery.push().getKey();
         orderQuery.child(tempOrderId).setValue(tempOrder);
         Transaction cart = transactionSnapshot.getValue(Transaction.class);
+        if (cart.getOrderList() == null) {
+            cart.initOrderList();
+        }
         cart.addOrder(tempOrderId);
+
         transactionSnapshot.getRef().setValue(cart);
 
         Order order = new Order(storeId);
@@ -271,6 +272,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         // Return the snapshot of the user's shopping cart if it exists, otherwise return null.
         for (DataSnapshot transactionSnapshot : snapshot.getChildren()) {
             if (!Boolean.parseBoolean(transactionSnapshot.child("finalized").getValue().toString())) {
+
                 return transactionSnapshot;
             }
         }
@@ -278,6 +280,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     private void displaySuccessMsg() {
-        Toast.makeText(ProductDetailsActivity.this, getString(R.string.add_order_to_cart_success), Toast.LENGTH_LONG).show();
+        Toast.makeText(ProductDetailsActivity.this, getString(R.string.add_order_to_cart_success), Toast.LENGTH_SHORT).show();
     }
 }

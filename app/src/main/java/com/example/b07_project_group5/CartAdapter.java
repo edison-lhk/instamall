@@ -7,26 +7,40 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
-    public ArrayList<CartProduct> shoppingCart;
+    private ArrayList<CartProduct> shoppingCart;
+    private FirebaseDatabase db;
+    private CartTotalCostView totalCostView;
 
-    public CartAdapter() {}
+    public CartAdapter(ArrayList<CartProduct> shoppingCart) {
+        this.shoppingCart = shoppingCart;
+        db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
+        totalCostView = new CartTotalCostView();
+    }
 
     // Override onCreateViewHolder to inflate the product item layout
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.product_card, parent, false);
+                .inflate(R.layout.cart_product_card, parent, false);
         return new CartViewHolder(itemView);
     }
 
@@ -34,48 +48,56 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         CartProduct cartProduct = shoppingCart.get(position);
-//        holder.nameTextView.setText(store.getStoreName());
-//        holder.priceTextView.setText("Price: $" + String.valueOf(store.getPrice()));
-//        holder.stockTextView.setText("Stock: " + String.valueOf(store.getStock()));
+        Double price = cartProduct.getProduct().getPrice();
+        int amount = cartProduct.getAmount();
+        Double totalPrice = price * cartProduct.getAmount();
 
+        holder.productNameTextView.setText(cartProduct.getProduct().getName());
+        holder.productPriceTextView.setText("$" + String.format("%.2f", price));
+        holder.amountTextView.setText(String.valueOf(amount));
+        holder.productTotalPriceTextView.setText("$" + String.format("%.2f", totalPrice));
+        holder.storeNameTextView.setText(cartProduct.getStoreName());
 
         // Load the image using Glide with the image URL
         Glide.with(holder.itemView.getContext())
-                .load(cartProduct.product.getImage())
+                .load(cartProduct.getProduct().getImage())
                 .apply(RequestOptions.centerCropTransform())
                 .into(holder.productImageList);
 
         // Set an OnClickListener to the item view
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.removeProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Create an Intent to navigate to the ProductPage activity
-                Intent intent = new Intent(view.getContext(), ProductDetailsActivity.class);
+                DatabaseReference ref = db.getReference();
+                shoppingCart.remove(cartProduct);
+                totalCostView.displayTotalCost(shoppingCart);
 
-                // Pass the product information to the ProductPage activity
-                intent.putExtra("userId", intent.getStringExtra("userId"));
-//                intent.putExtra("storeId", storeId);
-//                intent.putExtra("productName", product.getName());
-//                intent.putExtra("productPrice", product.getPrice());
-//                intent.putExtra("productImage", product.getImage());
-//                intent.putExtra("productDescription", product.getDescription());
+                ref.child("orders").child(cartProduct.getOrderId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Order order = snapshot.getValue(Order.class);
+                        for (ProductOrder product : order.getProductList()) {
+                            if (cartProduct.getProductId().equals(product.getProductId())) {
+                                order.getProductList().remove(product);
+                                snapshot.getRef().setValue(order);
+                                notifyDataSetChanged();
+                                break;
+                            }
+                        }
+                        if (order.getProductList().size() > 0) {
+                            snapshot.getRef().setValue(order);
+                            notifyDataSetChanged();
+                        } else {
+                            snapshot.getRef().removeValue();
+                            removeOrderFromCart(cartProduct.getOrderId(), cartProduct.getUserId());
+                        }
+                    }
 
-                // Start the ProductPage activity with the intent
-                view.getContext().startActivity(intent);
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-        holder.editProductBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AddOrEditProductActivity.class);
-//                intent.putExtra("storeId", storeId);
-//                intent.putExtra("productName", product.getName());
-//                intent.putExtra("productPrice", product.getPrice());
-//                intent.putExtra("productStock", product.getStock());
-//                intent.putExtra("productImage", product.getImage());
-//                intent.putExtra("productDescription", product.getDescription());
-                v.getContext().startActivity(intent);
+                    }
+                });
             }
         });
     }
@@ -85,35 +107,47 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return shoppingCart.size();
     }
 
-    public void addProduct(Product product, int amount) {
-        shoppingCart.add(new CartProduct(product, amount));
-    }
+    private void removeOrderFromCart(String orderId, String userId) {
+        DatabaseReference ref = db.getReference();
+        ref.child("transactions").orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot transactionSnapshot : snapshot.getChildren()) {
+                    if (!Boolean.parseBoolean(transactionSnapshot.child("finalized").getValue().toString())) {
+                        Transaction cart = transactionSnapshot.getValue(Transaction.class);
+                        cart.getOrderList().remove(orderId);
+                        transactionSnapshot.getRef().setValue(cart);
+                        notifyDataSetChanged();
+                        return;
+                    }
+                }
+            }
 
-    public ArrayList<CartProduct> getShoppingCart() {
-        return shoppingCart;
-    }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-    public void setShoppingCart(ArrayList<CartProduct> shoppingCart) {
-        this.shoppingCart = shoppingCart;
+            }
+        });
     }
 
     public static class CartViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTextView;
-        TextView priceTextView;
-        TextView stockTextView;
+        TextView productNameTextView;
+        TextView productPriceTextView;
+        TextView amountTextView;
+        TextView productTotalPriceTextView;
+        TextView storeNameTextView;
         ImageView productImageList;
-        ImageButton editProductBtn;
+        ImageButton removeProductBtn;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-//            cartProductImage = itemView.findViewById(R.id.productImageList);
-//            cartStoreNameTextView;
-//            cartProductNameTextView = itemView.findViewById(R.id.productName);
-//            cartProductPriceTextView = itemView.findViewById(R.id.productPrice);
-//            cartProductTotalPriceTextView;
-//            cartProductAmountTextView;
-//            cartTotalPriceTextView;
-//            editProductBtn = itemView.findViewById(R.id.editProductBtn);
+            productImageList = (ImageView) itemView.findViewById(R.id.cartProductImageList);
+            productNameTextView = (TextView) itemView.findViewById(R.id.cartProductName);
+            productPriceTextView = (TextView) itemView.findViewById(R.id.cartProductPrice);
+            amountTextView = (TextView) itemView.findViewById(R.id.cartProductAmount);
+            productTotalPriceTextView = (TextView) itemView.findViewById(R.id.cartProductTotalPrice);
+            storeNameTextView = (TextView) itemView.findViewById(R.id.cartStoreName);
+            removeProductBtn = (ImageButton) itemView.findViewById(R.id.removeProductBtn);
         }
     }
 }
