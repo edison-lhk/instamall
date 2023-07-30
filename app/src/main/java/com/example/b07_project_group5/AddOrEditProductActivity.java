@@ -25,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class AddOrEditProductActivity extends AppCompatActivity {
-    String previousActivity;
     String userId;
     String accountType;
     String storeId;
@@ -43,19 +42,18 @@ public class AddOrEditProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_or_edit_product);
 
-        db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
-
         Intent intent = getIntent();
         if (intent != null) {
-            this.previousActivity = intent.getStringExtra("previousActivity");
             this.userId = intent.getStringExtra("userId");
             this.accountType = intent.getStringExtra("accountType");
             this.storeId = intent.getStringExtra("storeId");
+            this.productId = "";
             this.name = intent.getStringExtra("name");
             this.price = intent.getDoubleExtra("price", 0);
             this.stock = intent.getIntExtra("stock", 0);
             this.image = intent.getStringExtra("image");
             this.description = intent.getStringExtra("description");
+            this.db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
         }
 
         TextView header = findViewById(R.id.addProductHeader);
@@ -118,14 +116,14 @@ public class AddOrEditProductActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             for (DataSnapshot productSnapshot: snapshot.getChildren()) {
-                                if (storeId.equals(productSnapshot.child("storeId").getValue().toString())) {
+                                if (storeId.equals(productSnapshot.child("storeId").getValue().toString()) && !productId.equals(productSnapshot.getKey())) {
                                     setWarningText(getString(R.string.product_already_exists_warning));
                                     return;
                                 }
                             }
                         }
                         setWarningText("");
-                        if (productId == null) {
+                        if (productId.isEmpty()) {
                             String uniqueKey = ref.push().getKey();
                             ref.child(uniqueKey).setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -152,7 +150,7 @@ public class AddOrEditProductActivity extends AppCompatActivity {
         });
 
         BottomNavigationView ownerBottomNavigationView = findViewById(R.id.owner_nav_menu);
-        if (previousActivity.equals("StoreActivity")) { ownerBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store); }
+        ownerBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
         ownerBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
