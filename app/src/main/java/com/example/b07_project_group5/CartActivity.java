@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ShoppingCartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity {
     FirebaseDatabase db;
     ArrayList<CartProduct> shoppingCart;
     String userId;
@@ -35,7 +34,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopping_cart);
+        setContentView(R.layout.activity_cart);
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
         Intent intent = getIntent();
         if (intent != null) {
@@ -44,35 +43,34 @@ public class ShoppingCartActivity extends AppCompatActivity {
         shoppingCart = new ArrayList<CartProduct>();
         totalCostView = new CartTotalCostView((TextView) findViewById(R.id.totalCost));
         recyclerView = findViewById(R.id.cartCarousel);
-        CartAdapter adapter = new CartAdapter(shoppingCart);
+        CartProductAdapter adapter = new CartProductAdapter(userId, shoppingCart, (TextView) findViewById(R.id.totalCost), (Button) findViewById(R.id.checkoutBtn));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         recyclerView.getAdapter().notifyDataSetChanged();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.shopper_nav_menu);
-        bottomNavigationView.setSelectedItemId(R.id.shopper_nav_menu_store);
+        bottomNavigationView.setSelectedItemId(R.id.shopper_nav_menu_cart);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
-                if (itemId == R.id.shopper_nav_menu_store) {
+                if (itemId == R.id.shopper_nav_menu_cart) {
                     return true;
-                } else if (itemId == R.id.shopper_nav_menu_cart) {
-                    Intent intent = new Intent(ShoppingCartActivity.this, ShoppingCartActivity.class);
+                } else if (itemId == R.id.shopper_nav_menu_store) {
+                    Intent intent = new Intent(CartActivity.this, BrowseStoreActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_orders) {
-                    Intent intent = new Intent(ShoppingCartActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(CartActivity.this, LoginActivity.class);
                     intent.putExtra("userId", userId);
-
-                    // Not sure if this is needed, comment out if it is
-//                    intent.putExtra("accountType", accountType);
+                    intent.putExtra("accountType", "shopper");
                     startActivity(intent);
                     finish();
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_logout) {
-                    Intent intent = new Intent(ShoppingCartActivity.this, LoginActivity.class);
+                    Toast.makeText(CartActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(CartActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                     return true;
@@ -98,24 +96,17 @@ public class ShoppingCartActivity extends AppCompatActivity {
                     if (!Boolean.parseBoolean(transactionSnapshot.child("finalized").getValue().toString())) {
                         transactionSnapshot.getRef().child("finalized").setValue(true);
                         shoppingCart.clear();
-                        ((TextView) findViewById(R.id.totalCost)).setVisibility(View.INVISIBLE);
-                        ((Button) findViewById(R.id.checkoutBtn)).setVisibility(View.INVISIBLE);
+                        ((TextView) findViewById(R.id.totalCost)).setText(getString(R.string.total_cost_placeholder_text));
+                        ((Button) findViewById(R.id.checkoutBtn)).setEnabled(false);
                         recyclerView.getAdapter().notifyDataSetChanged();
-                        Toast.makeText(ShoppingCartActivity.this, getString(R.string.checkout_success_text), Toast.LENGTH_LONG).show();
+                        Toast.makeText(CartActivity.this, getString(R.string.checkout_success_text), Toast.LENGTH_LONG).show();
                     }
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
-    }
-
-    public void onBackButtonClicked(View view) {
-        // Handle back button click event here
-        finish(); // This will navigate back to the previous activity (StoreActivity)
     }
 
     @Override
@@ -143,9 +134,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
                         return;
                     }
                 }
-                // Do not display total cost and checkout button if cart does not exist
-                ((TextView) findViewById(R.id.totalCost)).setVisibility(View.INVISIBLE);
-                ((Button) findViewById(R.id.checkoutBtn)).setVisibility(View.INVISIBLE);
+                ((Button) findViewById(R.id.checkoutBtn)).setEnabled(false);
             }
 
             @Override
@@ -160,13 +149,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         // Check if there are no orders in cart
         if (cart.getOrderList().size() == 0) {
-            // Do not display total cost and checkout button if there are no orders in cart
-            ((TextView) findViewById(R.id.totalCost)).setVisibility(View.INVISIBLE);
-            ((Button) findViewById(R.id.checkoutBtn)).setVisibility(View.INVISIBLE);
+            ((Button) findViewById(R.id.checkoutBtn)).setEnabled(false);
         } else {
-            // Display total cost and checkout button if there are orders in cart
-            ((TextView) findViewById(R.id.totalCost)).setVisibility(View.VISIBLE);
-            ((Button) findViewById(R.id.checkoutBtn)).setVisibility(View.VISIBLE);
+            ((Button) findViewById(R.id.checkoutBtn)).setEnabled(true);
         }
 
         for (String orderId : cart.getOrderList()) {

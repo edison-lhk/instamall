@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -90,7 +89,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 if (itemId == R.id.owner_nav_menu_store) {
                     return true;
                 } else if (itemId == R.id.owner_nav_menu_orders) {
-                    Intent intent = new Intent(ProductDetailsActivity.this, ShoppingCartActivity.class);
+                    Intent intent = new Intent(ProductDetailsActivity.this, CartActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                     finish();
@@ -109,9 +108,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         BottomNavigationView shopperBottomNavigationView = findViewById(R.id.shopper_nav_menu);
         if (!accountType.equals("shopper")) { shopperBottomNavigationView.setVisibility(View.INVISIBLE); }
         if (previousActivity.equals("StoreActivity")) {
-            shopperBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
-        } else {
-            shopperBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
+            shopperBottomNavigationView.setSelectedItemId(R.id.shopper_nav_menu_store);
+        } else if (previousActivity.equals("CartActivity")) {
+            shopperBottomNavigationView.setSelectedItemId(R.id.shopper_nav_menu_cart);
         }
         shopperBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -120,7 +119,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 if (itemId == R.id.shopper_nav_menu_store) {
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_cart) {
-                    Intent intent = new Intent(ProductDetailsActivity.this, ShoppingCartActivity.class);
+                    Intent intent = new Intent(ProductDetailsActivity.this, CartActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                     finish();
@@ -205,13 +204,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
-    private void addAmountToOrder(View view, DataSnapshot transactionSnapshot, DatabaseReference orderQuery) {
+    public void addAmountToOrder(View view, DataSnapshot transactionSnapshot, DatabaseReference orderQuery) {
 
         // Add a temporary order with the storeId (will be removed if another order with same
         // storeId exists in cart)
@@ -268,18 +265,16 @@ public class ProductDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private DataSnapshot getShoppingCart(DataSnapshot snapshot) {
-        // Return the snapshot of the user's shopping cart if it exists, otherwise return null.
+    public DataSnapshot getShoppingCart(DataSnapshot snapshot) {
         for (DataSnapshot transactionSnapshot : snapshot.getChildren()) {
             if (!Boolean.parseBoolean(transactionSnapshot.child("finalized").getValue().toString())) {
-
                 return transactionSnapshot;
             }
         }
         return null;
     }
 
-    private void displaySuccessMsg() {
-        Toast.makeText(ProductDetailsActivity.this, getString(R.string.add_order_to_cart_success), Toast.LENGTH_SHORT).show();
+    public void displaySuccessMsg() {
+        Toast.makeText(ProductDetailsActivity.this, name + " " + getString(R.string.add_order_to_cart_success), Toast.LENGTH_SHORT).show();
     }
 }
