@@ -8,6 +8,7 @@
     android:id="@+id/store_page_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_pink"
     tools:context=".StoreActivity"
     tools:visibility="visible">
 
@@ -54,6 +55,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="5dp"
         android:hint="@string/store_search_products_text"
+        android:background="@drawable/rounded_searchbar"
         app:layout_constraintEnd_toStartOf="@+id/searchProductBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/storeLogo" />
@@ -155,45 +157,48 @@
 
     <Button
         android:id="@+id/searchProductBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="46dp"
+        android:layout_height="42dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/search_button"
+        android:drawableTop="@drawable/search_icon"
+        android:gravity="center"
         android:onClick="searchProduct"
-        android:text="@string/search_product_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchBar"
-        app:layout_constraintTop_toBottomOf="@+id/storeLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/storeLogo"
+        app:backgroundTint="@null"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/owner_nav_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:itemIconSize="30dp"
-        app:itemIconTint="@drawable/selector"
-        app:itemRippleColor="@android:color/transparent"
-        app:labelVisibilityMode="labeled"
-        app:itemTextColor="@drawable/selector"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/owner_nav_menu" />
+    android:id="@+id/owner_nav_menu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:itemIconSize="30dp"
+    app:itemIconTint="@drawable/selector"
+    app:itemRippleColor="@android:color/transparent"
+    app:itemTextColor="@drawable/selector"
+    app:labelVisibilityMode="labeled"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:menu="@menu/owner_nav_menu" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/shopper_nav_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:itemIconSize="30dp"
-        app:itemIconTint="@drawable/selector"
-        app:itemRippleColor="@android:color/transparent"
-        app:itemTextColor="@drawable/selector"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/shopper_nav_menu" />
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/shopper_nav_menu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:itemIconSize="30dp"
+    app:itemIconTint="@drawable/selector"
+    app:itemRippleColor="@android:color/transparent"
+    app:itemTextColor="@drawable/selector"
+    app:labelVisibilityMode="labeled"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:menu="@menu/shopper_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
