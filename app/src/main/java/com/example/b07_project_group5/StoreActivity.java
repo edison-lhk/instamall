@@ -117,7 +117,7 @@ public class StoreActivity extends AppCompatActivity {
             ConstraintLayout layout = findViewById(R.id.store_page_container);
             set.clone(layout);
             set.clear(R.id.productCarousel, ConstraintSet.TOP);
-            set.connect(R.id.productCarousel, ConstraintSet.TOP, R.id.searchBar, ConstraintSet.BOTTOM, 35);
+            set.connect(R.id.productCarousel, ConstraintSet.TOP, R.id.searchBar, ConstraintSet.BOTTOM, 40);
             set.applyTo(layout);
             float scale = this.getResources().getDisplayMetrics().density;
             int pixels = (int) (450 * scale + 0.5f);
@@ -157,9 +157,9 @@ public class StoreActivity extends AppCompatActivity {
         BottomNavigationView shopperBottomNavigationView = findViewById(R.id.shopper_nav_menu);
         if (!accountType.equals("shopper")) { shopperBottomNavigationView.setVisibility(View.INVISIBLE); }
         if (previousActivity == null) {
-            shopperBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
+            shopperBottomNavigationView.setSelectedItemId(R.id.shopper_nav_menu_store);
         } else if (previousActivity.equals("BrowseStoreActivity")) {
-            shopperBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
+            shopperBottomNavigationView.setSelectedItemId(R.id.shopper_nav_menu_store);
         }
         shopperBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -168,9 +168,8 @@ public class StoreActivity extends AppCompatActivity {
                 if (itemId == R.id.shopper_nav_menu_store) {
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_cart) {
-                    Intent intent = new Intent(StoreActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(StoreActivity.this, CartActivity.class);
                     intent.putExtra("userId", userId);
-                    intent.putExtra("accountType", accountType);
                     startActivity(intent);
                     finish();
                     return true;

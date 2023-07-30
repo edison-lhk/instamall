@@ -1,28 +1,15 @@
 package com.example.b07_project_group5;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
@@ -71,11 +58,9 @@ public class BrowseStoreActivity extends AppCompatActivity {
                 if (itemId == R.id.shopper_nav_menu_store) {
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_cart) {
-                    Intent intent = new Intent(BrowseStoreActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(BrowseStoreActivity.this, CartActivity.class);
                     intent.putExtra("userId", userId);
-                    intent.putExtra("accountType", accountType);
                     startActivity(intent);
-                    finish();
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_orders) {
                     Intent intent = new Intent(BrowseStoreActivity.this, LoginActivity.class);
