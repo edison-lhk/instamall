@@ -183,12 +183,12 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-            productImageList = (ImageView) itemView.findViewById(R.id.cartProductImageList);
+            productImageList = (ImageView) itemView.findViewById(R.id.orderStoreImageList);
             productNameTextView = (TextView) itemView.findViewById(R.id.cartProductName);
-            productPriceTextView = (TextView) itemView.findViewById(R.id.cartProductPrice);
+            productPriceTextView = (TextView) itemView.findViewById(R.id.orderOrderID);
             amountTextView = (TextView) itemView.findViewById(R.id.cartProductAmount);
             productTotalPriceTextView = (TextView) itemView.findViewById(R.id.cartProductTotalPrice);
-            storeNameTextView = (TextView) itemView.findViewById(R.id.cartStoreName);
+            storeNameTextView = (TextView) itemView.findViewById(R.id.orderStoreName);
             removeProductBtn = (ImageButton) itemView.findViewById(R.id.removeProductBtn);
         }
     }

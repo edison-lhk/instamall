@@ -10,7 +10,7 @@
     android:padding="8dp">
 
     <ImageView
-        android:id="@+id/cartProductImageList"
+        android:id="@+id/orderStoreImageList"
         android:layout_width="100dp"
         android:layout_height="80dp"
         android:layout_marginStart="20dp"
@@ -30,11 +30,11 @@
         android:textAlignment="textStart"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/cartProductImageList"
+        app:layout_constraintStart_toEndOf="@+id/orderStoreImageList"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/cartProductPrice"
+        android:id="@+id/orderOrderID"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_marginStart="8dp"
@@ -43,7 +43,7 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/xSymbol"
-        app:layout_constraintTop_toBottomOf="@+id/cartStoreName" />
+        app:layout_constraintTop_toBottomOf="@+id/orderStoreName" />
 
     <TextView
         android:id="@+id/cartProductAmount"
@@ -54,8 +54,8 @@
         android:text="@string/product_stock_placeholder_text"
         android:textColor="@android:color/darker_gray"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/cartProductImageList"
-        app:layout_constraintTop_toBottomOf="@+id/cartStoreName" />
+        app:layout_constraintStart_toEndOf="@+id/orderStoreImageList"
+        app:layout_constraintTop_toBottomOf="@+id/orderStoreName" />
 
     <TextView
         android:id="@+id/cartProductTotalPrice"
@@ -78,17 +78,17 @@
         android:text="x"
         android:textColor="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@+id/cartProductAmount"
-        app:layout_constraintTop_toBottomOf="@+id/cartStoreName" />
+        app:layout_constraintTop_toBottomOf="@+id/orderStoreName" />
 
     <TextView
-        android:id="@+id/cartStoreName"
+        android:id="@+id/orderStoreName"
         android:layout_width="150dp"
         android:layout_height="20dp"
         android:layout_marginStart="12dp"
         android:text="@string/product_store_name_placeholder_text"
         android:textSize="15sp"
         android:textColor="@android:color/black"
-        app:layout_constraintStart_toEndOf="@+id/cartProductImageList"
+        app:layout_constraintStart_toEndOf="@+id/orderStoreImageList"
         app:layout_constraintTop_toBottomOf="@+id/cartProductName" />
 
     <ImageButton

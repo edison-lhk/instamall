@@ -9,13 +9,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="30dp"
         android:text="@string/Orders"
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.432"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,17 +28,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/cart_product_card" />
+        tools:listitem="@layout/order_card" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/FinishedOrderCarousel"
         android:layout_width="409dp"
         android:layout_height="246dp"
+        android:layout_marginBottom="4dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/shopper_nav_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/cart_product_card" />
+        tools:listitem="@layout/order_card" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/shopper_nav_menu"
