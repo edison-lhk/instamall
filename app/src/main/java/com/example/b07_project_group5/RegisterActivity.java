@@ -55,12 +55,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void registerUser(View v) {
-        EditText usernameInput = (EditText) findViewById(R.id.register_username_input);
+        EditText usernameInput = findViewById(R.id.register_username_input);
         username = usernameInput.getText().toString();
-        EditText emailInput = (EditText) findViewById(R.id.register_email_input);
+        EditText emailInput = findViewById(R.id.register_email_input);
         email = emailInput.getText().toString();
-        EditText passwordInput = (EditText) findViewById(R.id.register_password_input);
+        EditText passwordInput = findViewById(R.id.register_password_input);
         password = passwordInput.getText().toString();
+        EditText accountTypeInput = findViewById(R.id.register_type_input);
         if (username.equals("") || email.equals("") || password.equals("") || accountType.equals("")) {
             setWarningText(getString(R.string.login_empty_fields_warning));
             return;
@@ -87,6 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
                             usernameInput.setText("");
                             emailInput.setText("");
                             passwordInput.setText("");
+                            accountTypeInput.setText("");
                         }
                     });
                 } else {
@@ -106,6 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
                             usernameInput.setText("");
                             emailInput.setText("");
                             passwordInput.setText("");
+                            accountTypeInput.setText("");
                         }
                     });
                 }
