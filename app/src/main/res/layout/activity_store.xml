@@ -55,7 +55,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="5dp"
         android:hint="@string/store_search_products_text"
-        android:background="@drawable/rounded_searchbar"
+        android:background="@drawable/rounded_corner"
         app:layout_constraintEnd_toStartOf="@+id/searchProductBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/storeLogo" />
