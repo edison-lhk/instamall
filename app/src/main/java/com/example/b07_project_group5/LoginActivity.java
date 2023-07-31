@@ -61,10 +61,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void clearInputFields() {
-        EditText emailInput = findViewById(R.id.login_type_input);
+        EditText emailInput = findViewById(R.id.login_email_input);
         EditText passwordInput = findViewById(R.id.login_password_input);
+        EditText accountTypeInput = findViewById(R.id.login_type_input);
         emailInput.setText("");
         passwordInput.setText("");
+        accountTypeInput.setText("");
     }
 
     @Override
