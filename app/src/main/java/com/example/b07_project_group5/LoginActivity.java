@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public String getAccountTypeInput() {
         AutoCompleteTextView loginTypeInput = findViewById(R.id.login_type_input);
-        return loginTypeInput.getText().toString();
+        return loginTypeInput.getText().toString().toLowerCase();
     }
 
     @Override
@@ -99,6 +99,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void loginUser(View v) {
-        presenter.loginUser(getEmailInput(), getPasswordInput(), getAccountTypeInput());
+        presenter.loginUser();
     }
 }
