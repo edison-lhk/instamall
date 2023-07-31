@@ -13,6 +13,7 @@
     <string name="login_empty_fields_warning">Please fill in all the fields</string>
     <string name="login_cannot_find_user_warning">User cannot be found</string>
     <string name="login_password_incorrect_warning">Password is incorrect</string>
+    <string name="login_database_error_warning">Database error</string>
     <string name="login_successful_text">Login Successful!</string>
     <string name="register_prompt_text">Not our member yet?</string>
     <string name="register_prompt_btn_text">Register</string>
@@ -48,4 +49,13 @@
     <string name="shopper_nav_menu_logout_text">Logout</string>
     <string name="logout_successful_text">Logout Successful!</string>
     <string name="add_to_cart_text">Add to Cart</string>
+    <string name="add_order_to_cart_success">has successfully been added to your cart!</string>
+    <string name="product_total_price_placeholder_text">Product Total</string>
+    <string name="product_store_name_placeholder_text">Store Name</string>
+    <string name="my_shopping_cart_text">Shopping Cart</string>
+    <string name="total_cost_placeholder_text">Total: $0.0</string>
+    <string name="checkout_btn_text">Checkout</string>
+    <string name="checkout_success_text">Your order has been placed!</string>
+    <string name="remove_cart_product_successful_text">has been successfully removed!</string>
+    <string name="clear_cart_successful_text">Cart has been successfully cleared!</string>
 </resources>

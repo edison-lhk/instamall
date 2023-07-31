@@ -100,7 +100,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddOrEditProductActivity.class);
-                intent.putExtra("previousActivity", "StoreActivity");
                 intent.putExtra("userId", userId);
                 intent.putExtra("accountType", accountType);
                 intent.putExtra("storeId", storeId);

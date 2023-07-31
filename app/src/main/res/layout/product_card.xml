@@ -14,7 +14,7 @@
         android:id="@+id/productImageList"
         android:layout_width="123dp"
         android:layout_height="100dp"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="16dp"
         android:scaleType="fitXY"
         android:src="@drawable/default_image"
         app:layout_constraintStart_toStartOf="parent"
