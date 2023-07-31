@@ -5,8 +5,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoginPresenterUnitTest {
@@ -30,17 +32,17 @@ public class LoginPresenterUnitTest {
     public void testUserNotFound() {
         when(view.getEmailInput()).thenReturn("usernotfound@gmail.com");
         when(view.getPasswordInput()).thenReturn("12345");
-        when(view.getAccountTypeInput()).thenReturn("Shopper");
+        when(view.getAccountTypeInput()).thenReturn("shopper");
         LoginPresenter presenter = new LoginPresenter(view, model);
         presenter.loginUser();
-        verify(view).setWarningText(view.getStringFromResource(R.string.login_cannot_find_user_warning));
+        verify(view, timeout(2000).times(1)).setWarningText(view.getStringFromResource(R.string.login_cannot_find_user_warning));
     }
 
     @Test
     public void testIncorrectPassword() {
         when(view.getEmailInput()).thenReturn("edison@gmail.com");
         when(view.getPasswordInput()).thenReturn("12345");
-        when(view.getAccountTypeInput()).thenReturn("Owner");
+        when(view.getAccountTypeInput()).thenReturn("owner");
         LoginPresenter presenter = new LoginPresenter(view, model);
         presenter.loginUser();
         verify(view).setWarningText(view.getStringFromResource(R.string.login_password_incorrect_warning));
@@ -50,7 +52,7 @@ public class LoginPresenterUnitTest {
     public void testIncorrectAccountType() {
         when(view.getEmailInput()).thenReturn("vincent@gmail.com");
         when(view.getPasswordInput()).thenReturn("vincent");
-        when(view.getAccountTypeInput()).thenReturn("Shopper");
+        when(view.getAccountTypeInput()).thenReturn("shopper");
         LoginPresenter presenter = new LoginPresenter(view, model);
         presenter.loginUser();
         verify(view).setWarningText(view.getStringFromResource(R.string.login_account_type_incorrect_warning));
