@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     String image;
     String description;
     String storeId;
+    int stock;
     FirebaseDatabase db;
 
     @Override
@@ -54,14 +56,17 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         image = snapshot.child("image").getValue().toString();
                         description = snapshot.child("description").getValue().toString();
                         storeId = snapshot.child("storeId").getValue().toString();
+                        stock = Integer.parseInt(snapshot.child("stock").getValue().toString());
                         TextView textViewProductName = findViewById(R.id.textViewProductName);
                         TextView textViewProductPrice = findViewById(R.id.textViewProductPrice);
                         ImageView imageViewProduct = findViewById(R.id.imageViewProduct);
                         TextView textViewDescription = findViewById(R.id.textViewProductDescription);
+                        TextView textViewProductStock = findViewById(R.id.productStockRemaining);
                         Glide.with(ProductDetailsActivity.this).load(image).into(imageViewProduct);
                         textViewDescription.setText(description);
                         textViewProductName.setText(name);
                         textViewProductPrice.setText(String.valueOf(price));
+                        textViewProductStock.setText("Stock: " + stock);
                     }
                 }
 
@@ -156,6 +161,32 @@ public class ProductDetailsActivity extends AppCompatActivity {
         DatabaseReference transactionQuery = ref.child("transactions");
         DatabaseReference orderQuery = ref.child("orders");
 
+        EditText amountInputField = (EditText) findViewById(R.id.productAmountInput);
+        int amountInput;
+
+        // Check if the input is empty
+        if (amountInputField.getText().toString() == "") {
+            Toast.makeText(ProductDetailsActivity.this, getString(R.string.product_amount_empty_warning), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // Fail-safe in case user types some non-integer input
+        try {
+            amountInput = Integer.parseInt(amountInputField.getText().toString());
+            amountInputField.setText("");
+            if (amountInput > stock) {
+                Toast.makeText(ProductDetailsActivity.this, getString(R.string.product_amount_overload_warning), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (amountInput <= 0) {
+                Toast.makeText(ProductDetailsActivity.this, getString(R.string.product_amount_underload_warning), Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (Exception e) {
+            Toast.makeText(ProductDetailsActivity.this, getString(R.string.product_amount_empty_warning), Toast.LENGTH_SHORT).show();
+            amountInputField.setText("");
+            return;
+        }
+
         // Make a query for all transactions made by user (including their shopping cart, if it exists)
         transactionQuery.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -169,7 +200,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 // Check if no transactions for user exist
                 if (!snapshot.exists()) {
                     order = new Order(storeId);
-                    order.addProduct(productId, 1);
+                    order.addProduct(productId, amountInput);
                     orderId = orderQuery.push().getKey();
                     orderQuery.child(orderId).setValue(order);
                     cart = new Transaction(userId);
@@ -185,12 +216,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                 // Check if user has an available shopping cart
                 if (transactionSnapshot != null) {
-                    addAmountToOrder(view, transactionSnapshot, orderQuery);
+                    addAmountToOrder(view, transactionSnapshot, orderQuery, amountInput);
                 } else {
                     order = new Order(storeId);
                     cart = new Transaction(userId);
-                    // Replace amount by the amount specified by user in some input field on the page
-                    order.addProduct(productId, 1);
+                    order.addProduct(productId, amountInput);
 
                     orderId = orderQuery.push().getKey();
                     orderQuery.child(orderId).setValue(order);
@@ -200,6 +230,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     transactionId = transactionQuery.push().getKey();
                     transactionQuery.child(transactionId).setValue(cart);
                 }
+                reduceStock(amountInput);
                 displaySuccessMsg();
             }
 
@@ -208,12 +239,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
         });
     }
 
-    public void addAmountToOrder(View view, DataSnapshot transactionSnapshot, DatabaseReference orderQuery) {
+    public void addAmountToOrder(View view, DataSnapshot transactionSnapshot, DatabaseReference orderQuery, int amountInput) {
 
         // Add a temporary order with the storeId (will be removed if another order with same
         // storeId exists in cart)
         Order tempOrder = new Order(storeId);
-        tempOrder.addProduct(productId, 1);
+        tempOrder.addProduct(productId, amountInput);
         String tempOrderId = orderQuery.push().getKey();
         orderQuery.child(tempOrderId).setValue(tempOrder);
         Transaction cart = transactionSnapshot.getValue(Transaction.class);
@@ -247,11 +278,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
                             transactionSnapshot.getRef().setValue(cart);
                         }
                         ProductOrder product = order.getProduct(productId);
-                        // Change the 1s for user input for product amount in next sprint
                         if (product != null) {
-                            product.setAmount(product.getAmount() + 1);
+                            product.setAmount(product.getAmount() + amountInput);
                         } else {
-                            order.addProduct(productId, 1);
+                            order.addProduct(productId, amountInput);
                         }
                         snapshot.getRef().setValue(order);
                     }
@@ -276,5 +306,35 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     public void displaySuccessMsg() {
         Toast.makeText(ProductDetailsActivity.this, name + " " + getString(R.string.add_order_to_cart_success), Toast.LENGTH_SHORT).show();
+    }
+
+    public void subOneToAmount(View view) {
+        EditText amountInputField = (EditText) findViewById(R.id.productAmountInput);
+        try {
+            int amountInput = Integer.parseInt(amountInputField.getText().toString());
+            amountInput = Math.max(amountInput - 1, 1);
+            amountInputField.setText(amountInput);
+        } catch (Exception e) {
+            amountInputField.setText("1");
+        }
+    }
+
+    public void addOneToAmount(View view) {
+        EditText amountInputField = (EditText) findViewById(R.id.productAmountInput);
+        try {
+            int amountInput = Integer.parseInt(amountInputField.getText().toString());
+            amountInput = Math.min(amountInput + 1, stock);
+            amountInputField.setText(amountInput);
+        } catch (Exception e) {
+            amountInputField.setText("1");
+        }
+    }
+
+    private void reduceStock(int amount) {
+        DatabaseReference ref = db.getReference();
+        stock = stock - amount;
+        ref.child("product").child(productId).child("stock").setValue(stock);
+        TextView textViewProductStock = findViewById(R.id.productStockRemaining);
+        textViewProductStock.setText(stock);
     }
 }
