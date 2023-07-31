@@ -53,6 +53,9 @@
     <string name="product_total_price_placeholder_text">Product Total</string>
     <string name="product_store_name_placeholder_text">Store Name</string>
     <string name="my_shopping_cart_text">Shopping Cart</string>
+    <string name="Pending">Pending</string>
+    <string name="Finished">Finished</string>
+    <string name="Orders">Orders</string>string>
     <string name="total_cost_placeholder_text">Total: $0.0</string>
     <string name="checkout_btn_text">Checkout</string>
     <string name="checkout_success_text">Your order has been placed!</string>

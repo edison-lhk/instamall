@@ -14,7 +14,7 @@
 
     <!-- Store Logo -->      <!-- UPDATE STORE LOGO-->
 
-    <!-- Store Name -->
+
     <ImageView
         android:id="@+id/storeLogo"
         android:layout_width="110dp"
