@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/product_details_page_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <!-- remember to update image-->
 
     <ImageView
         android:id="@+id/imageViewProduct"
         android:layout_width="match_parent"
-        android:layout_height="374dp"
+        android:layout_height="350dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/default_image"
@@ -26,26 +24,30 @@
         android:id="@+id/textViewProductName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
         android:paddingLeft="10dp"
         android:text="PRODUCT NAME"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/imageViewProduct"
-        app:layout_constraintStart_toStartOf="@id/imageViewProduct"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageViewProduct" />
 
     <TextView
         android:id="@+id/textViewProductPrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:paddingLeft="10dp"
         android:text="PRICE"
         android:textSize="16sp"
         android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="@id/textViewProductName"
-        app:layout_constraintStart_toStartOf="@id/textViewProductName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewProductName" />
 
     <TextView
@@ -62,6 +64,62 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewProductPrice" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/productAmountInputContainer"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/addToCartBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewProductDescription"
+        app:layout_constraintVertical_bias="0.545">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/productAmountInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0,1,2,3,4,5,6,7,8,9"
+            android:hint="@string/product_amount_input_text"
+            android:singleLine="true"
+            android:visibility="visible" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/subOneProductBtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:onClick="subOneToAmount"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/productAmountInputContainer"
+        app:layout_constraintEnd_toStartOf="@+id/productAmountInputContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/productAmountInputContainer"
+        app:srcCompat="@drawable/baseline_remove_24" />
+
+    <ImageButton
+        android:id="@+id/plusOneProductBtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:onClick="addOneToAmount"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/productAmountInputContainer"
+        app:layout_constraintStart_toEndOf="@+id/productAmountInputContainer"
+        app:layout_constraintTop_toTopOf="@+id/productAmountInputContainer"
+        app:srcCompat="@drawable/baseline_add_24" />
+
     <include
         android:id="@+id/backBtn"
         layout="@layout/back_btn" />
@@ -71,13 +129,16 @@
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="100dp"
-        android:text="@string/add_to_cart_text"
+        android:layout_marginBottom="88dp"
         android:onClick="addToCart"
+        android:text="@string/add_to_cart_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productAmountInputContainer" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/owner_nav_menu"
@@ -87,8 +148,8 @@
         app:itemIconSize="30dp"
         app:itemIconTint="@drawable/selector"
         app:itemRippleColor="@android:color/transparent"
-        app:labelVisibilityMode="labeled"
         app:itemTextColor="@drawable/selector"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,6 +169,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/shopper_nav_menu" />
+
+    <TextView
+        android:id="@+id/productStockRemaining"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/product_stock_amount_placeholder_text"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/addToCartBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/plusOneProductBtn"
+        app:layout_constraintTop_toBottomOf="@+id/textViewProductDescription"
+        app:layout_constraintVertical_bias="0.517" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
