@@ -38,7 +38,7 @@ public class recyclerviewactivity extends AppCompatActivity {
                 new LinearLayoutManager(this));
         orderList = new ArrayList<>();
 
-        adapter = new RecyclerAdapter(orderList);
+        adapter = new RecyclerAdapter(orderList, this);
         recyclerView.setAdapter(adapter);
         // Initialize the adapter with the empty ArrayList
         mbase.child("orders").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -52,14 +52,13 @@ public class recyclerviewactivity extends AppCompatActivity {
 
                     for (DataSnapshot productSnapshot : productListSnapshot.getChildren()) {
                         // Get the "amount" and "productId" for each product
-                        String amount = productSnapshot.child("amount").getValue(String.class);
+                        Long amount = productSnapshot.child("amount").getValue(Long.class);
                         String productId = productSnapshot.child("productId").getValue(String.class);
 
-                        Boolean status = orderSnapshot.child("status").getValue(Boolean.class);
-                        String storeId = orderSnapshot.child("storeId").getValue(String.class);
+                        String amountString = String.valueOf(amount);
 
-                        order ap = new order(amount, productId, status, storeId);
-                        orderList.add(ap);
+                        order order = new order(amountString, productId);
+                        orderList.add(order);
                     }
                 }
                 adapter.notifyDataSetChanged();

@@ -46,6 +46,14 @@ public class LoginActivity extends AppCompatActivity {
                 accountType = parent.getItemAtPosition(position).toString().toLowerCase();
             }
         });
+        Button btn = (Button) findViewById(R.id.rview);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, recyclerviewactivity.class));
+            }
+        });
+
 
     }
 
