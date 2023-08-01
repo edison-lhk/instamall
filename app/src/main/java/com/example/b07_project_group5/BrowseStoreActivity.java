@@ -64,6 +64,7 @@ public class BrowseStoreActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         BottomNavigationView bottomNavigationView = findViewById(R.id.shopper_nav_menu);
         bottomNavigationView.setSelectedItemId(R.id.shopper_nav_menu_store);
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

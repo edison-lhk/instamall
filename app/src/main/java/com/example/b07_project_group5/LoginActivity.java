@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,12 +39,14 @@ public class LoginActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.dropdown_item, userTypes);
         AutoCompleteTextView loginTypeInput = (AutoCompleteTextView) findViewById(R.id.login_type_input);
         loginTypeInput.setAdapter(arrayAdapter);
+
         loginTypeInput.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 accountType = parent.getItemAtPosition(position).toString().toLowerCase();
             }
         });
+
     }
 
     public void setWarningText(String warning) {

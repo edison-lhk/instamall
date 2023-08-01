@@ -1,17 +1,21 @@
 package com.example.b07_project_group5;
 
 public class order {
-    private String product;
+    private String productID;
     private String amount;
 
     public order(){
 
     }
-    public String getProduct(){
-        return product;
+
+    public order(String amount, String productId, Boolean status, String storeId) {
     }
-    public void setProduct(String product){
-        this.product = product;
+
+    public String getProductID(){
+        return productID;
+    }
+    public void setProductID(String product){
+        this.productID = productID;
     }
     public String getAmount(){
         return amount;
