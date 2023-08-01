@@ -2,11 +2,14 @@ package com.example.b07_project_group5;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -82,6 +86,20 @@ public class ProductDetailsActivity extends AppCompatActivity {
         if (accountType.equals("owner")) {
             Button addToCartBtn = findViewById(R.id.addToCartBtn);
             addToCartBtn.setVisibility(View.INVISIBLE);
+            ImageButton subOneProductBtn = findViewById(R.id.subOneProductBtn);
+            subOneProductBtn.setVisibility(View.INVISIBLE);
+            ImageButton plusOneProductBtn = findViewById(R.id.plusOneProductBtn);
+            plusOneProductBtn.setVisibility(View.INVISIBLE);
+            TextInputLayout productAmountInputContainer = findViewById(R.id.productAmountInputContainer);
+            productAmountInputContainer.setVisibility(View.INVISIBLE);
+            TextView productStockRemaining = findViewById(R.id.productStockRemaining);
+            productStockRemaining.setVisibility(View.INVISIBLE);
+            ImageView imageViewProduct = findViewById(R.id.imageViewProduct);
+            float scale = this.getResources().getDisplayMetrics().density;
+            int pixels = (int) (374 * scale + 0.5f);
+            ViewGroup.LayoutParams layoutParams = imageViewProduct.getLayoutParams();
+            layoutParams.height = pixels;
+            imageViewProduct.setLayoutParams(layoutParams);
         }
 
         BottomNavigationView ownerBottomNavigationView = findViewById(R.id.owner_nav_menu);
