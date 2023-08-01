@@ -174,6 +174,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
             Toast.makeText(ProductDetailsActivity.this, getString(R.string.product_amount_empty_warning), Toast.LENGTH_SHORT).show();
             return;
         }
+        if (amountInputField.getText().toString().length() > 1 && amountInputField.getText().toString().charAt(0) == '0') {
+            Toast.makeText(ProductDetailsActivity.this, getString(R.string.product_amount_invalid_warning), Toast.LENGTH_LONG).show();
+            amountInputField.setText("");
+            return;
+        }
         // Fail-safe in case user types some non-integer input
         try {
             amountInput = Integer.parseInt(amountInputField.getText().toString());
@@ -187,7 +192,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 return;
             }
         } catch (Exception e) {
-            Toast.makeText(ProductDetailsActivity.this, getString(R.string.product_amount_empty_warning), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProductDetailsActivity.this, getString(R.string.product_amount_invalid_warning), Toast.LENGTH_SHORT).show();
             amountInputField.setText("");
             return;
         }

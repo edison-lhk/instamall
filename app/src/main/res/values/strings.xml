@@ -60,6 +60,7 @@
     <string name="clear_cart_successful_text">Cart has been successfully cleared!</string>
     <string name="product_amount_input_text">Amount</string>
     <string name="product_amount_empty_warning">Please enter an amount</string>
+    <string name="product_amount_invalid_warning">Please enter a valid amount</string>
     <string name="product_amount_overload_warning">Not enough products on stock!</string>
     <string name="product_amount_underload_warning">Please enter an amount greater than 0</string>
     <string name="product_stock_amount_placeholder_text">STOCK</string>
