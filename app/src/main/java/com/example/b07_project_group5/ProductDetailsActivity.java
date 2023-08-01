@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,8 +66,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         Glide.with(ProductDetailsActivity.this).load(image).into(imageViewProduct);
                         textViewDescription.setText(description);
                         textViewProductName.setText(name);
-                        textViewProductPrice.setText(String.valueOf(price));
-                        textViewProductStock.setText("Stock: " + stock);
+                        textViewProductPrice.setText("$" + String.format("%.2f", price));
+                        textViewProductStock.setText("Stock: " + String.valueOf(stock));
+                        if (stock == 0) {
+                            disableAmountInput();
+                        }
                     }
                 }
 
@@ -309,22 +313,30 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     public void subOneToAmount(View view) {
-        EditText amountInputField = (EditText) findViewById(R.id.productAmountInput);
+        EditText amountInputField = findViewById(R.id.productAmountInput);
+        if (amountInputField.getText().toString() == "") {
+            amountInputField.setText("1");
+        }
         try {
             int amountInput = Integer.parseInt(amountInputField.getText().toString());
+            amountInput = Math.min(amountInput, stock + 1);
             amountInput = Math.max(amountInput - 1, 1);
-            amountInputField.setText(amountInput);
+            amountInputField.setText(String.valueOf(amountInput));
         } catch (Exception e) {
             amountInputField.setText("1");
         }
     }
 
     public void addOneToAmount(View view) {
-        EditText amountInputField = (EditText) findViewById(R.id.productAmountInput);
+        EditText amountInputField = findViewById(R.id.productAmountInput);
+        if (amountInputField.getText().toString() == "") {
+            amountInputField.setText("1");
+        }
         try {
             int amountInput = Integer.parseInt(amountInputField.getText().toString());
+            amountInput = Math.max(amountInput, 0);
             amountInput = Math.min(amountInput + 1, stock);
-            amountInputField.setText(amountInput);
+            amountInputField.setText(String.valueOf(amountInput));
         } catch (Exception e) {
             amountInputField.setText("1");
         }
@@ -332,9 +344,23 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     private void reduceStock(int amount) {
         DatabaseReference ref = db.getReference();
-        stock = stock - amount;
-        ref.child("product").child(productId).child("stock").setValue(stock);
+        stock -= amount;
+        ref.child("products").child(productId).child("stock").setValue(stock);
         TextView textViewProductStock = findViewById(R.id.productStockRemaining);
-        textViewProductStock.setText(stock);
+        textViewProductStock.setText("Stock: " + String.valueOf(stock));
+        if (stock == 0) {
+            disableAmountInput();
+        }
+    }
+
+    private void disableAmountInput() {
+        EditText editTextAmount = findViewById(R.id.productAmountInput);
+        ImageButton imageButtonSub = findViewById(R.id.subOneProductBtn);
+        ImageButton imageButtonPlus = findViewById(R.id.plusOneProductBtn);
+        Button addToCartBtn = findViewById(R.id.addToCartBtn);
+        editTextAmount.setEnabled(false);
+        imageButtonSub.setEnabled(false);
+        imageButtonPlus.setEnabled(false);
+        addToCartBtn.setEnabled(false);
     }
 }

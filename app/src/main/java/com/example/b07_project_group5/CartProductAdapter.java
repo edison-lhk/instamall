@@ -124,6 +124,19 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {}
                 });
+                ref.child("products").child(cartProduct.getProductId()).child("stock").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        int stock = Integer.parseInt(snapshot.getValue().toString());
+                        stock += amount;
+                        snapshot.getRef().setValue(stock);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
     }
