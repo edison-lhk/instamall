@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imageViewProduct"
         android:layout_width="match_parent"
-        android:layout_height="374dp"
+        android:layout_height="350dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="16dp"
@@ -24,26 +24,30 @@
         android:id="@+id/textViewProductName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
         android:paddingLeft="10dp"
         android:text="PRODUCT NAME"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/imageViewProduct"
-        app:layout_constraintStart_toStartOf="@id/imageViewProduct"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageViewProduct" />
 
     <TextView
         android:id="@+id/textViewProductPrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:paddingLeft="10dp"
         android:text="PRICE"
         android:textSize="16sp"
         android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="@id/textViewProductName"
-        app:layout_constraintStart_toStartOf="@id/textViewProductName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewProductName" />
 
     <TextView
@@ -63,9 +67,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/productAmountInputContainer"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:inputType="number"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/addToCartBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.18"
@@ -84,34 +89,34 @@
 
     <ImageButton
         android:id="@+id/subOneProductBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:adjustViewBounds="true"
         android:background="@null"
-        android:scaleType="fitCenter"
         android:onClick="subOneToAmount"
-        app:layout_constraintBottom_toTopOf="@+id/addToCartBtn"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/productAmountInputContainer"
         app:layout_constraintEnd_toStartOf="@+id/productAmountInputContainer"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewProductDescription"
-        app:layout_constraintVertical_bias="0.545"
+        app:layout_constraintTop_toTopOf="@+id/productAmountInputContainer"
         app:srcCompat="@drawable/baseline_remove_24" />
 
     <ImageButton
         android:id="@+id/plusOneProductBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
         android:adjustViewBounds="true"
         android:background="@null"
-        android:scaleType="fitCenter"
         android:onClick="addOneToAmount"
-        app:layout_constraintBottom_toTopOf="@+id/addToCartBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/productAmountInputContainer"
         app:layout_constraintStart_toEndOf="@+id/productAmountInputContainer"
-        app:layout_constraintTop_toBottomOf="@+id/textViewProductDescription"
-        app:layout_constraintVertical_bias="0.545"
+        app:layout_constraintTop_toTopOf="@+id/productAmountInputContainer"
         app:srcCompat="@drawable/baseline_add_24" />
 
     <include
@@ -123,6 +128,7 @@
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="88dp"
         android:onClick="addToCart"
@@ -130,7 +136,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productAmountInputContainer" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/owner_nav_menu"
@@ -164,14 +171,17 @@
 
     <TextView
         android:id="@+id/productStockRemaining"
-        android:layout_width="175dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/product_stock_amount_placeholder_text"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/addToCartBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toEndOf="@+id/plusOneProductBtn"
         app:layout_constraintTop_toBottomOf="@+id/textViewProductDescription"
         app:layout_constraintVertical_bias="0.517" />

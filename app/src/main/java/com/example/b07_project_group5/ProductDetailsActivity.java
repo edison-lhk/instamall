@@ -165,7 +165,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         DatabaseReference transactionQuery = ref.child("transactions");
         DatabaseReference orderQuery = ref.child("orders");
 
-        EditText amountInputField = (EditText) findViewById(R.id.productAmountInput);
+        EditText amountInputField = findViewById(R.id.productAmountInput);
+        amountInputField.clearFocus();
         int amountInput;
 
         // Check if the input is empty
@@ -314,6 +315,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     public void subOneToAmount(View view) {
         EditText amountInputField = findViewById(R.id.productAmountInput);
+        amountInputField.clearFocus();
         if (amountInputField.getText().toString() == "") {
             amountInputField.setText("1");
         }
@@ -329,6 +331,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     public void addOneToAmount(View view) {
         EditText amountInputField = findViewById(R.id.productAmountInput);
+        amountInputField.clearFocus();
         if (amountInputField.getText().toString() == "") {
             amountInputField.setText("1");
         }
