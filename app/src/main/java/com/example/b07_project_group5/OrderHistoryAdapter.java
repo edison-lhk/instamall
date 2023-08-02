@@ -1,5 +1,6 @@
 package com.example.b07_project_group5;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
@@ -22,17 +23,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.OrderHistoryHolder>  {
-    private List<OrderHistory> orders;
+    private ArrayList<OrderHistory> orders;
     private String userID;
+    Context context;
     private FirebaseDatabase db;
 
-    public OrderHistoryAdapter(String userID, List<OrderHistory> orders) {
+    public OrderHistoryAdapter(Context context, String userID, ArrayList<OrderHistory> orders) {
         this.userID = userID;
         this.orders = orders;
+        this.context = context;
     }
 
     @NonNull
@@ -83,7 +87,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
     @Override
     public int getItemCount() {
-        return 0;
+        return orders.size();
     }
 
     public static class OrderHistoryHolder extends RecyclerView.ViewHolder {

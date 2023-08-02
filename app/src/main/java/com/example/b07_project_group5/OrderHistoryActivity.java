@@ -2,24 +2,39 @@ package com.example.b07_project_group5;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderHistoryActivity extends AppCompatActivity {
 
     FirebaseDatabase db;
 
-    RecyclerView recylerView;
+    RecyclerView recyclerView;
 
     String orderID;
+
+    ArrayList<OrderHistory> orders;
+
+    OrderHistoryAdapter historyAdapter;
 
     String userId;
 
@@ -38,6 +53,34 @@ public class OrderHistoryActivity extends AppCompatActivity {
             userId = intent.getStringExtra("userId");
             StoreId = intent.getStringExtra("StoreId");
         }
+        recyclerView = findViewById(R.id.PendingOrderCarousel);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        orders = new ArrayList<>();
+        historyAdapter = new OrderHistoryAdapter(this, userId, orders);
+        recyclerView.setAdapter(historyAdapter);
+        DatabaseReference ref = db.getReference();
+        DatabaseReference query = ref.child("transactions");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot transactionSnapshot : snapshot.getChildren()) {
+                        OrderHistory order = transactionSnapshot.getValue(OrderHistory.class);
+                        orders.add(order);
+                    }
+                    historyAdapter.notifyDataSetChanged();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.shopper_nav_menu);
         bottomNavigationView.setSelectedItemId(R.id.shopper_nav_menu_orders);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -71,4 +114,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
         });
 
     }
+
+
 }
