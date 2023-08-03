@@ -42,7 +42,7 @@ public class CartActivity extends AppCompatActivity {
         }
         shoppingCart = new ArrayList<CartProduct>();
         totalCostView = new CartTotalCostView((TextView) findViewById(R.id.totalCost));
-        recyclerView = findViewById(R.id.cartCarousel);
+        recyclerView = findViewById(R.id.orderviewCarousel);
         CartProductAdapter adapter = new CartProductAdapter(userId, shoppingCart, (TextView) findViewById(R.id.totalCost), (Button) findViewById(R.id.checkoutBtn));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);

@@ -7,7 +7,7 @@
     tools:context=".CartActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cartCarousel"
+        android:id="@+id/orderviewCarousel"
         android:layout_width="match_parent"
         android:layout_height="450dp"
         android:scrollbars="vertical"

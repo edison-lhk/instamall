@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShopperOrderHistoryActivity extends AppCompatActivity {
@@ -33,6 +34,14 @@ public class ShopperOrderHistoryActivity extends AppCompatActivity {
         TextView orderIdTextView = findViewById(R.id.singlevieworderID);
         orderIdTextView.setText(orderId);
         TextView statusTextView = findViewById(R.id.singleorderviewStatus);
+        if (status) {
+            statusTextView.setText("Finished");
+        } else {
+            statusTextView.setText("Pending");
+        }
+        products = new ArrayList<>();
+        ShopperOrderHistoryCarousel = findViewById(R.id.orderviewCarousel);
+
 
 
     }
