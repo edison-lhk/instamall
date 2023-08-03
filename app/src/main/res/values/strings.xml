@@ -52,7 +52,7 @@
     <string name="add_order_to_cart_success">has successfully been added to your cart!</string>
     <string name="product_total_price_placeholder_text">Product Total</string>
     <string name="product_store_name_placeholder_text">Store Name</string>
-    <string name="my_shopping_cart_text">Shopping Cart</string>
+    <string name="shopping_cart_text">Shopping Cart</string>
     <string name="total_cost_placeholder_text">Total: $0.00</string>
     <string name="checkout_btn_text">Checkout</string>
     <string name="checkout_success_text">Your order has been placed!</string>
@@ -64,4 +64,16 @@
     <string name="product_amount_overload_warning">Not enough products on stock!</string>
     <string name="product_amount_underload_warning">Please enter an amount greater than 0</string>
     <string name="product_stock_amount_placeholder_text">STOCK</string>
+    <string name="store_order_activity_header_text">Store\'s Orders</string>
+    <string name="orderId_title_placeholder_text">Order Id:</string>
+    <string name="orderId_value_placeholder_text">-NaUsbRxK02GutWDUVc3</string>
+    <string name="customer_title_placeholder_text">Customer:</string>
+    <string name="customer_value_placeholder_text">Angel</string>
+    <string name="uncompleted_order_text">Uncompleted</string>
+    <string name="completed_order_text">Completed</string>
+    <string name="store_order_marked_as_completed_text">has been successfully marked as completed!</string>
+    <string name="order_details_text">Order Details</string>
+    <string name="store_order_status_title_placeholder_text">Status:</string>
+    <string name="store_order_status_value_placeholder_text">Uncompleted</string>
+    <string name="store_order_completed_btn_text">Completed</string>
 </resources>

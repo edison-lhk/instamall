@@ -106,8 +106,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         if (!accountType.equals("owner")) { ownerBottomNavigationView.setVisibility(View.INVISIBLE); }
         if (previousActivity.equals("StoreActivity")) {
             ownerBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
-        } else {
-            ownerBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_store);
+        } else if (previousActivity.equals("StoreOrderDetailsActivity")) {
+            ownerBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_orders);
         }
         ownerBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
