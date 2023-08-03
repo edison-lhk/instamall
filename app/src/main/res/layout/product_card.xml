@@ -12,9 +12,9 @@
 
     <ImageView
         android:id="@+id/productImageList"
-        android:layout_width="123dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:scaleType="fitXY"
         android:src="@drawable/default_image"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +22,8 @@
 
     <TextView
         android:id="@+id/productName"
-        android:layout_width="200dp"
-        android:layout_height="31dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="4dp"
         android:text="@string/product_name_placeholder_text"
@@ -35,8 +35,8 @@
 
     <TextView
         android:id="@+id/productPrice"
-        android:layout_width="150dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="4dp"
         android:text="@string/product_price_placeholder_text"
@@ -47,8 +47,8 @@
 
     <TextView
         android:id="@+id/productStock"
-        android:layout_width="150dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="4dp"
         android:text="@string/product_stock_placeholder_text"
@@ -61,11 +61,10 @@
         android:id="@+id/editProductBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:background="@null"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/productPrice"
         app:layout_constraintTop_toBottomOf="@+id/productName"
         app:srcCompat="@drawable/baseline_edit_24" />
 

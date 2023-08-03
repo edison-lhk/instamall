@@ -17,12 +17,11 @@
     <!-- Store Name -->
     <ImageView
         android:id="@+id/storeLogo"
-        android:layout_width="110dp"
-        android:layout_height="94dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="56dp"
         android:src="@drawable/default_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,12 +30,11 @@
         android:id="@+id/storeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="74dp"
         android:text="@string/store_name_placeholder_text"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toEndOf="@+id/storeLogo"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,21 +58,23 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productCarousel"
-        android:layout_width="match_parent"
-        android:layout_height="370dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/owner_nav_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addProductBtn"
+        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/product_card" />
 
     <TextView
         android:id="@+id/storeOwner"
-        android:layout_width="99dp"
-        android:layout_height="53dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/store_owner_placeholder_text"
@@ -89,7 +89,7 @@
         android:id="@+id/addProductBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
         android:onClick="onAdd"
         android:text="@string/store_add_product_text"
@@ -99,14 +99,13 @@
 
     <EditText
         android:id="@+id/storeNameInput"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="64dp"
         android:textSize="24sp"
         android:textStyle="bold"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toEndOf="@+id/storeLogo"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,14 +113,12 @@
         android:id="@+id/editStoreBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="78dp"
-        android:layout_marginEnd="5dp"
         android:background="@null"
         android:onClick="toggleStoreInput"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/storeNameInput"
+        app:layout_constraintStart_toEndOf="@+id/storeName"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_edit_24" />
 
@@ -129,14 +126,12 @@
         android:id="@+id/saveStoreBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="78dp"
-        android:layout_marginEnd="5dp"
         android:background="@null"
         android:onClick="editStoreInfo"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/storeNameInput"
+        app:layout_constraintStart_toEndOf="@+id/storeName"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_save_alt_24" />
 
