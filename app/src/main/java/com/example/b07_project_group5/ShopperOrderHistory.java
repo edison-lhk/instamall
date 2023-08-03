@@ -15,10 +15,10 @@ public class ShopperOrderHistory {
         this.status = status;
     }
 
-    public ShopperOrderHistory(Product product, ProductOrder productOrder, String orderId) {
+
+    public ShopperOrderHistory(Product product, ProductOrder productOrder) {
         this.product = product;
         this.productOrder = productOrder;
-        this.orderId = orderId;
     }
 
     public String getOrderId() {

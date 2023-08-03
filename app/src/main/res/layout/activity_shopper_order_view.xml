@@ -80,8 +80,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <include
-        android:id="@+id/storeBackBtn"
-        layout="@layout/back_btn" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

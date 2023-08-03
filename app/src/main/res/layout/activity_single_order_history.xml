@@ -6,29 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ShopperOrderHistoryActivity">
 
-    <TextView
-        android:id="@+id/singlevieworderID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="23dp"
-        android:text="@string/order_id"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/orderviewtext"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/orderviewtext"
-        android:layout_width="67dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/order_colon"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.135"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orderviewCarousel"
         android:layout_width="match_parent"
@@ -39,8 +16,68 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/singleorderviewtotalText"
-        app:layout_constraintVertical_bias="0.024"
+        app:layout_constraintVertical_bias="0.189"
         tools:listitem="@layout/shopper_singleorder_view_card" />
+
+    <include
+        android:id="@+id/backBtn"
+        layout="@layout/back_btn" />
+
+    <TextView
+        android:id="@+id/singleorderviewStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="40dp"
+        android:text="@string/status"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/orderviewtext"
+        android:layout_width="67dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="80dp"
+        android:text="@string/order_colon"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/singlevieworderID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="84dp"
+        android:text="@string/order_id"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/orderviewtext"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/singleorderviewtotalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/total"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/total"
+        app:layout_constraintTop_toBottomOf="@+id/singlevieworderID" />
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/total_colon"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderviewtext" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/shopper_nav_menu"
@@ -56,39 +93,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/shopper_nav_menu" />
-
-    <TextView
-        android:id="@+id/singleorderviewtotalText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="7dp"
-        android:text="@string/total"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/total"
-        app:layout_constraintTop_toBottomOf="@+id/singlevieworderID" />
-
-    <TextView
-        android:id="@+id/total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/total_colon"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderviewtext" />
-
-    <TextView
-        android:id="@+id/singleorderviewStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="40dp"
-        android:text="@string/status"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
