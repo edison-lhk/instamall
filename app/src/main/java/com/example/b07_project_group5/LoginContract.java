@@ -28,23 +28,26 @@ public interface LoginContract {
         void createStoreForOwner(String userId, String username, LoginContract.Model.createStoreForOwnerCallback callback);
 
         interface findUserWithEmailCallback {
-            void isUserExists(boolean exists);
+            void onSuccess();
+            void onFailure();
         }
 
         interface getUserIdByEmailAndAccountTypeCallback {
-            void returnUserId(String userId);
+            void onSuccess(String userId);
+            void onFailure();
         }
 
         interface checkUserPasswordIsCorrectCallback {
-            void isPasswordCorrect(boolean correct);
+            void onSuccess();
+            void onFailure();
         }
 
         interface getUsernameByIdCallback {
-            void returnUsername(String username);
+            void onSuccess(String username);
         }
 
         interface createStoreForOwnerCallback {
-            void returnStoreId(String storeId);
+            void onSuccess(String storeId);
         }
     }
 }

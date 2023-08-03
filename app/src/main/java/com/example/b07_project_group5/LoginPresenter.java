@@ -20,35 +20,23 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         model.findUserWithEmail(email, new LoginContract.Model.findUserWithEmailCallback() {
             @Override
-            public void isUserExists(boolean exists) {
-                if (!exists) {
-                    view.setWarningText(view.getStringFromResource(R.string.login_cannot_find_user_warning));
-                    return;
-                }
+            public void onSuccess() {
                 model.getUserIdByEmailAndAccountType(email, accountType, new LoginContract.Model.getUserIdByEmailAndAccountTypeCallback() {
                     @Override
-                    public void returnUserId(String userId) {
-                        if (userId == null) {
-                            view.setWarningText(view.getStringFromResource(R.string.login_account_type_incorrect_warning));
-                            return;
-                        }
+                    public void onSuccess(String userId) {
                         model.checkUserPasswordIsCorrect(userId, password, new LoginContract.Model.checkUserPasswordIsCorrectCallback() {
                             @Override
-                            public void isPasswordCorrect(boolean correct) {
-                                if (!correct) {
-                                    view.setWarningText(view.getStringFromResource(R.string.login_password_incorrect_warning));
-                                    return;
-                                }
+                            public void onSuccess() {
                                 model.getUsernameById(userId, new LoginContract.Model.getUsernameByIdCallback() {
                                     @Override
-                                    public void returnUsername(String username) {
+                                    public void onSuccess(String username) {
                                         view.clearInputFields();
                                         view.setWarningText("");
                                         view.showToastMessage();
                                         if (accountType.equals("owner")) {
                                             model.createStoreForOwner(userId, username, new LoginContract.Model.createStoreForOwnerCallback() {
                                                 @Override
-                                                public void returnStoreId(String storeId) {
+                                                public void onSuccess(String storeId) {
                                                     view.navigateToStoreActivity(userId, storeId);
                                                 }
                                             });
@@ -58,9 +46,24 @@ public class LoginPresenter implements LoginContract.Presenter {
                                     }
                                 });
                             }
+
+                            @Override
+                            public void onFailure() {
+                                view.setWarningText(view.getStringFromResource(R.string.login_password_incorrect_warning));
+                            }
                         });
                     }
+
+                    @Override
+                    public void onFailure() {
+                        view.setWarningText(view.getStringFromResource(R.string.login_account_type_incorrect_warning));
+                    }
                 });
+            }
+
+            @Override
+            public void onFailure() {
+                view.setWarningText(view.getStringFromResource(R.string.login_cannot_find_user_warning));
             }
         });
     }

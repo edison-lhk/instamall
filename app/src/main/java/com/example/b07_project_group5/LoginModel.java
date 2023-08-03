@@ -25,10 +25,10 @@ public class LoginModel implements LoginContract.Model {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    callback.isUserExists(true);
+                    callback.onSuccess();
                     return;
                 }
-                callback.isUserExists(false);
+                callback.onFailure();
             }
 
             @Override
@@ -45,11 +45,10 @@ public class LoginModel implements LoginContract.Model {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot userSnapshot: snapshot.getChildren()) {
                     if (accountType.equals(userSnapshot.child("accountType").getValue().toString())) {
-                        callback.returnUserId(userSnapshot.getKey());
-                        return;
+                        callback.onSuccess(userSnapshot.getKey());
                     }
                 }
-                callback.returnUserId(null);
+                callback.onFailure();
             }
 
             @Override
@@ -65,10 +64,10 @@ public class LoginModel implements LoginContract.Model {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (password.equals(snapshot.child("password").getValue().toString())) {
-                    callback.isPasswordCorrect(true);
+                    callback.onSuccess();
                     return;
                 }
-                callback.isPasswordCorrect(false);
+                callback.onFailure();
             }
 
             @Override
@@ -83,7 +82,7 @@ public class LoginModel implements LoginContract.Model {
         query.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                callback.returnUsername(snapshot.child("username").getValue().toString());
+                callback.onSuccess(snapshot.child("username").getValue().toString());
             }
 
             @Override
@@ -104,12 +103,12 @@ public class LoginModel implements LoginContract.Model {
                     query.child(uniqueKey).setValue(store).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            callback.returnStoreId(uniqueKey);
+                            callback.onSuccess(uniqueKey);
                         }
                     });
                 } else {
                     for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                        callback.returnStoreId(childSnapshot.getKey());
+                        callback.onSuccess(childSnapshot.getKey());
                     }
                 }
             }
