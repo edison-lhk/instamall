@@ -7,10 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,9 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class OrderHistoryActivity extends AppCompatActivity {
+public class ShopperTransactionHistoryActivity extends AppCompatActivity {
 
     FirebaseDatabase db;
 
@@ -32,9 +28,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     String orderID;
 
-    ArrayList<OrderHistory> orders;
+    ArrayList<ShopperTransactionHistory> orders;
 
-    OrderHistoryAdapter historyAdapter;
+    ShopperOrderHistoryAdapter historyAdapter;
 
     String userId;
 
@@ -56,7 +52,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         orders = new ArrayList<>();
-        historyAdapter = new OrderHistoryAdapter(this, userId, orders);
+        historyAdapter = new ShopperOrderHistoryAdapter(userId, orders);
         recyclerView.setAdapter(historyAdapter);
         DatabaseReference ref = db.getReference();
         DatabaseReference query = ref.child("transactions");
@@ -65,7 +61,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot transactionSnapshot : snapshot.getChildren()) {
-                        OrderHistory order = transactionSnapshot.getValue(OrderHistory.class);
+                        ShopperTransactionHistory order = transactionSnapshot.getValue(ShopperTransactionHistory.class);
                         orders.add(order);
                     }
                     historyAdapter.notifyDataSetChanged();
@@ -90,20 +86,20 @@ public class OrderHistoryActivity extends AppCompatActivity {
                     return true;
                 }
                 if (itemId == R.id.shopper_nav_menu_store) {
-                    Intent intent = new Intent(OrderHistoryActivity.this, BrowseStoreActivity.class);
+                    Intent intent = new Intent(ShopperTransactionHistoryActivity.this, BrowseStoreActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                     return true;
                 }
                 if (itemId == R.id.shopper_nav_menu_cart) {
-                    Intent intent = new Intent(OrderHistoryActivity.this, CartActivity.class);
+                    Intent intent = new Intent(ShopperTransactionHistoryActivity.this, CartActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                     return true;
                 }
                 if (itemId == R.id.shopper_nav_menu_logout) {
-                    Toast.makeText(OrderHistoryActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(OrderHistoryActivity.this, LoginActivity.class);
+                    Toast.makeText(ShopperTransactionHistoryActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(ShopperTransactionHistoryActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                     return true;

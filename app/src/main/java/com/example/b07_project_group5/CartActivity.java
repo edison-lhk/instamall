@@ -62,7 +62,7 @@ public class CartActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_orders) {
-                    Intent intent = new Intent(CartActivity.this, OrderHistoryActivity.class);
+                    Intent intent = new Intent(CartActivity.this, ShopperTransactionHistoryActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                     return true;

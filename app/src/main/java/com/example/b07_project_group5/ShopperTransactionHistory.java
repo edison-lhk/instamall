@@ -1,16 +1,26 @@
 package com.example.b07_project_group5;
 
-public class OrderHistory {
+public class ShopperTransactionHistory {
     private String orderID;
+
+    private boolean status;
 
     private String image;
 
-    public OrderHistory(String orderID, String image) {
+    public ShopperTransactionHistory(String orderID, String image) {
         this.orderID = orderID;
         this.image = image;
     }
 
-    public OrderHistory() {
+    public boolean getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public ShopperTransactionHistory() {
 
     }
 
@@ -22,7 +32,7 @@ public class OrderHistory {
         this.image = image;
     }
 
-    public OrderHistory(String orderID) {
+    public ShopperTransactionHistory(String orderID) {
         this.orderID = orderID;
     }
 

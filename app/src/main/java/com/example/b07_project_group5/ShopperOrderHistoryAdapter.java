@@ -2,7 +2,6 @@ package com.example.b07_project_group5;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,35 +20,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
-public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.OrderHistoryHolder>  {
-    private ArrayList<OrderHistory> orders;
+public class ShopperOrderHistoryAdapter extends RecyclerView.Adapter<ShopperOrderHistoryAdapter.OrderHistoryHolder>  {
+    private ArrayList<ShopperTransactionHistory> orders;
     private String userID;
-    Context context;
     private FirebaseDatabase db;
 
-    public OrderHistoryAdapter(Context context, String userID, ArrayList<OrderHistory> orders) {
+    public ShopperOrderHistoryAdapter(String userID, ArrayList<ShopperTransactionHistory> orders) {
         this.userID = userID;
         this.orders = orders;
-        this.context = context;
     }
 
     @NonNull
     @Override
     public OrderHistoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.order_card, parent, false);
+                .inflate(R.layout.shopper_order_card, parent, false);
         return new OrderHistoryHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull OrderHistoryHolder holder, int position) {
-        OrderHistory order = orders.get(position);
+        ShopperTransactionHistory order = orders.get(position);
         holder.orderID.setText(order.getOrderID());
 
         Glide.with(holder.itemView.getContext())
@@ -67,7 +60,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
                         if (snapshot.exists()) {
                             for (DataSnapshot productSnapshot: snapshot.getChildren()) {
                                 String orderID = productSnapshot.getKey();
-                                Intent intent = new Intent(view.getContext(), SingleOrderHistoryActivity.class);
+                                Intent intent = new Intent(view.getContext(), ShopperOrderHistoryActivity.class);
                                 intent.putExtra("userID", userID);
                             }
                         }
