@@ -51,7 +51,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             userId = intent.getStringExtra("userId");
-            StoreId = intent.getStringExtra("StoreId");
         }
         recyclerView = findViewById(R.id.PendingOrderCarousel);
         recyclerView.setHasFixedSize(true);

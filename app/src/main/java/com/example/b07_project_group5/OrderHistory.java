@@ -5,6 +5,15 @@ public class OrderHistory {
 
     private String image;
 
+    public OrderHistory(String orderID, String image) {
+        this.orderID = orderID;
+        this.image = image;
+    }
+
+    public OrderHistory() {
+
+    }
+
     public String getImage() {
         return image;
     }
