@@ -136,7 +136,7 @@ public class StoreActivity extends AppCompatActivity {
                 if (itemId == R.id.owner_nav_menu_store) {
                     return true;
                 } else if (itemId == R.id.owner_nav_menu_orders) {
-                    Intent intent = new Intent(StoreActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(StoreActivity.this, StoreOrderActivity.class);
                     intent.putExtra("userId", userId);
                     intent.putExtra("accountType", accountType);
                     intent.putExtra("storeId", storeId);

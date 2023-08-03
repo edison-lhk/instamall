@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/store_order_details_page_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StoreOrderDetailsActivity">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/owner_nav_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/selector"
+        app:itemRippleColor="@android:color/transparent"
+        app:itemTextColor="@drawable/selector"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/owner_nav_menu" />
+
+    <TextView
+        android:id="@+id/storeOrderDetailsActivityHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="@string/order_details_text"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/orderIdDetailsTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/orderId_title_placeholder_text"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storeOrderDetailsActivityHeader" />
+
+    <TextView
+        android:id="@+id/customerDetailsTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/customer_title_placeholder_text"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderIdDetailsTitleText" />
+
+    <include
+        layout="@layout/back_btn" />
+
+    <TextView
+        android:id="@+id/statusTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/store_order_status_title_placeholder_text"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customerDetailsTitleText" />
+
+    <TextView
+        android:id="@+id/orderIdDetailsValueText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/orderId_value_placeholder_text"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/orderIdDetailsTitleText"
+        app:layout_constraintTop_toBottomOf="@+id/storeOrderDetailsActivityHeader" />
+
+    <TextView
+        android:id="@+id/customerDetailsValueText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/customer_value_placeholder_text"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/customerDetailsTitleText"
+        app:layout_constraintTop_toBottomOf="@+id/orderIdDetailsValueText" />
+
+    <TextView
+        android:id="@+id/statusValueText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/store_order_status_value_placeholder_text"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/statusTitleText"
+        app:layout_constraintTop_toBottomOf="@+id/customerDetailsValueText" />
+
+    <TextView
+        android:id="@+id/storeOrderTotalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/total_cost_placeholder_text"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusTitleText" />
+
+    <Button
+        android:id="@+id/storeOrderCompletedBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:onClick="completeOrder"
+        android:text="@string/store_order_completed_btn_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusTitleText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/storeOrderProductCarousel"
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/owner_nav_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storeOrderCompletedBtn"
+        tools:listitem="@layout/store_order_product_card" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,6 +21,12 @@
             android:name=".ShopperTransactionHistoryActivity"
             android:exported="false" />
         <activity
+            android:name=".StoreOrderDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StoreOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".CartActivity"
             android:exported="false" />
         <activity
