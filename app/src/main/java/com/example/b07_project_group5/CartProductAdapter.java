@@ -187,7 +187,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
             productNameTextView = (TextView) itemView.findViewById(R.id.singleorderviewProductName);
             productPriceTextView = (TextView) itemView.findViewById(R.id.orderviewProductPrice);
             amountTextView = (TextView) itemView.findViewById(R.id.orderviewProductAmount);
-            productTotalPriceTextView = (TextView) itemView.findViewById(R.id.orderviewProductTotalPrice);
+            productTotalPriceTextView = (TextView) itemView.findViewById(R.id.singleorderviewProductTotalPrice);
             storeNameTextView = (TextView) itemView.findViewById(R.id.singleorderviewStoreName);
             removeProductBtn = (ImageButton) itemView.findViewById(R.id.removeProductBtn);
         }

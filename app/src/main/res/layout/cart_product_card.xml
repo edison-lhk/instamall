@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/singleorderviewStoreName" />
 
     <TextView
-        android:id="@+id/orderviewProductTotalPrice"
+        android:id="@+id/singleorderviewProductTotalPrice"
         android:layout_width="80dp"
         android:layout_height="30dp"
         android:layout_marginTop="28dp"
@@ -99,7 +99,7 @@
         android:adjustViewBounds="true"
         android:background="@null"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/orderviewProductTotalPrice"
+        app:layout_constraintBottom_toTopOf="@+id/singleorderviewProductTotalPrice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"

@@ -40,13 +40,15 @@ public class ShopperOrderHistoryAdapter extends RecyclerView.Adapter<ShopperOrde
     public void onBindViewHolder(@NonNull ShopperOrderHistoryViewHolder holder, int position) {
         ShopperOrderHistory shopperOrderHistory = shopperOrderHistoryList.get(position);
 
+        Double price = shopperOrderHistory.getProduct().getPrice();
+        Double totalPrice = shopperOrderHistory.getProductOrder().getAmount() * price;
+        int amount = shopperOrderHistory.getProductOrder().getAmount();
 
-
-        holder.orderTotalPriceTextView.setText("$" + String.format("%.2f", shopperOrderHistory.getProductOrder().getAmount() * shopperOrderHistory.getProduct().getPrice()));
-        holder.storeNameTextView.setText(shopperOrderHistory.getProduct().getStoreId());
-        holder.productPriceTextView.setText("$" + String.valueOf(shopperOrderHistory.getProduct().getPrice()));
-        holder.amountTextView.setText(String.valueOf(shopperOrderHistory.getProductOrder().getAmount()));
         holder.productNameTextView.setText(shopperOrderHistory.getProduct().getName());
+        holder.productPriceTextView.setText("$" + String.format("%.2f", price));
+        holder.amountTextView.setText(String.valueOf(amount));
+        holder.orderTotalPriceTextView.setText("$" + String.format("%.2f", totalPrice));
+        holder.storeNameTextView.setText(shopperOrderHistory.getProduct().getStoreId());
 
         Glide.with(holder.itemView.getContext())
                 .load(shopperOrderHistory.getProduct().getImage())
@@ -84,7 +86,7 @@ public class ShopperOrderHistoryAdapter extends RecyclerView.Adapter<ShopperOrde
             productNameTextView = itemView.findViewById(R.id.singleorderviewProductName);
             productPriceTextView = itemView.findViewById(R.id.singleorderviewProductPriceTextView);
             amountTextView = itemView.findViewById(R.id.singleorderviewQuantityTextView);
-            orderTotalPriceTextView = itemView.findViewById(R.id.singleorderviewtotalText);
+            orderTotalPriceTextView = itemView.findViewById(R.id.singleorderviewProductTotalPrice);
             storeNameTextView = itemView.findViewById(R.id.singleorderviewStoreName);
         }
     }

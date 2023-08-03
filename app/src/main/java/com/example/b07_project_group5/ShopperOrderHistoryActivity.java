@@ -100,6 +100,7 @@ public class ShopperOrderHistoryActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     GenericTypeIndicator<List<String>> orderListClass = new GenericTypeIndicator<List<String>>() {};
                     List<String> orderIdList = snapshot.child("orderList").getValue(orderListClass);
+                    products.clear();
                     for (String ownerOrderId: orderIdList) {
                         Log.e("first loop", ownerOrderId);
                         DatabaseReference query2 = ref.child("orders");
@@ -107,7 +108,6 @@ public class ShopperOrderHistoryActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.exists()) {
-                                    products.clear();
                                     Order order = snapshot.getValue(Order.class);
                                     for (ProductOrder productOrder: order.getProductList()) {
                                         Log.e("second loop", productOrder.getProductId());
@@ -116,6 +116,8 @@ public class ShopperOrderHistoryActivity extends AppCompatActivity {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 Product product = snapshot.getValue(Product.class);
+                                                Log.e("product", product.getName());
+                                                Log.e("productOrder", productOrder.getProductId());
                                                 products.add(new ShopperOrderHistory(product, productOrder));
                                                 displayTotalCost(products);
                                                 ShopperOrderHistoryCarousel.getAdapter().notifyDataSetChanged();
