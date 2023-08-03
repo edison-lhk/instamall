@@ -9,11 +9,11 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <ImageView
+    <com.example.b07_project_group5.RoundedView
         android:id="@+id/cartProductImageList"
         android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="20dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="28dp"
         android:scaleType="fitXY"
         android:src="@drawable/default_image"
@@ -37,11 +37,11 @@
         android:id="@+id/cartProductPrice"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:text="@string/product_price_placeholder_text"
         android:textColor="@android:color/darker_gray"
-        android:textSize="15sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/xSymbol"
         app:layout_constraintTop_toBottomOf="@+id/cartStoreName" />
 
@@ -50,22 +50,22 @@
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="32dp"
         android:text="@string/product_stock_placeholder_text"
         android:textColor="@android:color/darker_gray"
-        android:textSize="15sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/cartProductImageList"
         app:layout_constraintTop_toBottomOf="@+id/cartStoreName" />
 
     <TextView
         android:id="@+id/cartProductTotalPrice"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
+        android:layout_width="77dp"
+        android:layout_height="46dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="30dp"
         android:text="@string/product_total_price_placeholder_text"
         android:textColor="@android:color/black"
-        android:textSize="15sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,10 +73,11 @@
         android:id="@+id/xSymbol"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
         android:text="x"
         android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/cartProductAmount"
         app:layout_constraintTop_toBottomOf="@+id/cartStoreName" />
 
@@ -85,9 +86,10 @@
         android:layout_width="150dp"
         android:layout_height="20dp"
         android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
         android:text="@string/product_store_name_placeholder_text"
-        android:textSize="15sp"
         android:textColor="@android:color/black"
+        android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/cartProductImageList"
         app:layout_constraintTop_toBottomOf="@+id/cartProductName" />
 
@@ -95,7 +97,7 @@
         android:id="@+id/removeProductBtn"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="10dp"
         android:adjustViewBounds="true"
         android:background="@null"
         android:scaleType="fitCenter"
@@ -103,7 +105,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/red_x_button" />
+        app:srcCompat="@drawable/gabbagebin_button" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
