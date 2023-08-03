@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.contentcapture.DataShareRequest;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,62 +21,47 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShopperTransactionHistoryActivity extends AppCompatActivity {
 
     FirebaseDatabase db;
 
-    RecyclerView recyclerView;
+    RecyclerView finishedOrderCarousel;
 
-    String orderID;
-
-    ArrayList<ShopperTransactionHistory> orders;
-
-    ShopperOrderHistoryAdapter historyAdapter;
-
+    RecyclerView pendingOrderCarousel;
     String userId;
 
-    String StoreId;
+    List<ShopperTransactionHistory> finishedOrders;
 
-    String accountType = "shopper";
+    List<ShopperTransactionHistory> pendingOrders;
+
+    ShopperTransactionHistoryAdapter finishedOrderAdapter;
+
+    ShopperTransactionHistoryAdapter pendingOrderAdapter;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_view);
+        setContentView(R.layout.activity_shopper_order_view);
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
         Intent intent = getIntent();
-        if (intent != null) {
-            userId = intent.getStringExtra("userId");
-        }
-        recyclerView = findViewById(R.id.PendingOrderCarousel);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        orders = new ArrayList<>();
-        historyAdapter = new ShopperOrderHistoryAdapter(userId, orders);
-        recyclerView.setAdapter(historyAdapter);
-        DatabaseReference ref = db.getReference();
-        DatabaseReference query = ref.child("transactions");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot transactionSnapshot : snapshot.getChildren()) {
-                        ShopperTransactionHistory order = transactionSnapshot.getValue(ShopperTransactionHistory.class);
-                        orders.add(order);
-                    }
-                    historyAdapter.notifyDataSetChanged();
+        userId = intent.getStringExtra("userId");
+        finishedOrders = new ArrayList<>();
+        pendingOrders = new ArrayList<>();
 
-                }
-            }
+        finishedOrderCarousel = findViewById(R.id.FinishedOrderCarousel);
+        pendingOrderCarousel = findViewById(R.id.PendingOrderCarousel);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        finishedOrderAdapter = new ShopperTransactionHistoryAdapter(userId, finishedOrders);
+        finishedOrderCarousel.setLayoutManager(new LinearLayoutManager(this));
+        finishedOrderCarousel.setAdapter(finishedOrderAdapter);
 
-            }
-        });
-
+        pendingOrderAdapter = new ShopperTransactionHistoryAdapter(userId, pendingOrders);
+        pendingOrderCarousel.setLayoutManager(new LinearLayoutManager(this));
+        pendingOrderCarousel.setAdapter(pendingOrderAdapter);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.shopper_nav_menu);
         bottomNavigationView.setSelectedItemId(R.id.shopper_nav_menu_orders);
@@ -107,6 +94,48 @@ public class ShopperTransactionHistoryActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+    }
+    public void readData(List<ShopperTransactionHistory> finishedOrders, List<ShopperTransactionHistory> pendingOrders) {
+        finishedOrders.clear();
+        pendingOrders.clear();
+        DatabaseReference ref = db.getReference();
+        DatabaseReference query = ref.child("transactions");
+
+        query.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot transactionSnapshot: snapshot.getChildren()) {
+                        String orderId = transactionSnapshot.getKey();
+                        Boolean status = (Boolean) transactionSnapshot.child("status").getValue();
+                        if(!status) {
+                            pendingOrders.add(new ShopperTransactionHistory(orderId));
+                            pendingOrderCarousel.getAdapter().notifyDataSetChanged();
+                        } else {
+                            finishedOrders.add(new ShopperTransactionHistory(orderId));
+                            finishedOrderCarousel.getAdapter().notifyDataSetChanged();
+
+                        }
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("ShopperTransactionHistoryActivity", "Database read error: " + error.getMessage());
+            }
+        });
+
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        pendingOrders.clear();
+        finishedOrders.clear();
+        readData(finishedOrders, pendingOrders);
 
     }
 

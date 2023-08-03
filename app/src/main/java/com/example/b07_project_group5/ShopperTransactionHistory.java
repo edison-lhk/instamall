@@ -7,9 +7,8 @@ public class ShopperTransactionHistory {
 
     private String image;
 
-    public ShopperTransactionHistory(String orderID, String image) {
+    public ShopperTransactionHistory(String orderID) {
         this.orderID = orderID;
-        this.image = image;
     }
 
     public boolean getStatus() {
@@ -30,10 +29,6 @@ public class ShopperTransactionHistory {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public ShopperTransactionHistory(String orderID) {
-        this.orderID = orderID;
     }
 
     public String getOrderID() {
