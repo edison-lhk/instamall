@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/imageViewProduct"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="350dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="50dp"
@@ -16,7 +16,6 @@
         android:scaleType="centerCrop"
         android:src="@drawable/default_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +28,7 @@
         android:layout_marginEnd="16dp"
         android:paddingLeft="10dp"
         android:text="PRODUCT NAME"
-        android:textSize="18sp"
+        android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +91,6 @@
         android:id="@+id/subOneProductBtn"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:adjustViewBounds="true"
@@ -101,7 +99,6 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/productAmountInputContainer"
         app:layout_constraintEnd_toStartOf="@+id/productAmountInputContainer"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/productAmountInputContainer"
         app:srcCompat="@drawable/baseline_remove_24" />
 
