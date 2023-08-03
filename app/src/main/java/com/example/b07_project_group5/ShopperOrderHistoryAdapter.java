@@ -1,0 +1,93 @@
+package com.example.b07_project_group5;
+
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
+
+public class ShopperOrderHistoryAdapter extends RecyclerView.Adapter<ShopperOrderHistoryAdapter.ShopperOrderHistoryViewHolder> {
+    private String userId;
+    private List<ShopperOrderHistory> shopperOrderHistoryList;
+    private FirebaseDatabase db;
+
+    public ShopperOrderHistoryAdapter(String userId, List<ShopperOrderHistory> shopperOrderHistoryList) {
+        this.userId = userId;
+        this.shopperOrderHistoryList = shopperOrderHistoryList;
+        this.db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
+    }
+
+
+    @NonNull
+    @Override
+    public ShopperOrderHistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.shopper_singleorder_view_card, parent, false);
+        return new ShopperOrderHistoryViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ShopperOrderHistoryViewHolder holder, int position) {
+        ShopperOrderHistory shopperOrderHistory = shopperOrderHistoryList.get(position);
+        holder.orderIdTextView.setText(shopperOrderHistory.getOrderId());
+        holder.orderTotalPriceTextView.setText("$" + String.format("%.2f", shopperOrderHistory.getProductOrder().getAmount() * shopperOrderHistory.getProduct().getPrice()));
+        holder.storeNameTextView.setText(shopperOrderHistory.getProduct().getStoreId());
+        holder.productPriceTextView.setText("$" + String.valueOf(shopperOrderHistory.getProduct().getPrice()));
+        holder.amountTextView.setText(String.valueOf(shopperOrderHistory.getProductOrder().getAmount()));
+        holder.productNameTextView.setText(shopperOrderHistory.getProduct().getName());
+
+        Glide.with(holder.itemView.getContext())
+                .load(shopperOrderHistory.getProduct().getImage())
+                .apply(RequestOptions.centerCropTransform())
+                .into(holder.orderProductImageView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ProductDetailsActivity.class);
+                intent.putExtra("previousActivity", "ShopperOrderHistoryActivity");
+                intent.putExtra("userId", userId);
+                intent.putExtra("accountType", "Shopper");
+                intent.putExtra("productId", shopperOrderHistory.getProductOrder().getProductId());
+                view.getContext().startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return shopperOrderHistoryList.size();
+    }
+
+    public static class ShopperOrderHistoryViewHolder extends RecyclerView.ViewHolder {
+        ImageView orderProductImageView;
+        TextView orderIdTextView;
+        TextView orderTotalPriceTextView;
+        TextView storeNameTextView;
+        TextView productPriceTextView;
+        TextView amountTextView;
+        TextView productNameTextView;
+
+        public ShopperOrderHistoryViewHolder(@NonNull View itemView) {
+            super(itemView);
+            orderProductImageView = itemView.findViewById(R.id.singleorderviewImageList);
+            productNameTextView = itemView.findViewById(R.id.singleorderviewProductName);
+            productPriceTextView = itemView.findViewById(R.id.singleorderviewProductPriceTextView);
+            amountTextView = itemView.findViewById(R.id.singleorderviewQuantityTextView);
+            orderTotalPriceTextView = itemView.findViewById(R.id.singleorderviewtotalText);
+            storeNameTextView = itemView.findViewById(R.id.singleorderviewStoreName);
+            orderIdTextView = itemView.findViewById(R.id.singlevieworderID);
+
+
+        }
+    }
+}

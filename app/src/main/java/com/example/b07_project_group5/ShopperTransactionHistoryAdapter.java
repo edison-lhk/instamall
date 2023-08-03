@@ -11,11 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShopperTransactionHistoryAdapter extends RecyclerView.Adapter<ShopperTransactionHistoryAdapter.OrderHistoryHolder>  {
@@ -26,13 +23,15 @@ public class ShopperTransactionHistoryAdapter extends RecyclerView.Adapter<Shopp
     public ShopperTransactionHistoryAdapter(String userId, List<ShopperTransactionHistory> orders) {
         this.userId = userId;
         this.orders = orders;
+        this.db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
+
     }
 
     @NonNull
     @Override
     public OrderHistoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.shopper_order_card, parent, false);
+                .inflate(R.layout.shopper_order_history_card, parent, false);
         return new OrderHistoryHolder(itemView);
     }
 
@@ -41,17 +40,14 @@ public class ShopperTransactionHistoryAdapter extends RecyclerView.Adapter<Shopp
         ShopperTransactionHistory order = orders.get(position);
         holder.orderID.setText(order.getOrderID());
 
-        Glide.with(holder.itemView.getContext())
-                .load(order.getImage())
-                .apply(RequestOptions.centerCropTransform())
-                .into(holder.storeImageList);
-
         holder.viewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ShopperTransactionHistoryActivity.class);
+                Intent intent = new Intent(view.getContext(), ShopperOrderHistoryActivity.class);
                 intent.putExtra("userId", userId);
+                intent.putExtra("orderId", order.getOrderID());
                 intent.putExtra("status", order.getStatus());
+                view.getContext().startActivity(intent);
             }
         });
 
@@ -70,9 +66,9 @@ public class ShopperTransactionHistoryAdapter extends RecyclerView.Adapter<Shopp
 
         public OrderHistoryHolder(@NonNull View itemView) {
             super(itemView);
-            orderID = (TextView) itemView.findViewById(R.id.orderOrderID);
+            orderID = (TextView) itemView.findViewById(R.id.orderviewProductPrice);
             viewBtn = (Button) itemView.findViewById(R.id.viewbtn);
-            storeImageList = (ImageView) itemView.findViewById(R.id.orderStoreImageList);
+            storeImageList = (ImageView) itemView.findViewById(R.id.singleorderviewImageList);
         }
     }
 }

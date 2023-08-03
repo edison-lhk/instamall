@@ -125,7 +125,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     finish();
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_orders) {
-                    Intent intent = new Intent(ProductDetailsActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(ProductDetailsActivity.this, ShopperTransactionHistoryActivity.class);
                     intent.putExtra("userId", userId);
                     intent.putExtra("accountType", accountType);
                     startActivity(intent);

@@ -3,14 +3,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/historyproductCardContainer"
+    android:id="@+id/singleorderviewCardContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp">
 
     <ImageView
-        android:id="@+id/orderStoreImageList"
+        android:id="@+id/singleorderviewImageList"
         android:layout_width="100dp"
         android:layout_height="80dp"
         android:layout_marginStart="16dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/orderOrderID"
+        android:id="@+id/orderviewProductPrice"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_marginStart="16dp"
@@ -29,7 +29,7 @@
         android:text="Order ID"
         android:textColor="@android:color/darker_gray"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/orderStoreImageList"
+        app:layout_constraintStart_toEndOf="@+id/singleorderviewImageList"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
@@ -41,7 +41,7 @@
         android:text="Order ID"
         android:textColor="@android:color/black"
         android:textSize="24dp"
-        app:layout_constraintStart_toEndOf="@+id/orderStoreImageList"
+        app:layout_constraintStart_toEndOf="@+id/singleorderviewImageList"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button

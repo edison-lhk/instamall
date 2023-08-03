@@ -61,4 +61,15 @@
     <string name="checkout_success_text">Your order has been placed!</string>
     <string name="remove_cart_product_successful_text">has been successfully removed!</string>
     <string name="clear_cart_successful_text">Cart has been successfully cleared!</string>
+    <string name="order">Order</string>
+    <string name="order_id">Order ID</string>
+    <string name="view">View</string>
+    <string name="order_colon">Order:</string>
+    <string name="product_price">Product Price:</string>
+    <string name="quantity">Quantity:</string>
+    <string name="amount">amount</string>
+    <string name="price">price</string>
+    <string name="total">total</string>
+    <string name="total_colon">Total:</string>
+    <string name="status">Status</string>
 </resources>

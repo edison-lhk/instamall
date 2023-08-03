@@ -5,8 +5,6 @@ public class ShopperTransactionHistory {
 
     private boolean status;
 
-    private String image;
-
     public ShopperTransactionHistory(String orderID) {
         this.orderID = orderID;
     }
@@ -22,15 +20,6 @@ public class ShopperTransactionHistory {
     public ShopperTransactionHistory() {
 
     }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public String getOrderID() {
         return orderID;
     }
