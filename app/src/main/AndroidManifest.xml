@@ -40,6 +40,7 @@
             android:exported="false" />
         <activity
             android:name=".StoreActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
