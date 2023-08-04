@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.contentcapture.DataShareRequest;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopperTransactionHistoryActivity extends AppCompatActivity {
+public class ShopperOrderActivity extends AppCompatActivity {
 
     FirebaseDatabase db;
 
@@ -32,20 +31,20 @@ public class ShopperTransactionHistoryActivity extends AppCompatActivity {
     RecyclerView pendingOrderCarousel;
     String userId;
 
-    List<ShopperTransactionHistory> finishedOrders;
+    List<ShopperOrder> finishedOrders;
 
-    List<ShopperTransactionHistory> pendingOrders;
+    List<ShopperOrder> pendingOrders;
 
-    ShopperTransactionHistoryAdapter finishedOrderAdapter;
+    ShopperOrderAdapter finishedOrderAdapter;
 
-    ShopperTransactionHistoryAdapter pendingOrderAdapter;
+    ShopperOrderAdapter pendingOrderAdapter;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopper_order_view);
+        setContentView(R.layout.activity_shopper_order);
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
         Intent intent = getIntent();
         userId = intent.getStringExtra("userId");
@@ -55,11 +54,11 @@ public class ShopperTransactionHistoryActivity extends AppCompatActivity {
         finishedOrderCarousel = findViewById(R.id.FinishedOrderCarousel);
         pendingOrderCarousel = findViewById(R.id.PendingOrderCarousel);
 
-        finishedOrderAdapter = new ShopperTransactionHistoryAdapter(userId, finishedOrders);
+        finishedOrderAdapter = new ShopperOrderAdapter(userId, finishedOrders);
         finishedOrderCarousel.setLayoutManager(new LinearLayoutManager(this));
         finishedOrderCarousel.setAdapter(finishedOrderAdapter);
 
-        pendingOrderAdapter = new ShopperTransactionHistoryAdapter(userId, pendingOrders);
+        pendingOrderAdapter = new ShopperOrderAdapter(userId, pendingOrders);
         pendingOrderCarousel.setLayoutManager(new LinearLayoutManager(this));
         pendingOrderCarousel.setAdapter(pendingOrderAdapter);
 
@@ -73,20 +72,20 @@ public class ShopperTransactionHistoryActivity extends AppCompatActivity {
                     return true;
                 }
                 if (itemId == R.id.shopper_nav_menu_store) {
-                    Intent intent = new Intent(ShopperTransactionHistoryActivity.this, BrowseStoreActivity.class);
+                    Intent intent = new Intent(ShopperOrderActivity.this, BrowseStoreActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                     return true;
                 }
                 if (itemId == R.id.shopper_nav_menu_cart) {
-                    Intent intent = new Intent(ShopperTransactionHistoryActivity.this, CartActivity.class);
+                    Intent intent = new Intent(ShopperOrderActivity.this, CartActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                     return true;
                 }
                 if (itemId == R.id.shopper_nav_menu_logout) {
-                    Toast.makeText(ShopperTransactionHistoryActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(ShopperTransactionHistoryActivity.this, LoginActivity.class);
+                    Toast.makeText(ShopperOrderActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(ShopperOrderActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                     return true;
@@ -96,7 +95,7 @@ public class ShopperTransactionHistoryActivity extends AppCompatActivity {
         });
 
     }
-    public void readData(List<ShopperTransactionHistory> finishedOrders, List<ShopperTransactionHistory> pendingOrders) {
+    public void readData(List<ShopperOrder> finishedOrders, List<ShopperOrder> pendingOrders) {
         finishedOrders.clear();
         pendingOrders.clear();
         DatabaseReference ref = db.getReference();
@@ -110,10 +109,10 @@ public class ShopperTransactionHistoryActivity extends AppCompatActivity {
                         String orderId = transactionSnapshot.getKey();
                         Boolean status = (Boolean) transactionSnapshot.child("status").getValue();
                         if(!status) {
-                            pendingOrders.add(new ShopperTransactionHistory(orderId));
+                            pendingOrders.add(new ShopperOrder(orderId, status));
                             pendingOrderCarousel.getAdapter().notifyDataSetChanged();
                         } else {
-                            finishedOrders.add(new ShopperTransactionHistory(orderId));
+                            finishedOrders.add(new ShopperOrder(orderId, status));
                             finishedOrderCarousel.getAdapter().notifyDataSetChanged();
 
                         }

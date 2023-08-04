@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopperOrderHistoryActivity">
+    tools:context=".ShopperOrderDetailsActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/orderviewCarousel"
+        android:id="@+id/cartCarousel"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="420dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/shopper_nav_menu"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/singleorderviewtotalText"
         app:layout_constraintVertical_bias="0.189"
-        tools:listitem="@layout/shopper_singleorder_view_card" />
+        tools:listitem="@layout/shopper_order_product_card" />
 
     <include
         android:id="@+id/backBtn"
@@ -27,35 +29,36 @@
         android:id="@+id/singleorderviewStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="25dp"
         android:text="@string/status"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/orderviewtext"
-        android:layout_width="67dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="80dp"
-        android:text="@string/order_colon"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.133"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/orderId_colon"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/shopperOrderDetailsActivityHeader" />
 
     <TextView
         android:id="@+id/singlevieworderID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="30dp"
         android:text="@string/order_id"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/orderviewtext"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/shopperOrderDetailsActivityHeader" />
 
     <TextView
         android:id="@+id/singleorderviewtotalText"
@@ -64,7 +67,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="8dp"
         android:text="@string/total"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/total"
         app:layout_constraintTop_toBottomOf="@+id/singlevieworderID" />
 
@@ -72,10 +75,11 @@
         android:id="@+id/total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:text="@string/total_colon"
-        android:textSize="20sp"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orderviewtext" />
 
@@ -93,6 +97,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/shopper_nav_menu" />
+
+    <TextView
+        android:id="@+id/shopperOrderDetailsActivityHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="@string/shopper_order_details_activity_header_text"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

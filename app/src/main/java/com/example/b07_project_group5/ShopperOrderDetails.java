@@ -1,6 +1,6 @@
 package com.example.b07_project_group5;
 
-public class ShopperOrderHistory {
+public class ShopperOrderDetails {
     private Product product;
     private ProductOrder productOrder;
     private String orderId;
@@ -10,7 +10,7 @@ public class ShopperOrderHistory {
     private boolean status;
 
 
-    public ShopperOrderHistory(Product product, ProductOrder productOrder) {
+    public ShopperOrderDetails(Product product, ProductOrder productOrder) {
         this.product = product;
         this.productOrder = productOrder;
     }

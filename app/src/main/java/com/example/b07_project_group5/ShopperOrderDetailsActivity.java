@@ -2,7 +2,6 @@ package com.example.b07_project_group5;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContentValuesKt;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,36 +25,38 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopperOrderHistoryActivity extends AppCompatActivity {
+public class ShopperOrderDetailsActivity extends AppCompatActivity {
     private String userId;
-    private String orderId;
+    private String transactionId;
     private boolean status;
     private FirebaseDatabase db;
-    private List<ShopperOrderHistory> products;
+    private List<ShopperOrderDetails> products;
     private RecyclerView ShopperOrderHistoryCarousel;
-    private ShopperOrderHistoryAdapter adapter;
+    private ShopperOrderDetailsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_order_history);
+        setContentView(R.layout.activity_shopper_order_details);
         Intent intent = getIntent();
         userId = intent.getStringExtra("userId");
+        transactionId = intent.getStringExtra("transactionId");
         status = intent.getBooleanExtra("status", false);
-        orderId = intent.getStringExtra("orderId");
         db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
 
         TextView orderIdTextView = findViewById(R.id.singlevieworderID);
-        orderIdTextView.setText(orderId);
+        orderIdTextView.setText(transactionId);
         TextView statusTextView = findViewById(R.id.singleorderviewStatus);
         if (status) {
             statusTextView.setText("Finished");
+            statusTextView.setTextColor(getColor(R.color.success_green));
         } else {
             statusTextView.setText("Pending");
+            statusTextView.setTextColor(getColor(R.color.light_gray));
         }
         products = new ArrayList<>();
-        ShopperOrderHistoryCarousel = findViewById(R.id.orderviewCarousel);
-        adapter = new ShopperOrderHistoryAdapter(userId, products);
+        ShopperOrderHistoryCarousel = findViewById(R.id.cartCarousel);
+        adapter = new ShopperOrderDetailsAdapter(userId, products);
         ShopperOrderHistoryCarousel.setLayoutManager(new LinearLayoutManager(this));
         ShopperOrderHistoryCarousel.setAdapter(adapter);
 
@@ -69,20 +70,20 @@ public class ShopperOrderHistoryActivity extends AppCompatActivity {
                     return true;
                 }
                 if (itemId == R.id.shopper_nav_menu_store) {
-                    Intent intent = new Intent(ShopperOrderHistoryActivity.this, BrowseStoreActivity.class);
+                    Intent intent = new Intent(ShopperOrderDetailsActivity.this, BrowseStoreActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                     return true;
                 }
                 if (itemId == R.id.shopper_nav_menu_cart) {
-                    Intent intent = new Intent(ShopperOrderHistoryActivity.this, CartActivity.class);
+                    Intent intent = new Intent(ShopperOrderDetailsActivity.this, CartActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                     return true;
                 }
                 if (itemId == R.id.shopper_nav_menu_logout) {
-                    Toast.makeText(ShopperOrderHistoryActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(ShopperOrderHistoryActivity.this, LoginActivity.class);
+                    Toast.makeText(ShopperOrderDetailsActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(ShopperOrderDetailsActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                     return true;
@@ -92,10 +93,10 @@ public class ShopperOrderHistoryActivity extends AppCompatActivity {
         });
     }
 
-    public void readData(List<ShopperOrderHistory> products) {
+    public void readData(List<ShopperOrderDetails> products) {
         DatabaseReference ref = db.getReference();
         DatabaseReference query = ref.child("transactions");
-        query.child(orderId).addListenerForSingleValueEvent(new ValueEventListener() {
+        query.child(transactionId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -115,7 +116,7 @@ public class ShopperOrderHistoryActivity extends AppCompatActivity {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 Product product = snapshot.getValue(Product.class);
-                                                products.add(new ShopperOrderHistory(product, productOrder));
+                                                products.add(new ShopperOrderDetails(product, productOrder));
                                                 displayTotalCost(products);
                                                 ShopperOrderHistoryCarousel.getAdapter().notifyDataSetChanged();
                                             }
@@ -147,13 +148,13 @@ public class ShopperOrderHistoryActivity extends AppCompatActivity {
     }
 
 
-    public void displayTotalCost(List<ShopperOrderHistory> products) {
+    public void displayTotalCost(List<ShopperOrderDetails> products) {
         TextView totalPriceTextView = findViewById(R.id.singleorderviewtotalText);
         double total = 0;
-        for (ShopperOrderHistory product : products) {
+        for (ShopperOrderDetails product : products) {
             total += product.getProductOrder().getAmount() * product.getProduct().getPrice();
         }
-        totalPriceTextView.setText("$" + String.format("%.2f", total));
+        totalPriceTextView.setText("$ " + String.format("%.2f", total));
     }
 
     public void onBackButtonClicked(View view) {

@@ -42,7 +42,7 @@ public class CartActivity extends AppCompatActivity {
         }
         shoppingCart = new ArrayList<CartProduct>();
         totalCostView = new CartTotalCostView((TextView) findViewById(R.id.totalCost));
-        recyclerView = findViewById(R.id.orderviewCarousel);
+        recyclerView = findViewById(R.id.cartCarousel);
         CartProductAdapter adapter = new CartProductAdapter(userId, shoppingCart, (TextView) findViewById(R.id.totalCost), (Button) findViewById(R.id.checkoutBtn));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -62,7 +62,7 @@ public class CartActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_orders) {
-                    Intent intent = new Intent(CartActivity.this, ShopperTransactionHistoryActivity.class);
+                    Intent intent = new Intent(CartActivity.this, ShopperOrderActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                     return true;

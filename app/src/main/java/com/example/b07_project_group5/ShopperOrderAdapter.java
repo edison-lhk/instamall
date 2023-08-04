@@ -15,12 +15,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-public class ShopperTransactionHistoryAdapter extends RecyclerView.Adapter<ShopperTransactionHistoryAdapter.OrderHistoryHolder>  {
-    private List<ShopperTransactionHistory> orders;
+public class ShopperOrderAdapter extends RecyclerView.Adapter<ShopperOrderAdapter.OrderHistoryHolder>  {
+    private List<ShopperOrder> orders;
     private String userId;
     private FirebaseDatabase db;
 
-    public ShopperTransactionHistoryAdapter(String userId, List<ShopperTransactionHistory> orders) {
+    public ShopperOrderAdapter(String userId, List<ShopperOrder> orders) {
         this.userId = userId;
         this.orders = orders;
         this.db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
@@ -31,21 +31,21 @@ public class ShopperTransactionHistoryAdapter extends RecyclerView.Adapter<Shopp
     @Override
     public OrderHistoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.shopper_order_history_card, parent, false);
+                .inflate(R.layout.shopper_order_card, parent, false);
         return new OrderHistoryHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull OrderHistoryHolder holder, int position) {
-        ShopperTransactionHistory order = orders.get(position);
-        holder.orderID.setText(order.getOrderID());
+        ShopperOrder order = orders.get(position);
+        holder.orderID.setText(order.getTransactionId());
 
         holder.viewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ShopperOrderHistoryActivity.class);
+                Intent intent = new Intent(view.getContext(), ShopperOrderDetailsActivity.class);
                 intent.putExtra("userId", userId);
-                intent.putExtra("orderId", order.getOrderID());
+                intent.putExtra("transactionId", order.getTransactionId());
                 intent.putExtra("status", order.getStatus());
                 view.getContext().startActivity(intent);
             }

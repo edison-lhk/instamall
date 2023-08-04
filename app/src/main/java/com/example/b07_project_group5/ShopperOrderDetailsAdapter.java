@@ -1,7 +1,6 @@
 package com.example.b07_project_group5;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +21,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class ShopperOrderHistoryAdapter extends RecyclerView.Adapter<ShopperOrderHistoryAdapter.ShopperOrderHistoryViewHolder> {
+public class ShopperOrderDetailsAdapter extends RecyclerView.Adapter<ShopperOrderDetailsAdapter.ShopperOrderHistoryViewHolder> {
     private String userId;
-    private List<ShopperOrderHistory> shopperOrderHistoryList;
+    private List<ShopperOrderDetails> shopperOrderHistoryList;
     private FirebaseDatabase db;
 
-    public ShopperOrderHistoryAdapter(String userId, List<ShopperOrderHistory> shopperOrderHistoryList) {
+    public ShopperOrderDetailsAdapter(String userId, List<ShopperOrderDetails> shopperOrderHistoryList) {
         this.userId = userId;
         this.shopperOrderHistoryList = shopperOrderHistoryList;
         this.db = FirebaseDatabase.getInstance("https://testing-7a8a5-default-rtdb.firebaseio.com/");
@@ -38,13 +37,13 @@ public class ShopperOrderHistoryAdapter extends RecyclerView.Adapter<ShopperOrde
     @Override
     public ShopperOrderHistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.shopper_singleorder_view_card, parent, false);
+                .inflate(R.layout.shopper_order_product_card, parent, false);
         return new ShopperOrderHistoryViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ShopperOrderHistoryViewHolder holder, int position) {
-        ShopperOrderHistory shopperOrderHistory = shopperOrderHistoryList.get(position);
+        ShopperOrderDetails shopperOrderHistory = shopperOrderHistoryList.get(position);
 
         Double price = shopperOrderHistory.getProduct().getPrice();
         Double totalPrice = shopperOrderHistory.getProductOrder().getAmount() * price;
@@ -68,9 +67,9 @@ public class ShopperOrderHistoryAdapter extends RecyclerView.Adapter<ShopperOrde
             }
         });
         holder.productNameTextView.setText(shopperOrderHistory.getProduct().getName());
-        holder.productPriceTextView.setText("$" + String.format("%.2f", price));
+        holder.productPriceTextView.setText("$ " + String.format("%.2f", price));
         holder.amountTextView.setText(String.valueOf(amount));
-        holder.orderTotalPriceTextView.setText("$" + String.format("%.2f", totalPrice));
+        holder.orderTotalPriceTextView.setText("$ " + String.format("%.2f", totalPrice));
 
         Glide.with(holder.itemView.getContext())
                 .load(shopperOrderHistory.getProduct().getImage())

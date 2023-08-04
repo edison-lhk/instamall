@@ -2,8 +2,6 @@ package com.example.b07_project_group5;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -152,7 +150,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     finish();
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_orders) {
-                    Intent intent = new Intent(ProductDetailsActivity.this, ShopperTransactionHistoryActivity.class);
+                    Intent intent = new Intent(ProductDetailsActivity.this, ShopperOrderActivity.class);
                     intent.putExtra("userId", userId);
                     intent.putExtra("accountType", accountType);
                     startActivity(intent);

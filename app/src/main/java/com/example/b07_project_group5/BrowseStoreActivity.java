@@ -63,7 +63,7 @@ public class BrowseStoreActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_orders) {
-                    Intent intent = new Intent(BrowseStoreActivity.this, ShopperTransactionHistoryActivity.class);
+                    Intent intent = new Intent(BrowseStoreActivity.this, ShopperOrderActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                     return true;
