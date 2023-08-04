@@ -107,6 +107,10 @@ public class ShopperOrderActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     for (DataSnapshot transactionSnapshot: snapshot.getChildren()) {
                         String orderId = transactionSnapshot.getKey();
+                        Boolean finalized = (Boolean) transactionSnapshot.child("finalized").getValue();
+                        if (!finalized) {
+                            continue;
+                        }
                         Boolean status = (Boolean) transactionSnapshot.child("status").getValue();
                         if(!status) {
                             pendingOrders.add(new ShopperOrder(orderId, status));
