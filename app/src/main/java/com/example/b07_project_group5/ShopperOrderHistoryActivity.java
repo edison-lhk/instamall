@@ -2,6 +2,7 @@ package com.example.b07_project_group5;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContentValuesKt;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -102,7 +103,6 @@ public class ShopperOrderHistoryActivity extends AppCompatActivity {
                     List<String> orderIdList = snapshot.child("orderList").getValue(orderListClass);
                     products.clear();
                     for (String ownerOrderId: orderIdList) {
-                        Log.e("first loop", ownerOrderId);
                         DatabaseReference query2 = ref.child("orders");
                         query2.child(ownerOrderId).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -110,14 +110,11 @@ public class ShopperOrderHistoryActivity extends AppCompatActivity {
                                 if (snapshot.exists()) {
                                     Order order = snapshot.getValue(Order.class);
                                     for (ProductOrder productOrder: order.getProductList()) {
-                                        Log.e("second loop", productOrder.getProductId());
                                         DatabaseReference query3 = ref.child("products");
                                         query3.child(productOrder.getProductId()).addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 Product product = snapshot.getValue(Product.class);
-                                                Log.e("product", product.getName());
-                                                Log.e("productOrder", productOrder.getProductId());
                                                 products.add(new ShopperOrderHistory(product, productOrder));
                                                 displayTotalCost(products);
                                                 ShopperOrderHistoryCarousel.getAdapter().notifyDataSetChanged();

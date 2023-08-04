@@ -21,8 +21,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/PendingOrderCarousel"
-        android:layout_width="409dp"
-        android:layout_height="246dp"
+        android:layout_width="399dp"
+        android:layout_height="242dp"
         android:layout_marginBottom="20dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/textView"
@@ -33,12 +33,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/FinishedOrderCarousel"
-        android:layout_width="409dp"
-        android:layout_height="246dp"
+        android:layout_width="399dp"
+        android:layout_height="243dp"
         android:layout_marginBottom="4dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/shopper_nav_menu"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/shopper_order_history_card" />
 

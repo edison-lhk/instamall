@@ -5,7 +5,15 @@ public class ShopperOrderHistory {
     private ProductOrder productOrder;
     private String orderId;
 
+    private String storeName;
+
     private boolean status;
+
+
+    public ShopperOrderHistory(Product product, ProductOrder productOrder) {
+        this.product = product;
+        this.productOrder = productOrder;
+    }
 
     public boolean getStatus() {
         return status;
@@ -15,11 +23,14 @@ public class ShopperOrderHistory {
         this.status = status;
     }
 
-
-    public ShopperOrderHistory(Product product, ProductOrder productOrder) {
-        this.product = product;
-        this.productOrder = productOrder;
+    public String getStoreName() {
+        return storeName;
     }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
 
     public String getOrderId() {
         return orderId;
