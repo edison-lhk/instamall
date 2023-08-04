@@ -15,6 +15,12 @@
         android:theme="@style/Theme.B07projectgroup5"
         tools:targetApi="31">
         <activity
+            android:name=".StoreOrderDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StoreOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".CartActivity"
             android:exported="false" />
         <activity

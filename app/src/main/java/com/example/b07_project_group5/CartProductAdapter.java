@@ -111,6 +111,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
                         } else {
                             snapshot.getRef().removeValue();
                             removeOrderFromCart(cartProduct.getOrderId(), cartProduct.getUserId());
+                            Toast.makeText(view.getContext(), cartProduct.getAmount() + " " + cartProduct.getProduct().getName() + " " + view.getContext().getString(R.string.remove_cart_product_successful_text), Toast.LENGTH_LONG).show();
                         }
                         if (shoppingCart.size() == 0) {
                             removeTransaction(userId);
@@ -123,6 +124,19 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {}
+                });
+                ref.child("products").child(cartProduct.getProductId()).child("stock").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        int stock = Integer.parseInt(snapshot.getValue().toString());
+                        stock += amount;
+                        snapshot.getRef().setValue(stock);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
                 });
             }
         });
