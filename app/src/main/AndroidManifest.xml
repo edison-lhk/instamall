@@ -45,6 +45,8 @@
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
+        <activity android:name=".uploadimageactivity"
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">

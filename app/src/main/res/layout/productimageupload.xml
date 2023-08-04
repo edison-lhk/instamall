@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/firebaseimageuploader"
+        android:layout_width="379dp"
+        android:layout_height="345dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="73dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/selectimagebtn"
+        android:layout_width="379dp"
+        android:layout_height="70dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="64dp"
+        android:text="SELECT IMAGE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firebaseimageuploader"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/uploadimagebtn"
+        android:layout_width="379dp"
+        android:layout_height="70dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:text="UPLOAD IMAGE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectimagebtn"
+        app:layout_constraintVertical_bias="0.17" />
+    <include
+        android:id="@+id/backBtn"
+        layout="@layout/back_btn" />
+</androidx.constraintlayout.widget.ConstraintLayout>

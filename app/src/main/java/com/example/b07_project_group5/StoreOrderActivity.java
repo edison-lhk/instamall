@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,6 +33,7 @@ public class StoreOrderActivity extends AppCompatActivity {
     private List<StoreOrder> completedOrderList;
     private RecyclerView uncompletedOrderCarousel;
     private RecyclerView completedOrderCarousel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,15 @@ public class StoreOrderActivity extends AppCompatActivity {
 
         BottomNavigationView ownerBottomNavigationView = findViewById(R.id.owner_nav_menu);
         ownerBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_orders);
+        Button uploadImageButton = findViewById(R.id.uploadimage);
+        uploadImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an explicit intent to navigate to UploadImageActivity
+                Intent intent = new Intent(StoreOrderActivity.this, uploadimageactivity.class);
+                startActivity(intent);
+            }
+        });
         ownerBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
