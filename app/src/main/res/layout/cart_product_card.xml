@@ -42,7 +42,7 @@
         android:text="@string/product_price_placeholder_text"
         android:textColor="@android:color/darker_gray"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/storeOrderProductXSymbol"
+        app:layout_constraintStart_toEndOf="@+id/xSymbol"
         app:layout_constraintTop_toBottomOf="@+id/cartStoreName" />
 
     <TextView
@@ -62,7 +62,7 @@
         android:layout_width="80dp"
         android:layout_height="30dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="30dp"
         android:text="@string/product_total_price_placeholder_text"
         android:textColor="@android:color/black"
         android:textSize="15sp"
@@ -70,7 +70,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/storeOrderProductXSymbol"
+        android:id="@+id/xSymbol"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_marginStart="8dp"
