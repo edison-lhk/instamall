@@ -9,4 +9,5 @@
     <color name="gray">#444444</color>
     <color name="light_gray">#959292</color>
     <color name="background_pink">#fcf1f4</color>
+    <color name="success_green">#5CB85C</color>
 </resources>

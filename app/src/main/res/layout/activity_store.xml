@@ -15,7 +15,7 @@
 
     <!-- Store Logo -->      <!-- UPDATE STORE LOGO-->
 
-    <!-- Store Name -->
+
     <ImageView
         android:id="@+id/storeLogo"
         android:layout_width="110dp"
@@ -63,11 +63,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productCarousel"
         android:layout_width="match_parent"
-        android:layout_height="370dp"
+        android:layout_height="350dp"
         android:layout_marginTop="18dp"
-        android:layout_marginBottom="8dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/owner_nav_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

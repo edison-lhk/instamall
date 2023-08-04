@@ -29,7 +29,7 @@
         android:text="@string/product_name_placeholder_text"
         android:textAlignment="textStart"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/cartProductImageList"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,6 +64,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="30dp"
         android:text="@string/product_total_price_placeholder_text"
+        android:textAlignment="textEnd"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
