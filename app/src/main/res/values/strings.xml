@@ -52,6 +52,10 @@
     <string name="add_order_to_cart_success">has successfully been added to your cart!</string>
     <string name="product_total_price_placeholder_text">Product Total</string>
     <string name="product_store_name_placeholder_text">Store Name</string>
+    <string name="my_shopping_cart_text">Shopping Cart</string>
+    <string name="Pending">Pending</string>
+    <string name="Finished">Finished</string>
+    <string name="Orders">Orders</string>string>
     <string name="shopping_cart_text">Shopping Cart</string>
     <string name="total_cost_placeholder_text">Total: $0.00</string>
     <string name="checkout_btn_text">Checkout</string>
@@ -64,7 +68,7 @@
     <string name="product_amount_overload_warning">Not enough products on stock!</string>
     <string name="product_amount_underload_warning">Please enter an amount greater than 0</string>
     <string name="product_stock_amount_placeholder_text">STOCK</string>
-    <string name="store_order_activity_header_text">Store\'s Orders</string>
+    <string name="store_order_activity_header_text">Orders</string>
     <string name="orderId_title_placeholder_text">Order Id:</string>
     <string name="orderId_value_placeholder_text">-NaUsbRxK02GutWDUVc3</string>
     <string name="customer_title_placeholder_text">Customer:</string>
@@ -76,4 +80,16 @@
     <string name="store_order_status_title_placeholder_text">Status:</string>
     <string name="store_order_status_value_placeholder_text">Uncompleted</string>
     <string name="store_order_completed_btn_text">Completed</string>
+    <string name="order">Order</string>
+    <string name="order_id">Order ID</string>
+    <string name="view">View</string>
+    <string name="orderId_colon">Order Id:</string>
+    <string name="product_price">Price:</string>
+    <string name="quantity">Quantity:</string>
+    <string name="amount">amount</string>
+    <string name="price">price</string>
+    <string name="total">total</string>
+    <string name="total_colon">Total:</string>
+    <string name="status">Status</string>
+    <string name="shopper_order_details_activity_header_text">Order Details</string>
 </resources>

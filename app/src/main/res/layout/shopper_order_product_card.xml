@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/singleorderviewCardContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="0dp">
+
+    <ImageView
+        android:id="@+id/singleorderviewImageList"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="28dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/default_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/singleorderviewProductName"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/product_name_placeholder_text"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/singleorderviewImageList"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/orderviewProductPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/product_price"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/singleorderviewImageList"
+        app:layout_constraintTop_toBottomOf="@+id/orderviewProductAmount" />
+
+    <TextView
+        android:id="@+id/orderviewProductAmount"
+        android:layout_width="61dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/quantity"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/singleorderviewImageList"
+        app:layout_constraintTop_toBottomOf="@+id/singleorderviewStoreName" />
+
+    <TextView
+        android:id="@+id/singleorderviewProductTotalPrice"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="30dp"
+        android:text="@string/product_total_price_placeholder_text"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/singleorderviewStoreName"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="12dp"
+        android:text="@string/product_store_name_placeholder_text"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/singleorderviewImageList"
+        app:layout_constraintTop_toBottomOf="@+id/singleorderviewProductName" />
+
+    <TextView
+        android:id="@+id/singleorderviewQuantityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/amount"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/orderviewProductAmount"
+        app:layout_constraintTop_toBottomOf="@+id/singleorderviewStoreName" />
+
+    <TextView
+        android:id="@+id/singleorderviewProductPriceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="1dp"
+        android:text="@string/price"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/orderviewProductPrice"
+        app:layout_constraintTop_toBottomOf="@+id/singleorderviewQuantityTextView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

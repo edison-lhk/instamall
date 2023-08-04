@@ -120,4 +120,3 @@ public class LoginModel implements LoginContract.Model {
         });
     }
 }
-

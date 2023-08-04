@@ -62,11 +62,9 @@ public class CartActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_orders) {
-                    Intent intent = new Intent(CartActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(CartActivity.this, ShopperOrderActivity.class);
                     intent.putExtra("userId", userId);
-                    intent.putExtra("accountType", "shopper");
                     startActivity(intent);
-                    finish();
                     return true;
                 } else if (itemId == R.id.shopper_nav_menu_logout) {
                     Toast.makeText(CartActivity.this, getString(R.string.logout_successful_text), Toast.LENGTH_LONG).show();
