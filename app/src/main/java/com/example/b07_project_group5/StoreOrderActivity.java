@@ -105,6 +105,9 @@ public class StoreOrderActivity extends AppCompatActivity {
                                 if (snapshot.exists()) {
                                     for (DataSnapshot transactionSnapshot : snapshot.getChildren()) {
                                         Transaction transaction = transactionSnapshot.getValue(Transaction.class);
+                                        if (!transaction.getFinalized()) {
+                                            continue;
+                                        }
                                         for (String id : transaction.getOrderList()) {
                                             if (id.equals(orderId)) {
                                                 String userId = transaction.getUserId();
