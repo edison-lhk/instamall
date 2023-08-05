@@ -9,9 +9,11 @@
     <ImageView
         android:id="@+id/browseStoreLogo"
         android:layout_width="175dp"
-        android:layout_height="145dp"
+        android:layout_height="140dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="5dp"
+        android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,17 +21,18 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/default_image" />
 
+
     <TextView
-        android:id="@+id/browseStoreName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/store_name_placeholder_text"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/browseStoreLogo" />
+    android:id="@+id/browseStoreName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:text="@string/store_name_placeholder_text"
+    android:textSize="16sp"
+    android:textStyle="bold"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/browseStoreLogo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

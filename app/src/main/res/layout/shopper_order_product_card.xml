@@ -9,10 +9,10 @@
     android:orientation="vertical"
     android:padding="0dp">
 
-    <ImageView
+    <com.example.b07_project_group5.RoundedView
         android:id="@+id/singleorderviewImageList"
         android:layout_width="100dp"
-        android:layout_height="80dp"
+        android:layout_height="125dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="28dp"
         android:scaleType="fitXY"
@@ -63,8 +63,8 @@
         android:layout_height="30dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="15dp"
-        android:textAlignment="textEnd"
         android:text="@string/product_total_price_placeholder_text"
+        android:textAlignment="textEnd"
         android:textColor="@android:color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"

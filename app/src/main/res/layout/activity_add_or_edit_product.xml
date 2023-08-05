@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_pink"
     android:orientation="vertical">
 
     <EditText
@@ -69,17 +69,19 @@
 
     <Button
         android:id="@+id/buttonSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="95dp"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:background="@color/wine_red"
         android:text="Submit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textSize="20sp"
+        app:backgroundTint="@null"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/owner_nav_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <include
-        layout="@layout/back_btn" />
+    <include layout="@layout/back_btn" />
 
     <TextView
         android:id="@+id/add_warning_text"
@@ -111,8 +113,8 @@
         app:itemIconSize="30dp"
         app:itemIconTint="@drawable/selector"
         app:itemRippleColor="@android:color/transparent"
-        app:labelVisibilityMode="labeled"
         app:itemTextColor="@drawable/selector"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

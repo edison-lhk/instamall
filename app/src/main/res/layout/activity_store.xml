@@ -22,6 +22,7 @@
         android:layout_height="94dp"
         android:layout_marginTop="56dp"
         android:src="@drawable/default_image"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,11 +95,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
+        android:background="@drawable/search_button"
         android:onClick="onAdd"
         android:text="@string/store_add_product_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar"
-        tools:visibility="invisible" />
+        tools:visibility="invisible"
+        app:backgroundTint="@null"/>
 
     <EditText
         android:id="@+id/storeNameInput"
