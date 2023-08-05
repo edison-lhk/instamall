@@ -11,7 +11,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="50dp"
         android:text="@string/Orders"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -23,7 +23,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/PendingOrderCarousel"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="215dp"
         android:layout_marginTop="15dp"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,15 +35,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/FinishedOrderCarousel"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="215dp"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="10dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/shopper_nav_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/shopperOrderOrderIdTitleText"
         tools:listitem="@layout/shopper_order_card" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -62,7 +60,7 @@
         app:menu="@menu/shopper_nav_menu" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/shopperOrderOrderIdTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -78,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:text="@string/Pending"
         android:textSize="20sp"
         android:textStyle="bold"

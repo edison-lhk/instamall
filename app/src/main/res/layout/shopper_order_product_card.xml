@@ -11,9 +11,8 @@
 
     <com.example.b07_project_group5.RoundedView
         android:id="@+id/singleorderviewImageList"
-        android:layout_width="100dp"
-        android:layout_height="125dp"
-        android:layout_marginStart="15dp"
+        android:layout_width="110dp"
+        android:layout_height="115dp"
         android:layout_marginTop="28dp"
         android:scaleType="fitXY"
         android:src="@drawable/default_image"
@@ -22,21 +21,22 @@
 
     <TextView
         android:id="@+id/singleorderviewProductName"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="28dp"
         android:text="@string/product_name_placeholder_text"
         android:textAlignment="textStart"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/singleorderviewImageList"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/orderviewProductPrice"
+        android:id="@+id/shopperOrderOrderIdValueText"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="2dp"
         android:text="@string/product_price"
@@ -59,9 +59,9 @@
 
     <TextView
         android:id="@+id/singleorderviewProductTotalPrice"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="15dp"
         android:text="@string/product_total_price_placeholder_text"
         android:textAlignment="textEnd"
@@ -102,7 +102,7 @@
         android:text="@string/price"
         android:textColor="@android:color/darker_gray"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/orderviewProductPrice"
+        app:layout_constraintStart_toEndOf="@+id/shopperOrderOrderIdValueText"
         app:layout_constraintTop_toBottomOf="@+id/singleorderviewQuantityTextView" />
 
 
