@@ -18,76 +18,105 @@ public class LoginModel implements LoginContract.Model {
     }
 
     @Override
-    public void loginUser(String email, String password, String accountType, LoginCallback callback) {
+    public void findUserWithEmail(String email, LoginContract.Model.findUserWithEmailCallback callback) {
         DatabaseReference ref = db.getReference();
         DatabaseReference query = ref.child("users");
         query.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.exists()) {
-                    callback.onLoginFailure(R.string.login_cannot_find_user_warning);
-                } else {
-                    boolean userExist = false;
-                    for (DataSnapshot childSnapshot: snapshot.getChildren()) {
-                        if (accountType.equals(childSnapshot.child("accountType").getValue().toString())) {
-                            if (!password.equals(childSnapshot.child("password").getValue().toString())) {
-                                callback.onLoginFailure(R.string.login_password_incorrect_warning);
-                                return;
-                            }
-                            userExist = true;
-                            String userId = childSnapshot.getKey();
-                            String username = childSnapshot.child("username").getValue().toString();
-                            final String[] storeId = {""};
-                            if (accountType.equals("owner")) {
-                                DatabaseReference query2 = ref.child("stores");
-                                query2.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if (!snapshot.exists()) {
-                                            String storeName = username.length() >= 4 ? username.substring(0, 4) + "'s Store" : username + "'s Store";
-                                            Store store = new Store(userId, storeName, "https://firebasestorage.googleapis.com/v0/b/testing-7a8a5.appspot.com/o/StoreLogo%2Fstore_logo.png?alt=media&token=2660325b-c4cd-4659-bf6b-60239d06f84b");
-                                            String uniqueKey = ref.push().getKey();
-                                            query2.child(uniqueKey).setValue(store).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    storeId[0] = uniqueKey;
-                                                    callback.onLoginSuccess(userId, accountType, storeId[0]);
-                                                }
-                                            });
-                                        } else {
-                                            for (DataSnapshot childSnapshot: snapshot.getChildren()) {
-                                                Store store = new Store(userId, childSnapshot.child("name").getValue().toString(), childSnapshot.child("logo").getValue().toString());
-                                                storeId[0] = childSnapshot.getKey();
-                                            }
-                                            callback.onLoginSuccess(userId, accountType, storeId[0]);
-                                        }
-                                    }
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-                                        callback.onLoginFailure(R.string.login_database_error_warning);
-                                    }
-                                });
-                            } else {
-                                callback.onLoginSuccess(userId, accountType, null);
-                            }
-                        }
+                if (snapshot.exists()) {
+                    callback.onSuccess();
+                    return;
+                }
+                callback.onFailure();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
+    @Override
+    public void getUserIdByEmailAndAccountType(String email, String accountType, LoginContract.Model.getUserIdByEmailAndAccountTypeCallback callback) {
+        DatabaseReference ref = db.getReference();
+        DatabaseReference query = ref.child("users");
+        query.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot userSnapshot: snapshot.getChildren()) {
+                    if (accountType.equals(userSnapshot.child("accountType").getValue().toString())) {
+                        callback.onSuccess(userSnapshot.getKey());
+                        return;
                     }
-                    if (!userExist) {
-                        callback.onLoginFailure(R.string.login_cannot_find_user_warning);
+                }
+                callback.onFailure();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
+    @Override
+    public void checkUserPasswordIsCorrect(String userId, String password, LoginContract.Model.checkUserPasswordIsCorrectCallback callback) {
+        DatabaseReference ref = db.getReference();
+        DatabaseReference query = ref.child("users");
+        query.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (password.equals(snapshot.child("password").getValue().toString())) {
+                    callback.onSuccess();
+                    return;
+                }
+                callback.onFailure();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
+    @Override
+    public void getUsernameById(String userId, LoginContract.Model.getUsernameByIdCallback callback) {
+        DatabaseReference ref = db.getReference();
+        DatabaseReference query = ref.child("users");
+        query.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                callback.onSuccess(snapshot.child("username").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
+    @Override
+    public void createStoreForOwner(String userId, String username, LoginContract.Model.createStoreForOwnerCallback callback) {
+        DatabaseReference ref = db.getReference();
+        DatabaseReference query = ref.child("stores");
+        query.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    String storeName = username.length() >= 4 ? username.substring(0, 4) + "'s Store" : username + "'s Store";
+                    Store store = new Store(userId, storeName, "https://firebasestorage.googleapis.com/v0/b/testing-7a8a5.appspot.com/o/StoreLogo%2Fstore_logo.png?alt=media&token=2660325b-c4cd-4659-bf6b-60239d06f84b");
+                    String uniqueKey = ref.push().getKey();
+                    query.child(uniqueKey).setValue(store).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            callback.onSuccess(uniqueKey);
+                        }
+                    });
+                } else {
+                    for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                        callback.onSuccess(childSnapshot.getKey());
                     }
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                callback.onLoginFailure(R.string.login_database_error_warning);
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
-
-    public interface LoginCallback {
-        void onLoginSuccess(String userId, String accountType, String storeId);
-        void onLoginFailure(int warningId);
-    }
 }
-

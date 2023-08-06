@@ -17,10 +17,37 @@ public interface LoginContract {
     }
 
     interface Presenter {
-        void loginUser(String email, String password, String accountType);
+        void loginUser();
     }
 
     interface Model {
-        void loginUser(String email, String password, String accountType, LoginModel.LoginCallback callback);
+        void findUserWithEmail(String email, LoginContract.Model.findUserWithEmailCallback callback);
+        void getUserIdByEmailAndAccountType(String email, String accountType, LoginContract.Model.getUserIdByEmailAndAccountTypeCallback callback);
+        void checkUserPasswordIsCorrect(String userId, String password, LoginContract.Model.checkUserPasswordIsCorrectCallback callback);
+        void getUsernameById(String userId, LoginContract.Model.getUsernameByIdCallback callback);
+        void createStoreForOwner(String userId, String username, LoginContract.Model.createStoreForOwnerCallback callback);
+
+        interface findUserWithEmailCallback {
+            void onSuccess();
+            void onFailure();
+        }
+
+        interface getUserIdByEmailAndAccountTypeCallback {
+            void onSuccess(String userId);
+            void onFailure();
+        }
+
+        interface checkUserPasswordIsCorrectCallback {
+            void onSuccess();
+            void onFailure();
+        }
+
+        interface getUsernameByIdCallback {
+            void onSuccess(String username);
+        }
+
+        interface createStoreForOwnerCallback {
+            void onSuccess(String storeId);
+        }
     }
 }
