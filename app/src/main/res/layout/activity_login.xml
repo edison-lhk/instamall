@@ -5,21 +5,45 @@
     android:id="@+id/login_page_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_pink"
     tools:context=".LoginActivity">
+
+    <View
+        android:id="@+id/login_gradient"
+        android:layout_width="match_parent"
+        android:layout_height="325dp"
+        android:background="@drawable/gradient_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/login_image"
+        android:layout_width="match_parent"
+        android:layout_height="248dp"
+        android:src="@drawable/background_vector"
+        app:layout_constraintBottom_toBottomOf="@+id/login_gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="128dp"
         android:text="@string/app_name"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/login_gradient" />
 
     <Button
         android:id="@+id/login_btn"
@@ -32,6 +56,7 @@
         android:onClick="loginUser"
         android:text="@string/login_btn_text"
         android:textColor="@color/white"
+        android:textSize="16dp"
         app:backgroundTint="@null"
         app:cornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,10 +79,13 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="25dp"
+        app:boxStrokeColor="@color/dark_yellow"
+        app:hintTextColor="@color/dark_yellow"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_name"
+        app:layout_constraintTop_toBottomOf="@+id/login_gradient"
         app:startIconDrawable="@drawable/baseline_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -74,7 +102,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
+        app:boxStrokeColor="@color/dark_yellow"
+        app:hintTextColor="@color/dark_yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_email_input_container"
@@ -94,8 +124,10 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:hint="@string/user_type_input_text"
+        app:boxStrokeColor="@color/dark_yellow"
+        app:hintTextColor="@color/dark_yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_password_input_container"
@@ -123,6 +155,7 @@
         app:layout_constraintEnd_toStartOf="@+id/register_prompt_btn"
         app:layout_constraintTop_toBottomOf="@+id/login_btn" />
 
+
     <Button
         android:id="@+id/register_prompt_btn"
         android:layout_width="wrap_content"
@@ -144,5 +177,15 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_btn" />
+
+    <ImageView
+        android:id="@+id/shopping_box_image"
+        android:layout_width="188dp"
+        android:layout_height="310dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/login_gradient"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/shopping_box" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

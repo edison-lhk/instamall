@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/product_details_page_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_pink">
 
     <ImageView
         android:id="@+id/imageViewProduct"
@@ -13,6 +14,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="16dp"
+        android:background="@color/background_pink"
         android:scaleType="centerCrop"
         android:src="@drawable/default_image"
         app:layout_constraintEnd_toEndOf="parent"
@@ -128,17 +130,16 @@
         android:id="@+id/addToCartBtn"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="10dp"
+        android:background="@color/wine_red"
         android:onClick="addToCart"
         android:text="@string/add_to_cart_text"
-        app:layout_constraintBottom_toTopOf="@+id/shopper_nav_menu"
+        android:textSize="18sp"
+        app:backgroundTint="@null"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/owner_nav_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productAmountInputContainer" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/owner_nav_menu"
@@ -175,7 +176,7 @@
         android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="10dp"
         android:text="@string/product_stock_amount_placeholder_text"

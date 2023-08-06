@@ -5,15 +5,16 @@
     android:id="@+id/storeOrderCardContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:background="@color/white"
-    app:cardCornerRadius="12dp">
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="20dp"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/orderIdTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
         android:text="@string/orderId_title_placeholder_text"
         android:textSize="16sp"
@@ -38,7 +39,7 @@
         android:id="@+id/customerTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:text="@string/customer_title_placeholder_text"
         android:textSize="16sp"

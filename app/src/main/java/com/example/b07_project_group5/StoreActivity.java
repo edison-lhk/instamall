@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bumptech.glide.Glide;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -95,7 +98,10 @@ public class StoreActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.productCarousel);
         ProductAdapter adapter = new ProductAdapter(userId, accountType, storeId, productList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getApplicationContext());
+        layoutManager.setFlexDirection(FlexDirection.ROW);
+        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
         readData(productList, ""); //data

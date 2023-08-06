@@ -6,15 +6,14 @@
     android:id="@+id/storeOrderProductCardContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:orientation="vertical">
 
-    <ImageView
+    <com.example.b07_project_group5.RoundedView
         android:id="@+id/storeOrderProductImage"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_width="110dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/default_image"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,12 +24,13 @@
         android:id="@+id/storeOrderProductName"
         android:layout_width="150dp"
         android:layout_height="30dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="35dp"
         android:text="@string/product_name_placeholder_text"
         android:textAlignment="textStart"
         android:textColor="@android:color/black"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/storeOrderProductImage"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +50,7 @@
         android:id="@+id/storeOrderProductAmount"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="14dp"
         android:text="@string/product_stock_placeholder_text"
         android:textColor="@android:color/darker_gray"
@@ -60,9 +60,10 @@
 
     <TextView
         android:id="@+id/storeOrderProductTotalPrice"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/product_total_price_placeholder_text"
         android:textColor="@android:color/black"
         android:textSize="15sp"

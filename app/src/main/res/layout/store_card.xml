@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/storeCardContainer"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
 
     <ImageView
         android:id="@+id/browseStoreLogo"
@@ -12,12 +14,14 @@
         android:layout_height="145dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/default_image" />
+
 
     <TextView
         android:id="@+id/browseStoreName"
