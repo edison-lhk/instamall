@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_pink"
     tools:context=".BrowseStoreActivity">
 
     <TextView
@@ -11,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:text="Stores"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="26dp"
@@ -23,10 +24,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/storeCarousel"
         android:layout_width="0dp"
-        android:layout_height="500dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="525dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/shopper_nav_menu"

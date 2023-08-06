@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,14 +61,14 @@ public class ShopperOrderAdapter extends RecyclerView.Adapter<ShopperOrderAdapte
 
     public static class OrderHistoryHolder extends RecyclerView.ViewHolder {
         TextView orderID;
-        Button viewBtn;
+        ImageButton viewBtn;
 
         ImageView storeImageList;
 
         public OrderHistoryHolder(@NonNull View itemView) {
             super(itemView);
-            orderID = (TextView) itemView.findViewById(R.id.orderviewProductPrice);
-            viewBtn = (Button) itemView.findViewById(R.id.viewbtn);
+            orderID = (TextView) itemView.findViewById(R.id.shopperOrderOrderIdValueText);
+            viewBtn = (ImageButton) itemView.findViewById(R.id.viewBtn);
             storeImageList = (ImageView) itemView.findViewById(R.id.singleorderviewImageList);
         }
     }

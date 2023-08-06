@@ -4,59 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_pink"
     tools:context=".CartActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartCarousel"
         android:layout_width="match_parent"
         android:layout_height="450dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="96dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/shopper_nav_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkoutBtn"
+        app:layout_constraintTop_toBottomOf="@+id/myShoppingCartText"
         tools:listitem="@layout/cart_product_card" />
 
     <TextView
         android:id="@+id/myShoppingCartText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:text="@string/shopping_cart_text"
         android:textColor="@color/black"
-        android:textSize="26dp"
+        android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/checkoutBtn"
-        android:layout_width="125dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:background="@color/wine_red"
         android:onClick="checkout"
         android:text="@string/checkout_btn_text"
         android:textColor="@color/white"
+        android:textSize="18sp"
+        app:backgroundTint="@null"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/shopper_nav_menu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myShoppingCartText" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/totalCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
         android:text="@string/total_cost_placeholder_text"
         android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/checkoutBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myShoppingCartText" />
+        app:layout_constraintTop_toBottomOf="@+id/cartCarousel"
+        app:layout_constraintVertical_bias="0.461" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/shopper_nav_menu"

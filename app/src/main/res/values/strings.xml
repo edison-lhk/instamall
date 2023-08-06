@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Shopping App</string>
+    <string name="app_name">InstaMall</string>
     <string name="username_input_text">Username</string>
     <string name="email_input_text">Email</string>
     <string name="password_input_text">Password</string>

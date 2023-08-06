@@ -8,21 +8,20 @@
     android:id="@+id/store_page_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_pink"
     tools:context=".StoreActivity"
     tools:visibility="visible">
 
 
     <!-- Store Logo -->      <!-- UPDATE STORE LOGO-->
-
-
     <ImageView
         android:id="@+id/storeLogo"
         android:layout_width="110dp"
         android:layout_height="94dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="56dp"
+        android:background="@color/white"
         android:src="@drawable/default_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,12 +30,11 @@
         android:id="@+id/storeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="74dp"
         android:text="@string/store_name_placeholder_text"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toEndOf="@+id/storeLogo"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,12 +46,17 @@
     <EditText
         android:id="@+id/searchBar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="5dp"
+        android:background="@drawable/search_bar_rounded_corner"
         android:hint="@string/store_search_products_text"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="16dp"
+        android:textStyle="normal"
         app:layout_constraintEnd_toStartOf="@+id/searchProductBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/storeLogo" />
@@ -61,13 +64,15 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productCarousel"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="360dp"
         android:layout_marginTop="18dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/owner_nav_menu"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addProductBtn"
+        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/product_card" />
 
     <TextView
@@ -92,6 +97,8 @@
         android:layout_marginTop="15dp"
         android:onClick="onAdd"
         android:text="@string/store_add_product_text"
+        android:textStyle="normal"
+        app:backgroundTint="@color/wine_red"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar"
         tools:visibility="invisible" />
@@ -100,6 +107,7 @@
         android:id="@+id/storeNameInput"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="64dp"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -149,47 +157,48 @@
         app:layout_constraintBottom_toBottomOf="@+id/storeOwner"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/searchProductBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
+        android:background="@null"
         android:onClick="searchProduct"
-        android:text="@string/search_product_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchBar"
-        app:layout_constraintTop_toBottomOf="@+id/storeLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/storeLogo"
+        app:srcCompat="@drawable/baseline_search_24" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/owner_nav_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:itemIconSize="30dp"
-        app:itemIconTint="@drawable/selector"
-        app:itemRippleColor="@android:color/transparent"
-        app:labelVisibilityMode="labeled"
-        app:itemTextColor="@drawable/selector"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/owner_nav_menu" />
+    android:id="@+id/owner_nav_menu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:itemIconSize="30dp"
+    app:itemIconTint="@drawable/selector"
+    app:itemRippleColor="@android:color/transparent"
+    app:itemTextColor="@drawable/selector"
+    app:labelVisibilityMode="labeled"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:menu="@menu/owner_nav_menu" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/shopper_nav_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:itemIconSize="30dp"
-        app:itemIconTint="@drawable/selector"
-        app:itemRippleColor="@android:color/transparent"
-        app:itemTextColor="@drawable/selector"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/shopper_nav_menu" />
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/shopper_nav_menu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:itemIconSize="30dp"
+    app:itemIconTint="@drawable/selector"
+    app:itemRippleColor="@android:color/transparent"
+    app:itemTextColor="@drawable/selector"
+    app:labelVisibilityMode="labeled"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:menu="@menu/shopper_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

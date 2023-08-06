@@ -2,24 +2,58 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/login_page_container"
+    android:id="@+id/register_page_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_pink"
     tools:context=".LoginActivity">
+
+    <View
+        android:id="@+id/register_gradient"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:background="@drawable/gradient_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/register_image"
+        android:layout_width="match_parent"
+        android:layout_height="248dp"
+        android:src="@drawable/background_vector"
+        app:layout_constraintBottom_toBottomOf="@+id/register_gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/shopping_box_image"
+        android:layout_width="178dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/register_gradient"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/shopping_box" />
 
     <TextView
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="108dp"
         android:text="@string/app_name"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/register_gradient" />
 
     <Button
         android:id="@+id/register_btn"
@@ -32,6 +66,7 @@
         android:onClick="registerUser"
         android:text="@string/register_btn_text"
         android:textColor="@color/white"
+        android:textSize="16dp"
         app:backgroundTint="@null"
         app:cornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,11 +89,13 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_username_input_container"
-        app:startIconDrawable="@drawable/baseline_email_24">
+        app:startIconDrawable="@drawable/baseline_email_24"
+        app:boxStrokeColor="@color/dark_yellow"
+        app:hintTextColor="@color/dark_yellow" >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/register_email_input"
@@ -74,11 +111,14 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_email_input_container"
-        app:startIconDrawable="@drawable/baseline_lock_24">
+        app:startIconDrawable="@drawable/baseline_lock_24"
+        app:boxStrokeColor="@color/dark_yellow"
+        app:hintTextColor="@color/dark_yellow" >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/register_password_input"
@@ -94,12 +134,15 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/user_type_input_text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_password_input_container"
-        app:startIconDrawable="@drawable/baseline_person_24">
+        app:startIconDrawable="@drawable/baseline_person_24"
+        app:boxStrokeColor="@color/dark_yellow"
+        app:hintTextColor="@color/dark_yellow" >
 
         <AutoCompleteTextView
             android:id="@+id/register_type_input"
@@ -118,6 +161,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="5dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/login_prompt_text"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/login_prompt_btn"
@@ -150,11 +194,13 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_name"
-        app:startIconDrawable="@drawable/baseline_person_24">
+        app:layout_constraintTop_toBottomOf="@+id/register_gradient"
+        app:startIconDrawable="@drawable/baseline_person_24"
+        app:boxStrokeColor="@color/dark_yellow"
+        app:hintTextColor="@color/dark_yellow" >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/register_username_input"
