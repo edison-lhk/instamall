@@ -3,6 +3,7 @@
     <style name="Base.Theme.B07projectgroup5" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/wine_red</item>
     </style>
 
     <style name="Theme.B07projectgroup5" parent="Base.Theme.B07projectgroup5" />
