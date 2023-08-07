@@ -2,13 +2,18 @@ package com.example.b07_project_group5;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,6 +37,11 @@ public class StoreOrderActivity extends AppCompatActivity {
     private RecyclerView uncompletedOrderCarousel;
     private RecyclerView completedOrderCarousel;
 
+    private Switch switcher;
+    boolean Nightmode;
+    SharedPreferences sharedPreferences;
+
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +58,8 @@ public class StoreOrderActivity extends AppCompatActivity {
         completedOrderList = new ArrayList<>();
         uncompletedOrderCarousel = findViewById(R.id.uncompletedOrderCarousel);
         completedOrderCarousel = findViewById(R.id.completedOrderCarousel);
+        switcher = findViewById(R.id.Darkmode);
+
 
         StoreOrderAdapter uncompletedOrderAdapter = new StoreOrderAdapter(userId, accountType, storeId, uncompletedOrderList, completedOrderList, completedOrderCarousel);
         uncompletedOrderCarousel.setLayoutManager(new LinearLayoutManager(this));
@@ -56,9 +68,30 @@ public class StoreOrderActivity extends AppCompatActivity {
         StoreOrderAdapter completedOrderAdapter = new StoreOrderAdapter(userId, accountType, storeId, completedOrderList, completedOrderList, completedOrderCarousel);
         completedOrderCarousel.setLayoutManager(new LinearLayoutManager(this));
         completedOrderCarousel.setAdapter(completedOrderAdapter);
-
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        Nightmode = sharedPreferences.getBoolean("night",false);
         BottomNavigationView ownerBottomNavigationView = findViewById(R.id.owner_nav_menu);
         ownerBottomNavigationView.setSelectedItemId(R.id.owner_nav_menu_orders);
+
+        if(Nightmode){
+            switcher.setChecked(true);
+        }
+        switcher.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(Nightmode){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("night",false);
+                }else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("night",true);
+
+                }
+                editor.apply();
+            }
+        });
         ownerBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
