@@ -50,9 +50,7 @@
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/app_logo"
         app:layout_constraintTop_toTopOf="@+id/register_gradient" />
 
     <Button
@@ -208,5 +206,15 @@
             android:layout_height="wrap_content"
             android:hint="@string/username_input_text" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="95dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/app_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
