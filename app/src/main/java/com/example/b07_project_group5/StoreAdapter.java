@@ -48,7 +48,6 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         holder.storeNameTextView.setText(store.name);
         Glide.with(holder.itemView.getContext())
                 .load(store.logo)
-                .apply(RequestOptions.centerCropTransform())
                 .into(holder.storeLogoImageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

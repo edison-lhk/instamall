@@ -64,7 +64,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         // Load the image using Glide with the image URL
         Glide.with(holder.itemView.getContext())
                 .load(product.getImage())
-                .apply(RequestOptions.centerCropTransform())
                 .into(holder.productImageList);
 
         // Set an OnClickListener to the item view
