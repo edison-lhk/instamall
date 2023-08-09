@@ -100,7 +100,7 @@ public class LoginModel implements LoginContract.Model {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!snapshot.exists()) {
                     String storeName = username.length() >= 4 ? username.substring(0, 4) + "'s Store" : username + "'s Store";
-                    Store store = new Store(userId, storeName, "https://firebasestorage.googleapis.com/v0/b/testing-7a8a5.appspot.com/o/StoreLogo%2Fstore_logo.png?alt=media&token=2660325b-c4cd-4659-bf6b-60239d06f84b");
+                    Store store = new Store(userId, storeName, "https://firebasestorage.googleapis.com/v0/b/testing-7a8a5.appspot.com/o/Stores%2Fstore_logo.png?alt=media&token=eb88af2b-c455-4e82-9ab8-88ec107bd2cc");
                     String uniqueKey = ref.push().getKey();
                     query.child(uniqueKey).setValue(store).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
