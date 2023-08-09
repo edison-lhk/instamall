@@ -73,7 +73,6 @@ public class ShopperOrderDetailsAdapter extends RecyclerView.Adapter<ShopperOrde
 
         Glide.with(holder.itemView.getContext())
                 .load(shopperOrderHistory.getProduct().getImage())
-                .apply(RequestOptions.centerCropTransform())
                 .into(holder.orderProductImageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

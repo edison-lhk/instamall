@@ -46,7 +46,6 @@ public class StoreOrderProductAdapter extends RecyclerView.Adapter<StoreOrderPro
         holder.storeOrderProductPriceTextView.setText("$ " + String.valueOf(storeOrderProduct.getProduct().getPrice()));
         Glide.with(holder.itemView.getContext())
                 .load(storeOrderProduct.getProduct().getImage())
-                .apply(RequestOptions.centerCropTransform())
                 .into(holder.storeOrderProductImageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

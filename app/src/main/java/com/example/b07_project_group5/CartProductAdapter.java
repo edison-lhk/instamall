@@ -68,7 +68,6 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         // Load the image using Glide with the image URL
         Glide.with(holder.itemView.getContext())
                 .load(cartProduct.getProduct().getImage())
-                .apply(RequestOptions.centerCropTransform())
                 .into(holder.productImageList);
 
         // Navigate to product details page when user clicks on cart products
